@@ -1,0 +1,6 @@
+@import '../../../styling/style.scss';
+
+.root {
+  background-color: $purple;
+  @include text('boldFont', 16px, $white);
+}
