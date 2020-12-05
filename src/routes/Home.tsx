@@ -7,9 +7,9 @@ import { userPromise } from '../logic/firebase';
 const Index = () => {
   const { status, value } = useAwait(userPromise);
 
-  if (status === 'pending') return <p>loading</p>;
+  if (status === 'pending' || value === undefined) return <p>loading</p>;
 
-  return <p>signed in as - {(value as firebase.User).uid}</p>;
+  return <p>signed in as - {value.uid}</p>;
 
   // TODO handle error case
 };
