@@ -7,6 +7,8 @@ export const icons = {
   chevronDown: require('./files/icons/chevron-down.svg'),
   cog: require('./files/icons/cog.svg'),
   computer: require('./files/icons/computer.svg'),
+  eyeClosed: require('./files/icons/eye-close.svg'),
+  google: require('./files/icons/google.svg'),
   logOut: require('./files/icons/log-out.svg'),
   messages: require('./files/icons/messages.svg'),
   phone: require('./files/icons/phone.svg'),
