@@ -1,6 +1,16 @@
 @import '../../../styling/style.scss';
 
 .root {
+  padding: 15px 20px;
+  min-width: 200px;
+  border: none;
+  border-radius: 25px;
   background-color: $purple;
+  text-transform: capitalize;
+  cursor: pointer;
   @include text('boldFont', 16px, $white);
+
+  &:hover {
+    filter: brightness(110%);
+  }
 }

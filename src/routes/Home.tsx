@@ -15,7 +15,7 @@ const Index = () => {
       <>
         <p>signed in as - {value.uid}</p>
         <Button>
-          Hi
+          button
         </Button>
       </>
     );

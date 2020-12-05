@@ -1,8 +1,7 @@
 import React, { lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
-import './global.css';
+import './global.scss';
 
 type LazyRoute = React.LazyExoticComponent<() => JSX.Element>;
 type routeInfo = [string, LazyRoute];
