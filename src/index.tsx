@@ -1,7 +1,6 @@
 import React, { lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import './styling/style.scss';
 
 import './global.css';
 
