@@ -1,4 +1,15 @@
 @import './styling/style.scss';
+
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: $lightPurple;
+  }
+}
+
 html, body {
   background-color: $background;
   margin: 0;
