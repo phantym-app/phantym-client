@@ -12,7 +12,7 @@ type RouteInfo = [string, LazyRoute];
 // lazy route imports
 const routes: RouteInfo[] = [
   ['/browse', lazy(() => import('./routes/Browse'))],
-  ['/login', lazy(() => import('./routes/Login'))],
+  ['/login', lazy(() => import('./routes/Login/Login'))],
   ['/', lazy(() => import('./routes/Home'))],
 ];
 
