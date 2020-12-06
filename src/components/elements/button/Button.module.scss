@@ -3,10 +3,10 @@
 .root {
   padding: 12px 20px;
   min-width: 200px;
+  width: fit-content;
   border: none;
   border-radius: 25px;
   background-color: $purple;
-  text-transform: capitalize;
   cursor: pointer;
   @include text('boldFont', 16px, $white);
 
