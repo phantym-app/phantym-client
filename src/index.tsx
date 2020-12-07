@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import { AuthContainer } from './store/auth';
 
-import './global.css';
+import './global.scss';
 
 type LazyRoute = React.LazyExoticComponent<() => JSX.Element>;
 type RouteInfo = [string, LazyRoute];
