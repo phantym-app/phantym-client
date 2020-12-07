@@ -1,7 +1,16 @@
-@import './styling/style.scss';
+@import './styling/sass.scss';
+
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: $lightPurple;
+  }
+}
+
 html, body {
-  background-color: $background;
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -9,7 +18,46 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html, body, #root, main {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  margin: 0;
+  background-color: $background;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: $purple;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1 {
+  @include text('boldFont', $h1Size, $white);
+}
+h2 {
+  @include text('boldFont', $h2Size, $white);
+}
+h3 {
+  @include text('boldFont', $h3Size, $white);
+}
+h4 {
+  @include text('boldFont', $h4Size, $white);
+}
+h5 {
+  @include text('boldFont', $h5Size, $white);
+}
+h6 {
+  @include text('boldFont', $h6Size, $white);
+}
+p {
+  @include text('regularFont', $pSize, $white);
 }

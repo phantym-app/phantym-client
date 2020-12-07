@@ -1,0 +1,84 @@
+@import '../../../global.scss';
+
+.root {
+  margin-bottom: 25px;
+
+  .labels {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    p {
+      margin-bottom: 10px;
+      @include text('boldFont', 16px, $white);
+    }
+
+    a {
+      text-decoration: none;
+      p {
+        @include text('regularFont', 16px, $orange);
+
+        &:hover {
+          filter: brightness(120%);
+        }
+      }
+    }
+  }
+
+  .input {
+    background-color: $backgroundLifted2;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    height: 50px;
+    width: 350px;
+    color: $white;
+    @include text('regularFont', 16px, $white);
+
+    &::placeholder {
+      @include text('regularFont', 16px, $grey);
+    }
+
+    &:not(:placeholder-shown) {
+      border: 2px $purple solid;
+    }
+  }
+
+  .iconContainer {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -50px 0 0 300px;
+    border-radius: 0 5px 5px 0;
+    border: none;
+    background-color: $backgroundLifted2;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $backgroundLifted3;
+    }
+
+    .icon {
+      width: 10px;
+    }
+  }
+
+  .iconContainer.invisible {
+    display: none;
+  }
+
+  .iconContainer.bordered {
+    border-top: 2px $purple solid;
+    border-right: 2px $purple solid;
+    border-bottom: 2px $purple solid;
+  }
+
+  .iconContainer.largerIcon {
+    .icon {
+      width: 15px;
+    }
+  }
+}

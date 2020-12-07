@@ -1,16 +1,39 @@
-@import '../../../styling/style.scss';
+@import '../../../global.scss';
 
 .root {
   padding: 12px 20px;
-  min-width: 200px;
+  min-width: 250px;
+  width: fit-content;
   border: none;
   border-radius: 25px;
   background-color: $purple;
-  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   @include text('boldFont', 16px, $white);
 
   &:hover {
     filter: brightness(110%);
   }
+}
+
+.root.icon::before {
+  @extend %buttonIcon;
+}
+
+.root.google {
+  background-color: $googleBlue;
+}
+
+.root.facebook {
+  background-color: $facebookBlue;
+}
+
+.root.google::before {
+  content: url('../../../assets/icons/google.svg');
+}
+
+.root.facebook::before {
+  content: url('../../../assets/icons/facebook.svg');
 }

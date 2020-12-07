@@ -12,22 +12,23 @@ type RouteInfo = [string, LazyRoute];
 // lazy route imports
 const routes: RouteInfo[] = [
   ['/browse', lazy(() => import('./routes/Browse'))],
-  ['/login', lazy(() => import('./routes/Login'))],
+  ['/login', lazy(() => import('./routes/Login/Login'))],
   ['/', lazy(() => import('./routes/Home'))],
 ];
 
+// app entry
 render(
   <React.StrictMode>
     <Router>
       <AuthContainer.Provider>
-        <Link to='/'>my games</Link>
-        <Link to='/browse'>browse</Link>
-        <Link to='/login'>login</Link>
-
-        {/* TODO add proper fallback */}
-        <React.Suspense fallback={<div>loading...</div>}>
-          <Switch>{routes.map(makeRoute)}</Switch>
-        </React.Suspense>
+        {/* <Link to='/'>my games</Link>
+          <Link to='/browse'>browse</Link> */}
+        <main>
+          {/* TODO add proper fallback */}
+          <React.Suspense fallback={<div>loading...</div>}>
+            <Switch>{routes.map(makeRoute)}</Switch>
+          </React.Suspense>
+        </main>
       </AuthContainer.Provider>
     </Router>
   </React.StrictMode>,
