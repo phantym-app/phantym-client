@@ -9,25 +9,33 @@ const LoginForm = () => {
   //TODO: make sure this isn't just a mouse event but also keyboard
   const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("done");
+    console.log("Send data");
   }
 
   return (
-    <form onSubmit={handleSubmit} className={classnames(styles.root)}>
-      <h4>Sign in</h4>
-      <Input
-        icon={'close'}
-        type={'email'}
-        label={"Email address"}
-        placeholder={"Example@example.com"} />
-      <Input
-        icon={'eye'}
-        type={'password'}
-        link={{ url: '/forgotPassword', message: 'Forgot your password?' }}
-        label={"Password"}
-        placeholder={"Enter your password"} />
-      <Button>Sign in</Button>
-    </form >
+    <div className={classnames(styles.root)}>
+      <form onSubmit={handleSubmit} className={classnames(styles.form)}>
+        <h4>Sign in</h4>
+        <Input
+          icon={'close'}
+          type={'email'}
+          label={"Email address"}
+          placeholder={"Example@example.com"} />
+        <Input
+          icon={'eye'}
+          type={'password'}
+          link={{ url: '/forgotPassword', message: 'Forgot your password?' }}
+          label={"Password"}
+          placeholder={"Enter your password"} />
+        <Button>Sign in</Button>
+      </form >
+      <p>Not a member? <a href={''}>Sign up here!</a></p>
+      <div className={classnames(styles.alternativeLogin)}>
+        <p>Or</p>
+        <Button style={'google'}>Sign in with Google</Button>
+        <Button style={'facebook'} >Sign in with Facebook</Button>
+      </div>
+    </div>
   );
 };
 
