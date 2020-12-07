@@ -16,18 +16,19 @@ const routes: RouteInfo[] = [
   ['/', lazy(() => import('./routes/Home'))],
 ];
 
-render(
+// app entry
+ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthContainer.Provider>
-        <Link to='/'>my games</Link>
-        <Link to='/browse'>browse</Link>
-        <Link to='/login'>login</Link>
-
-        {/* TODO add proper fallback */}
-        <React.Suspense fallback={<div>loading...</div>}>
-          <Switch>{routes.map(makeRoute)}</Switch>
-        </React.Suspense>
+        {/* <Link to='/'>my games</Link>
+          <Link to='/browse'>browse</Link> */}
+        <main>
+          {/* TODO add proper fallback */}
+          <React.Suspense fallback={<div>loading...</div>}>
+            <Switch>{routes.map(makeRoute)}</Switch>
+          </React.Suspense>
+        </main>
       </AuthContainer.Provider>
     </Router>
   </React.StrictMode>,
