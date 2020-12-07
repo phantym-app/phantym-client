@@ -1,6 +1,4 @@
 import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCDw2A6KdKr9nqkfnLZSJxAlT1hYwuoZ7o',
@@ -17,13 +15,4 @@ const app = firebase.apps.length
   ? firebase.app()
   : firebase.initializeApp(firebaseConfig);
 
-const auth = app.auth();
-
-//@ts-ignore
-const userPromise: Promise<firebase.User> = auth.currentUser
-  ? Promise.resolve(auth.currentUser)
-  : auth.signInAnonymously().then(x => x.user);
-
-const db = app.database();
-
-export { userPromise, db };
+export { firebase, app };

@@ -1,15 +1,18 @@
 import React from 'react';
-import type firebase from 'firebase';
-
 import useAwait from '../logic/useAwait';
-import { userPromise } from '../logic/firebase';
+
+// import { user } from '../logic/firebase/auth';
 
 const Index = () => {
-  const { status, value } = useAwait(userPromise);
+  // const { status, value } = useAwait(userPromise);
 
-  if (status === 'pending' || value === undefined) return <p>loading</p>;
+  // if (user === undefined) return <p>loading</p>;
 
-  return <p>signed in as - {value.uid}</p>;
+  // return <p>signed in as - {user.uid}</p>;
+  // if (status === 'pending' || value === undefined)
+   return <p>loading</p>;
+
+  // return <p>signed in as - {value.uid}</p>;
 
   // TODO handle error case
 };
