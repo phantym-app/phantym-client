@@ -1,4 +1,4 @@
-@import './styling/style.scss';
+@import './styling/sass.scss';
 
 * {
   box-sizing: border-box;
@@ -23,4 +23,30 @@ html, body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1 {
+  @include text('boldFont', $h1Size, $white);
+}
+h2 {
+  @include text('boldFont', $h2Size, $white);
+}
+h3 {
+  @include text('boldFont', $h3Size, $white);
+}
+h4 {
+  @include text('boldFont', $h4Size, $white);
+}
+h5 {
+  @include text('boldFont', $h5Size, $white);
+}
+h6 {
+  @include text('boldFont', $h6Size, $white);
+}
+p {
+  @include text('regularFont', $pSize, $white);
 }

@@ -1,0 +1,45 @@
+// Colours ----------------------------------------------------------------------------------------------------------
+$lightPurple: #b8b8ff;
+$purple: #9381ff;
+$green: #3fe44c;
+$orange: #ffbf69;
+$red: #e43f5a;
+$darkest: #101010;
+$background: #202020;
+$backgroundLifted: #2a2a2a;
+$backgroundLifted2: #373737;
+$backgroundLifted3: #444444;
+$grey: #8e8e8e;
+$greyLifted: #d1d1d1;
+$greyLifted2: #e5e5e5;
+$white: #f2f2f2;
+
+// Fonts -------------------------------------------------------------------------------------------------------------
+@font-face {
+  font-family: 'boldFont';
+  src: url('./fonts/bold.otf');
+}
+
+@font-face {
+  font-family: 'regularFont';
+  src: url('./fonts/regular.otf');
+}
+
+@font-face {
+  font-family: 'lightFont';
+  src: url('./fonts/light.otf');
+}
+
+@font-face {
+  font-family: 'thinFont';
+  src: url('./fonts/thin.otf');
+}
+
+// Custom styling -----------------------------------------------------------------------------------------------------
+$h1Size: 96px;
+$h2Size: 60px;
+$h3Size: 48px;
+$h4Size: 34px;
+$h5Size: 24px;
+$h6Size: 20px;
+$pSize: 16px;
