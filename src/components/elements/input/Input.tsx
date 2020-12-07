@@ -85,7 +85,8 @@ function Input(props: Props) {
                         classnames(
                             styles.iconContainer,
                             { [styles.invisible]: iconState === 'invisible' },
-                            { [styles.bordered]: value !== '' }
+                            { [styles.bordered]: value !== '' },
+                            { [styles.largerIcon]: icon === 'eye' }
                         )
                     }
                     onClick={icon === 'close' ? () => setValue('') : () => setValueVisibility(!valueVisibility)}
