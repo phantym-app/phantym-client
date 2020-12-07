@@ -34,6 +34,10 @@ code {
 a {
   color: $purple;
   text-decoration: none;
+
+  &:hover {
+    filter: brightness(120%);
+  }
 }
 
 h1, h2, h3, h4, h5, h6, p {
