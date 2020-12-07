@@ -17,7 +17,7 @@ const routes: RouteInfo[] = [
 ];
 
 // app entry
-ReactDOM.render(
+render(
   <React.StrictMode>
     <Router>
       <AuthContainer.Provider>
