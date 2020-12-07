@@ -16,6 +16,8 @@ const routes: RouteInfo[] = [
   ['/', lazy(() => import('./routes/Home'))],
 ];
 
+const Header = lazy(() => import('./components/views/header/Header'));
+
 // app entry
 render(
   <React.StrictMode>
@@ -23,12 +25,13 @@ render(
       <AuthContainer.Provider>
         {/* <Link to='/'>my games</Link>
           <Link to='/browse'>browse</Link> */}
-        <main>
-          {/* TODO add proper fallback */}
-          <React.Suspense fallback={<div>loading...</div>}>
+        {/* TODO add proper fallback */}
+        <React.Suspense fallback={<div>loading...</div>}>
+          {window.location.pathname !== '/login' && <Header />}
+          <main>
             <Switch>{routes.map(makeRoute)}</Switch>
-          </React.Suspense>
-        </main>
+          </main>
+        </React.Suspense>
       </AuthContainer.Provider>
     </Router>
   </React.StrictMode>,
