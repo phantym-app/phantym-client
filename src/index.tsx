@@ -8,7 +8,7 @@ import './global.scss';
 
 // lazy route imports
 const Browse = React.lazy(() => import('./routes/Browse'));
-const Login = React.lazy(() => import('./routes/Login/Login'));
+const Login = React.lazy(() => import('./routes/Login'));
 const Home = React.lazy(() => import('./routes/Home'));
 
 const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
@@ -26,7 +26,12 @@ const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
 const Fallback = () => <div>loading...</div>;
 
 const App = () => {
-  const { user, signInWithGoogle, signOut } = AuthContainer.useContainer();
+  const {
+    user,
+    userLoaded,
+    signInWithGoogle,
+    signOut,
+  } = AuthContainer.useContainer();
 
   return (
     <>
@@ -37,14 +42,18 @@ const App = () => {
             component={Browse}
             props={{ user }}
             fallback={<Fallback />}
+            exact
           />
 
-          <LazyRoute
-            path={'/login'}
-            component={Login}
-            props={{ user, signInWithGoogle }}
-            fallback={<Fallback />}
-          />
+          {userLoaded && user?.isAnonymous && (
+            <LazyRoute
+              path={'/login'}
+              component={Login}
+              props={{ user, signInWithGoogle }}
+              fallback={<Fallback />}
+              exact
+            />
+          )}
 
           <LazyRoute
             path={'/'}

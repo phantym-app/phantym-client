@@ -15,6 +15,7 @@ const signInAnonymously = () => auth.signInAnonymously();
 
 function useFirebaseAuth() {
   const [user, setUser] = useState<firebase.User>();
+  const [userLoaded, setUserLoaded] = useState(false);
 
   const handleAuthChange = useCallback(
     (u: firebase.User | null) => {
@@ -27,7 +28,13 @@ function useFirebaseAuth() {
     [user]
   );
 
-  useEffect(() => auth.onAuthStateChanged(handleAuthChange), [auth]);
+  useEffect(
+    () => auth.onAuthStateChanged(u => {
+        handleAuthChange(u);
+        setUserLoaded(true);
+    }),
+    [auth]
+  );
 
   // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
   async function signInWithGoogle() {
@@ -52,7 +59,10 @@ function useFirebaseAuth() {
 
   return {
     user,
+    userLoaded,
+
     signInWithGoogle,
+
     signOut() {
       auth.signOut();
     },
