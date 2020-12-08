@@ -36,32 +36,34 @@ const App = () => {
   return (
     <>
       <main>
-        <Switch>
-          <LazyRoute
-            path={'/browse'}
-            component={Browse}
-            props={{ user }}
-            fallback={<Fallback />}
-            exact
-          />
-
-          {userLoaded && user?.isAnonymous && (
+        {userLoaded && (
+          <Switch>
             <LazyRoute
-              path={'/login'}
-              component={Login}
-              props={{ user, signInWithGoogle }}
+              path={'/browse'}
+              component={Browse}
+              props={{ user }}
               fallback={<Fallback />}
               exact
             />
-          )}
 
-          <LazyRoute
-            path={'/'}
-            component={Home}
-            props={{ user }}
-            fallback={<Fallback />}
-          />
-        </Switch>
+            {user?.isAnonymous && (
+              <LazyRoute
+                path={'/login'}
+                component={Login}
+                props={{ user, signInWithGoogle }}
+                fallback={<Fallback />}
+                exact
+              />
+            )}
+
+            <LazyRoute
+              path={'/'}
+              component={Home}
+              props={{ user }}
+              fallback={<Fallback />}
+            />
+          </Switch>
+        )}
       </main>
     </>
   );
