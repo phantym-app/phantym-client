@@ -38,6 +38,10 @@ code {
 a {
   color: $purple;
   text-decoration: none;
+
+  &:hover {
+    filter: brightness(120%);
+  }
 }
 
 h1,
