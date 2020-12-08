@@ -31,7 +31,7 @@ function useFirebaseAuth() {
 
   // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
   async function signInWithGoogle() {
-    if (user)
+    if (user && user.isAnonymous)
       try {
         const userCred = await user.linkWithPopup(providerGoogle);
 
@@ -41,9 +41,12 @@ function useFirebaseAuth() {
         await user.updateProfile({ displayName });
         // @ts-ignore
         setUser({ ...userCred.user });
-      } catch (err) {
-        err.code === 'auth/credential-already-in-use' &&
-          auth.signInWithCredential(err.credential);
+      } catch ({ code, credential }) {
+        if (code === 'auth/credential-already-in-use') {
+          await auth.signInWithCredential(credential);
+        }
+      } finally {
+        window.location.pathname = '/';
       }
   }
 

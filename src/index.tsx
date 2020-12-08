@@ -1,4 +1,4 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -6,35 +6,65 @@ import { AuthContainer } from './store/auth';
 
 import './global.scss';
 
-type LazyRoute = React.LazyExoticComponent<() => JSX.Element>;
-type RouteInfo = [string, LazyRoute];
-
 // lazy route imports
-const routes: RouteInfo[] = [
-  ['/browse', lazy(() => import('./routes/Browse'))],
-  ['/login', lazy(() => import('./routes/Login/Login'))],
-  ['/', lazy(() => import('./routes/Home'))],
-];
+const Browse = React.lazy(() => import('./routes/Browse'));
+const Login = React.lazy(() => import('./routes/Login/Login'));
+const Home = React.lazy(() => import('./routes/Home'));
 
-// app entry
+const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
+  <Route
+    path={path}
+    render={() => (
+      <React.Suspense fallback={fallback}>
+        <Component {...props} />
+      </React.Suspense>
+    )}
+  />
+);
+
+/* TODO add proper fallbacks */
+const Fallback = () => <div>loading...</div>;
+
+const App = () => {
+  const { user, signInWithGoogle, signOut } = AuthContainer.useContainer();
+
+  return (
+    <>
+      <main>
+        <Switch>
+          <LazyRoute
+            path={'/browse'}
+            component={Browse}
+            props={{ user }}
+            fallback={<Fallback />}
+          />
+
+          <LazyRoute
+            path={'/login'}
+            component={Login}
+            props={{ user, signInWithGoogle }}
+            fallback={<Fallback />}
+          />
+
+          <LazyRoute
+            path={'/'}
+            component={Home}
+            props={{ user }}
+            fallback={<Fallback />}
+          />
+        </Switch>
+      </main>
+    </>
+  );
+};
+
 render(
   <React.StrictMode>
-    <Router>
-      <AuthContainer.Provider>
-        {/* <Link to='/'>my games</Link>
-          <Link to='/browse'>browse</Link> */}
-        <main>
-          {/* TODO add proper fallback */}
-          <React.Suspense fallback={<div>loading...</div>}>
-            <Switch>{routes.map(makeRoute)}</Switch>
-          </React.Suspense>
-        </main>
-      </AuthContainer.Provider>
-    </Router>
+    <AuthContainer.Provider>
+      <Router>
+        <App />
+      </Router>
+    </AuthContainer.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-function makeRoute([path, component]: RouteInfo) {
-  return <Route key={path} path={path} component={component} />;
-}
