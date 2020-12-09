@@ -41,6 +41,12 @@
       @include text('boldFont', 16px, $white);
     }
   }
+
+  .option.visible {
+    > :last-child {
+      margin-left: auto;
+    }
+  }
 }
 
 .root.active {
