@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   height: 75px;
+  width: 100% !important;
   padding: 0 20px;
   cursor: pointer;
   justify-content: center;
 
   &:hover {
-    background-color: $darkest;
+    background-color: $darkest !important;
     filter: brightness(130%) !important;
   }
 
