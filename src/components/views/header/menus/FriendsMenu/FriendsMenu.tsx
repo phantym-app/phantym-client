@@ -45,16 +45,18 @@ const FriendsMenu = (props: Props) => {
       <div className={classnames(styles.triangle)} />
       <div className={classnames(styles.header)}>
         <div className={classnames(styles.navigation)}>
-          <h6
-            onClick={() => setActiveMenu('friends')}
-            className={classnames({ [styles.active]: activeMenu === 'friends' })}
-          >
-            Friends</h6>
-          <h6
-            onClick={() => setActiveMenu('groups')}
-            className={classnames({ [styles.active]: activeMenu === 'groups' })}
-          >
-            Groups</h6>
+          <button onClick={() => setActiveMenu('friends')}>
+            <h6
+              className={classnames({ [styles.active]: activeMenu === 'friends' })}
+            >
+              Friends</h6>
+          </button>
+          <button onClick={() => setActiveMenu('groups')}>
+            <h6
+              className={classnames({ [styles.active]: activeMenu === 'groups' })}
+            >
+              Groups</h6>
+          </button>
         </div>
         <button><img src={addFriend} alt={'add-friend'} /></button>
       </div>

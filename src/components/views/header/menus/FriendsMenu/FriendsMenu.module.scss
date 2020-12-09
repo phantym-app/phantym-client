@@ -34,16 +34,20 @@
       flex-direction: row;
       align-items: center;
 
-      > h6 {
-        cursor: pointer;
-        color: $backgroundLifted2;
-        &:hover {
-          color: $lightPurple;
+      > button {
+        padding: 0;
+        
+        > h6 {
+          cursor: pointer;
+          color: $backgroundLifted2;
+          &:hover {
+            color: $lightPurple;
+          }
         }
-      }
 
-      > h6.active {
-        color: $purple;
+        > h6.active {
+          color: $purple;
+        }
       }
 
       > :first-child {

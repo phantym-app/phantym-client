@@ -10,13 +10,13 @@ type Props = {
 const Friend = (props: Props) => {
   const { name, status } = props;
   return (
-    <div className={classnames(styles.root)}>
+    <button className={classnames(styles.root)}>
       <p>{name}</p>
       <div className={classnames(styles.status, {[styles.online] : status === 'online'})}>
         <div className={classnames(styles.light)} />
         <p>{status}</p>
       </div>
-    </div>
+    </button>
   );
 };
 
