@@ -10,12 +10,11 @@ import { useOnClickOutside } from '../../../../../logic/useOnClickOutside';
 import Toggle from '../../../../elements/toggle/Toggle';
 
 type Props = {
-  isActive: boolean,
   setMenuState: (a: string) => void,
 };
 
 const ProfileMenu = (props: Props) => {
-  const { isActive, setMenuState } = props;
+  const { setMenuState } = props;
   const [visibility, setVisibility] = useState(false);
   const ref = useRef<RefObject<HTMLDivElement>>(null);
   useOnClickOutside(ref, () => setMenuState(''));
@@ -25,8 +24,7 @@ const ProfileMenu = (props: Props) => {
       //@ts-ignore
       ref={ref}
       className={classnames(
-        styles.root,
-        { [styles.active]: isActive }
+        styles.root
       )}>
       <div className={classnames(styles.triangle)} />
       <button className={classnames(styles.option)}>
