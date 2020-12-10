@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
 import styles from './Header.module.scss';
 import friends from '../../../assets/icons/users.svg';
@@ -19,24 +19,24 @@ const Header = () => {
       </div>
       <div className={classnames(styles.actions)}>
         <div>
-          <button onClick={
+          <button className={classnames(styles.headerAction)} onMouseDown={
             () => setActiveMenu(
               activeMenu === 'friends' ? '' : 'friends'
             )}><img src={friends} alt={'friends'} /></button>
-        {activeMenu === 'friends' && <FriendsMenu setMenuState={setActiveMenu} />}
-      </div>
-      <button><img src={notifications} alt={'notifications'} /></button>
+          {activeMenu === 'friends' && <FriendsMenu setMenuState={setActiveMenu} />}
+        </div>
+        <button className={classnames(styles.headerAction)}><img src={notifications} alt={'notifications'} /></button>
 
-      {/* Profile button */}
+        {/* Profile button */}
 
-      <div>
-        <button onClick={
-          () => setActiveMenu(
-            activeMenu === 'profile' ? '' : 'profile'
-          )}>
-          <img src={user} alt={'user'} /></button>
-        {activeMenu === 'profile' && <ProfileMenu setMenuState={setActiveMenu} />}
-      </div>
+        <div>
+          <button className={classnames(styles.headerAction)} onMouseDown={
+            () => setActiveMenu(
+              activeMenu === 'profile' ? '' : 'profile'
+            )}>
+            <img src={user} alt={'user'} /></button>
+          {activeMenu === 'profile' && <ProfileMenu setMenuState={setActiveMenu} />}
+        </div>
       </div>
     </header >
   );

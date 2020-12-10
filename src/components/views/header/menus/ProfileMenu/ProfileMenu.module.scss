@@ -26,14 +26,17 @@
 
   .option {
     padding: 20px;
-    width: 100% !important;
-    height: fit-content !important;
+    width: 100%;
+    height: fit-content;
     display: flex;
     align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 
     &:hover {
-      background-color: $darkest !important;
-      filter: brightness(150%) !important;
+      background-color: $darkest;
+      filter: brightness(150%);
     }
 
     p {
