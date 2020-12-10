@@ -7,9 +7,9 @@ import { AuthContainer } from './store/auth';
 import './global.scss';
 
 // lazy route imports
-const Browse = React.lazy(() => import('./routes/Browse'));
-const Login = React.lazy(() => import('./routes/Login'));
-const Home = React.lazy(() => import('./routes/Home'));
+const Browse = React.lazy(() => import('./routes/Browse/index'));
+const Login = React.lazy(() => import('./routes/Login/index'));
+const Home = React.lazy(() => import('./routes/Home/index'));
 
 const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
   <Route
