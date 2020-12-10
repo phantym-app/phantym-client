@@ -1,8 +1,8 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    public: '/',
-    src: '/_dist_',
+    src: { url: '/_dist_' },
+    public: { url: '/', static: true, resolve: false },
   },
   plugins: [
     '@snowpack/plugin-typescript',
@@ -25,8 +25,6 @@ module.exports = {
     /* ... */
   },
   alias: {
-    react: 'preact/compat',
-    'react-dom': 'preact/compat',
     '@assets/': './public/assets/',
   },
 };

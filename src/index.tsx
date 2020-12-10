@@ -1,7 +1,7 @@
 import 'preact/debug'; // delete in production
 
-import React from 'react';
-import { render } from 'react-dom';
+import { h, render } from 'preact';
+import { Suspense, lazy, StrictMode } from 'preact/compat';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { AuthContainer } from './store/auth';
@@ -9,17 +9,17 @@ import { AuthContainer } from './store/auth';
 import './global.scss';
 
 // lazy route imports
-const Browse = React.lazy(() => import('./routes/Browse'));
-const Login = React.lazy(() => import('./routes/Login'));
-const Home = React.lazy(() => import('./routes/Home'));
+const Browse = lazy(() => import('./routes/Browse'));
+const Login = lazy(() => import('./routes/Login'));
+const Home = lazy(() => import('./routes/Home'));
 
 const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
   <Route
     path={path}
     render={() => (
-      <React.Suspense fallback={fallback}>
+      <Suspense fallback={fallback}>
         <Component {...props} />
-      </React.Suspense>
+      </Suspense>
     )}
   />
 );
@@ -31,7 +31,7 @@ const App = () => {
   const { user, signInWithGoogle, signOut } = AuthContainer.useContainer();
 
   return (
-    <>
+    <BrowserRouter>
       <main>
         {user && (
           <Switch>
@@ -62,17 +62,15 @@ const App = () => {
           </Switch>
         )}
       </main>
-    </>
+    </BrowserRouter>
   );
 };
 
 render(
-  <React.StrictMode>
+  <StrictMode>
     <AuthContainer.Provider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
     </AuthContainer.Provider>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById('root') as Element,
 );

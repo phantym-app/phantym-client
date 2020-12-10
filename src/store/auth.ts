@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
 import { providerGoogle, auth, fs } from '../logic/firebase/auth';

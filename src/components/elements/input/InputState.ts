@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "preact/hooks";
 
 export function useInput() {
   const [iconState, setIconState] = useState('');

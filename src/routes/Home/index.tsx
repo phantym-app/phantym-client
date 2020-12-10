@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 
 const Index = () => {
   if (window.location.pathname !== '/') window.location.pathname = '/';

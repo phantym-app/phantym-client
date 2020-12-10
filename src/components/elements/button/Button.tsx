@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 import styles from './Button.module.scss';
 import classnames from 'classnames';
 
@@ -18,8 +18,9 @@ function Button(props: Props) {
         styles.root,
         { [styles.icon]: style },
         { [styles.google]: style === 'google' },
-        { [styles.facebook]: style === 'facebook' }
-      )}>
+        { [styles.facebook]: style === 'facebook' },
+      )}
+    >
       {children}
     </button>
   );

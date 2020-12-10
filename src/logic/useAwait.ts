@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 
 function useAwait<V>(promise: Promise<V>) {
   const [flatPromise, _set] = useState<

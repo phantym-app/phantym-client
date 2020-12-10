@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 
 import Button from '../../elements/button/Button';
 import Input from '../../elements/input/Input';

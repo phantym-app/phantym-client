@@ -1,4 +1,5 @@
-import React, { useEffect, useCallback } from 'react';
+import { h } from 'preact';
+import { useEffect, useCallback } from "preact/hooks"
 import styles from './Input.module.scss';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';

@@ -2,16 +2,19 @@
   "include": ["src", "types"],
   "compilerOptions": {
     "module": "esnext",
-    "target": "esnext",
+    "target": "ES2015",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "preserve",
+    // "jsxFactory": "h",
     "baseUrl": "./",
     /* paths - If you configure Snowpack import aliases, add them here. */
     "paths": {
-      "react": ["node_modules/preact/compat"],
-      "react-dom": ["node_modules/preact/compat"]
+      "/web_modules/*.js": [
+        "node_modules/@types/*",
+        "node_modules/*",
+        "web_modules/*.js"
+      ]
     },
-    /* noEmit - Snowpack builds (emits) files, not tsc. */
     "noEmit": true,
     /* Additional Options */
     "skipLibCheck": true,
