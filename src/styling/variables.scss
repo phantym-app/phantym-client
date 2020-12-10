@@ -19,22 +19,22 @@ $facebookBlue: #3b5998;
 // Fonts -------------------------------------------------------------------------------------------------------------
 @font-face {
   font-family: 'boldFont';
-  src: url('./fonts/bold.otf');
+  src: url('/assets/fonts/bold.otf');
 }
 
 @font-face {
   font-family: 'regularFont';
-  src: url('./fonts/regular.otf');
+  src: url('/assets/fonts/regular.otf');
 }
 
 @font-face {
   font-family: 'lightFont';
-  src: url('./fonts/light.otf');
+  src: url('/assets/fonts/light.otf');
 }
 
 @font-face {
   font-family: 'thinFont';
-  src: url('./fonts/thin.otf');
+  src: url('/assets/fonts/thin.otf');
 }
 
 // Custom styling -----------------------------------------------------------------------------------------------------

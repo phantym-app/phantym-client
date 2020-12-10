@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React from 'react';
 
 import Button from '../../elements/button/Button';
 import Input from '../../elements/input/Input';
@@ -8,7 +8,7 @@ import styles from './LoginForm.module.scss';
 
 const LoginForm = ({ signInWithGoogle }: { signInWithGoogle: () => any }) => {
   //TODO: make sure this isn't just a mouse event but also keyboard
-  const handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log('Send data');
   };

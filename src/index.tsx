@@ -1,6 +1,8 @@
+import 'preact/debug'; // delete in production
+
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { AuthContainer } from './store/auth';
 
@@ -67,10 +69,10 @@ const App = () => {
 render(
   <React.StrictMode>
     <AuthContainer.Provider>
-      <Router>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     </AuthContainer.Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root') as Element,
 );

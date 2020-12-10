@@ -1,52 +1,25 @@
 {
-  "name": "unsole",
-  "version": "0.1.0",
-  "private": true,
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "format": "prettier --write \"src/**/*.{js,jsx}\""
+  },
   "dependencies": {
-    "firebase": "^8.1.2",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "preact": "^10.5.4",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.1",
+    "firebase": "^8.1.2",
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
+    "@prefresh/snowpack": "^2.0.1",
+    "@snowpack/plugin-sass": "^1.1.2",
+    "@snowpack/plugin-typescript": "^1.1.1",
+    "prettier": "^2.0.5",
+    "sass": "^1.30.0",
+    "snowpack": "^2.18.2",
+    "typescript": "^4.0.3",
     "@types/classnames": "^2.2.10",
-    "@types/node": "^14.14.10",
-    "@types/react": "^16.9.38",
-    "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
-    "classnames": "^2.2.6",
-    "node-sass": "^4.14.1",
-    "ts-loader": "^7.0.5",
-    "typescript": "3.9.5"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": true,
-    "trailingComma": "es5",
-    "jsxBracketSameLine": true,
-    "singleQuote": true,
-    "jsxSingleQuote": true,
-    "arrowParens": "avoid"
+    "classnames": "^2.2.6"
   }
 }

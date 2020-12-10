@@ -7,7 +7,7 @@ import type firebase from 'firebase';
 // the store's hook
 function useFirebaseAuth() {
   // signs in user as anonymous if signed out
-  const [user, setUser] = useState<firebase.User>();
+  const [user, setUser] = useState<firebase.User | undefined>(undefined);
   const handleAuthChange = useCallback((u: firebase.User | null) => {
     u === null ? auth.signInAnonymously() : setUser(u);
   }, []);
@@ -39,7 +39,7 @@ function useFirebaseAuth() {
         window.location.pathname = '/';
       }
     },
-    [user]
+    [user],
   );
   const signInWithEmailAndPassword = useCallback(
     async function (email: string, password: string) {
@@ -58,7 +58,7 @@ function useFirebaseAuth() {
         window.location.pathname = '/';
       }
     },
-    [user]
+    [user],
   );
 
   return {

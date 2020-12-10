@@ -1,4 +1,4 @@
-import { app, firebase } from '.';
+import { app, firebase } from './';
 import 'firebase/auth';
 import 'firebase/firestore';
 
