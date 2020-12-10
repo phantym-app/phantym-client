@@ -1,6 +1,6 @@
 import 'preact/debug'; // delete in production
 
-import { h, render } from 'preact';
+import { h, render, Fragment } from 'preact';
 import { Suspense, lazy, StrictMode } from 'preact/compat';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import './global.scss';
 const Browse = lazy(() => import('./routes/Browse'));
 const Login = lazy(() => import('./routes/Login'));
 const Home = lazy(() => import('./routes/Home'));
+const Header = lazy(() => import('./components/views/header/Header'));
 
 const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
   <Route
@@ -32,36 +33,41 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <main>
-        {user && (
-          <Switch>
-            <LazyRoute
-              path={'/browse'}
-              component={Browse}
-              props={{ user, signOut }}
-              fallback={<Fallback />}
-              exact
-            />
-
-            {user.isAnonymous && (
+      {user && (
+        <>
+          <Suspense fallback={<Fallback />}>
+            {window.location.pathname !== '/login' && <Header user={user} />}
+          </Suspense>
+          <main>
+            <Switch>
               <LazyRoute
-                path={'/login'}
-                component={Login}
-                props={{ user, signInWithGoogle }}
+                path={'/browse'}
+                component={Browse}
+                props={{ user, signOut }}
                 fallback={<Fallback />}
                 exact
               />
-            )}
 
-            <LazyRoute
-              path={'/'}
-              component={Home}
-              props={{ user }}
-              fallback={<Fallback />}
-            />
-          </Switch>
-        )}
-      </main>
+              {user.isAnonymous && (
+                <LazyRoute
+                  path={'/login'}
+                  component={Login}
+                  props={{ user, signInWithGoogle }}
+                  fallback={<Fallback />}
+                  exact
+                />
+              )}
+
+              <LazyRoute
+                path={'/'}
+                component={Home}
+                props={{ user }}
+                fallback={<Fallback />}
+              />
+            </Switch>
+          </main>
+        </>
+      )}
     </BrowserRouter>
   );
 };

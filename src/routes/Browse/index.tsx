@@ -1,11 +1,7 @@
-import { h } from 'preact';
+import React from 'react';
 
 const Browse = ({ user, signOut }: any) => {
-  return (
-    <p>
-      <button onClick={signOut}>foo</button>
-    </p>
-  );
+  return <button onClick={signOut}></button>;
 };
 
 export default Browse;
