@@ -1,67 +1,71 @@
 import { useCallback, useEffect, useState } from 'react';
 import { createContainer } from 'unstated-next';
 
-import { app, firebase } from '../logic/firebase';
-import 'firebase/auth';
+import { providerGoogle, auth, fs } from '../logic/firebase/auth';
+import type firebase from 'firebase';
 
-import objectEquals from '../logic/objectEquals';
-
-const providerGoogle = new firebase.auth.GoogleAuthProvider();
-providerGoogle.addScope('profile');
-providerGoogle.addScope('email');
-
-const auth = app.auth();
-const signInAnonymously = () => auth.signInAnonymously();
-
+// the store's hook
 function useFirebaseAuth() {
+  // signs in user as anonymous if signed out
   const [user, setUser] = useState<firebase.User>();
-  const [userLoaded, setUserLoaded] = useState(false);
-
-  const handleAuthChange = useCallback(
-    (u: firebase.User | null) => {
-      u === null
-        ? signInAnonymously()
-        : !objectEquals(u, user)
-        ? setUser(u)
-        : null;
-    },
-    [user]
-  );
-
-  useEffect(
-    () => auth.onAuthStateChanged(u => {
-        handleAuthChange(u);
-        setUserLoaded(true);
-    }),
-    [auth]
-  );
+  const handleAuthChange = useCallback((u: firebase.User | null) => {
+    u === null ? auth.signInAnonymously() : setUser(u);
+  }, []);
+  useEffect(() => auth.onAuthStateChanged(handleAuthChange), []);
 
   // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
-  async function signInWithGoogle() {
-    if (user && user.isAnonymous)
+  const signInWithGoogle = useCallback(
+    async function () {
+      if (!user || !user.isAnonymous) return;
+
       try {
         const userCred = await user.linkWithPopup(providerGoogle);
 
         // @ts-ignore
         const displayName = userCred.additionalUserInfo.profile.name;
+        // @ts-ignore
+        const photoURL = userCred.additionalUserInfo.profile.picture;
 
-        await user.updateProfile({ displayName });
+        await user.updateProfile({ displayName, photoURL });
         // @ts-ignore
         setUser({ ...userCred.user });
       } catch ({ code, credential }) {
         if (code === 'auth/credential-already-in-use') {
           await auth.signInWithCredential(credential);
+        } else if (code === 'auth/account-exists-with-different-credential') {
         }
       } finally {
+        fs.doc(`users/${user.uid}`).set({ joined: new Date() });
         window.location.pathname = '/';
       }
-  }
+    },
+    [user]
+  );
+  const signInWithEmailAndPassword = useCallback(
+    async function (email: string, password: string) {
+      if (!user || !user.isAnonymous) return;
+
+      try {
+        const userCred = await auth.signInWithEmailAndPassword(email, password);
+
+        // @ts-ignore
+        setUser({ ...userCred.user });
+      } catch ({ code, credential }) {
+        if (code === 'auth/account-exists-with-different-credential') {
+        }
+      } finally {
+        fs.doc(`users/${user.uid}`).set({ joined: new Date() });
+        window.location.pathname = '/';
+      }
+    },
+    [user]
+  );
 
   return {
     user,
-    userLoaded,
 
     signInWithGoogle,
+    signInWithEmailAndPassword,
 
     signOut() {
       auth.signOut();
@@ -70,5 +74,4 @@ function useFirebaseAuth() {
 }
 
 const AuthContainer = createContainer(useFirebaseAuth);
-
 export { AuthContainer };

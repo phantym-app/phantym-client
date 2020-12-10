@@ -26,27 +26,22 @@ const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
 const Fallback = () => <div>loading...</div>;
 
 const App = () => {
-  const {
-    user,
-    userLoaded,
-    signInWithGoogle,
-    signOut,
-  } = AuthContainer.useContainer();
+  const { user, signInWithGoogle, signOut } = AuthContainer.useContainer();
 
   return (
     <>
       <main>
-        {userLoaded && (
+        {user && (
           <Switch>
             <LazyRoute
               path={'/browse'}
               component={Browse}
-              props={{ user }}
+              props={{ user, signOut }}
               fallback={<Fallback />}
               exact
             />
 
-            {user?.isAnonymous && (
+            {user.isAnonymous && (
               <LazyRoute
                 path={'/login'}
                 component={Login}
