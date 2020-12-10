@@ -36,6 +36,19 @@ const FriendsMenu = (props: Props) => {
       status: 'offline'
     }
   ];
+
+  const sortFriends = (friends: Array<{ name: string, status: string }>) => {
+    // const onlineFriends = friends.sort((a,b) => (a.name > b.name) ? 1 : -1);
+    const onlineFriends = 
+      friends.filter(friend => friend.status === 'online').sort(
+        (a, b) => (a.name > b.name) ? 1 : -1);
+    const offlineFriends = 
+      friends.filter(friend => friend.status === 'offline').sort(
+        (a, b) => (a.name > b.name) ? 1 : -1);
+    const returnArr = onlineFriends.concat(offlineFriends);
+    return returnArr;
+  }
+
   let onlineFriends = 3;
   let amountOfFriends = friends.length;
 
@@ -67,7 +80,7 @@ const FriendsMenu = (props: Props) => {
         <div className={classnames(styles.online)}>
           <p>{`Online (${onlineFriends}/${amountOfFriends})`}</p>
         </div>
-        {friends.map((friend, index) => {
+        {sortFriends(friends).map((friend, index) => {
           return <Friend key={index} name={friend.name} status={friend.status} />
         })}
       </div>
