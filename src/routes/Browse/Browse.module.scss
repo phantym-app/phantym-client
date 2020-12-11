@@ -4,4 +4,17 @@
   width: 100%;
   height: 100%;
   padding: 25px 100px;
+
+  .filters {
+    margin: 25px 0;
+  }
+
+  .labelsContainer {
+    margin-bottom: 50px;
+
+    > p {
+      margin-bottom: 15px;
+      @include text('boldFont', 16px, $white);
+    }
+  }
 }
