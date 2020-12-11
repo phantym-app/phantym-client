@@ -11,7 +11,6 @@ type Props = {
 const Label = (props: Props) => {
   const { activeLabels, setActiveLabel } = browseContainer.useContainer();
   const { title, active } = props;
-  console.log(activeLabels);
   return (
     <div
       onClick={() =>
