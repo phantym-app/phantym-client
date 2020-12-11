@@ -1,0 +1,63 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+
+  .imageContainer {
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    background-color: $backgroundLifted2;
+    overflow: hidden;
+    cursor: pointer;
+
+    > img {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .details {
+    width: 100%;
+    margin-top: 15px;
+
+    > :nth-child(2) {
+      margin-top: 15px;
+    }
+
+    div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .favourite {
+        cursor: pointer;
+      }
+
+      > p {
+        @include text('boldFont', 16px, $white);
+        cursor: pointer;
+
+        &:hover {
+          color: $purple;
+        }
+      }
+
+      .availability {
+        width: fit-content;
+        align-items: center;
+
+        > * {
+          margin-right: 10px;
+          max-width: 20px;
+          max-height: 20px;
+        }
+      }
+    }
+  }
+}
