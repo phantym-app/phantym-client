@@ -1,0 +1,10 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  flex-direction: row;
+
+  > * {
+    margin-right: 10px;
+  }
+}
