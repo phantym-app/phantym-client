@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState } from 'preact/hooks';
 
 export function useInput() {
   const [iconState, setIconState] = useState('');
@@ -13,4 +13,4 @@ export function useInput() {
     valueVisibility,
     setValueVisibility,
   };
-};
+}

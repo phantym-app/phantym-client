@@ -1,5 +1,6 @@
 {
   "include": ["src", "types"],
+  "exclude": ["node_modules/*", "__sapper__/*", "static/*"],
   "compilerOptions": {
     "module": "esnext",
     "target": "ES2015",
@@ -11,11 +12,7 @@
     "paths": {
       "react": ["preact/compat"],
       "react-dom": ["preact/compat"],
-      "/web_modules/*.js": [
-        "node_modules/@types/*",
-        "node_modules/*",
-        "web_modules/*.js"
-      ]
+      "/web_modules/*.js": ["node_modules/@types/*", "node_modules/*", "web_modules/*.js"]
     },
     "noEmit": true,
     /* Additional Options */

@@ -17,12 +17,7 @@ const LoginForm = ({ signInWithGoogle }: { signInWithGoogle: () => any }) => {
     <div className={classnames(styles.root)}>
       <form onSubmit={handleSubmit} className={classnames(styles.form)}>
         <h4>Sign in</h4>
-        <Input
-          icon={'close'}
-          type={'email'}
-          label={'Email address'}
-          placeholder={'Example@example.com'}
-        />
+        <Input icon={'close'} type={'email'} label={'Email address'} placeholder={'Example@example.com'} />
         <Input
           icon={'eye'}
           type={'password'}

@@ -2,3 +2,12 @@
 build
 web_modules
 node_modules
+un-sole-firebase-adminsdk-libmh-1bbd4b3d11.json
+.firebaserc
+ui-debug.log
+
+.DS_Store
+/node_modules/
+/src/node_modules/@sapper/
+yarn-error.log
+/__sapper__/

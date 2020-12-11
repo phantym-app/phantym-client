@@ -11,6 +11,7 @@ import './global.scss';
 // lazy route imports
 const Browse = lazy(() => import('./routes/Browse'));
 const Login = lazy(() => import('./routes/Login'));
+const Game = lazy(() => import('./routes/Game'));
 const Home = lazy(() => import('./routes/Home'));
 const Header = lazy(() => import('./components/views/header/Header'));
 
@@ -35,18 +36,10 @@ const App = () => {
     <BrowserRouter>
       {user && (
         <>
-          <Suspense fallback={<Fallback />}>
-            {window.location.pathname !== '/login' && <Header user={user} />}
-          </Suspense>
+          <Suspense fallback={<Fallback />}>{window.location.pathname !== '/login' && <Header user={user} />}</Suspense>
           <main>
             <Switch>
-              <LazyRoute
-                path={'/browse'}
-                component={Browse}
-                props={{ user, signOut }}
-                fallback={<Fallback />}
-                exact
-              />
+              <LazyRoute path={'/browse'} component={Browse} props={{ user, signOut }} fallback={<Fallback />} exact />
 
               {user.isAnonymous && (
                 <LazyRoute
@@ -58,12 +51,7 @@ const App = () => {
                 />
               )}
 
-              <LazyRoute
-                path={'/'}
-                component={Home}
-                props={{ user }}
-                fallback={<Fallback />}
-              />
+              <LazyRoute path={'/'} component={Home} props={{ user }} fallback={<Fallback />} />
             </Switch>
           </main>
         </>

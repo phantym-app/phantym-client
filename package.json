@@ -2,12 +2,13 @@
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
-    "format": "prettier --write \"src/**/*.{js,jsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
+    "commit": "npm run format && git rm --cached . -r && git add . && git commit"
   },
   "dependencies": {
+    "firebase": "^8.1.2",
     "preact": "^10.5.4",
     "react-router-dom": "^5.1.2",
-    "firebase": "^8.1.2",
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {

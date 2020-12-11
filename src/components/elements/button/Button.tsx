@@ -19,8 +19,7 @@ function Button(props: Props) {
         { [styles.icon]: style },
         { [styles.google]: style === 'google' },
         { [styles.facebook]: style === 'facebook' },
-      )}
-    >
+      )}>
       {children}
     </button>
   );

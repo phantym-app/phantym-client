@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useEffect, useCallback } from "preact/hooks"
+import { useEffect, useCallback } from 'preact/hooks';
 import styles from './Input.module.scss';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -21,14 +21,7 @@ type Props = {
 
 function Input(props: Props) {
   const { placeholder, label, icon, link, type } = props;
-  const {
-    iconState,
-    setIconState,
-    value,
-    setValue,
-    valueVisibility,
-    setValueVisibility,
-  } = useInput();
+  const { iconState, setIconState, value, setValue, valueVisibility, setValueVisibility } = useInput();
 
   useEffect(() => {
     const { icon } = props;
@@ -91,21 +84,10 @@ function Input(props: Props) {
             { [styles.bordered]: value !== '' },
             { [styles.largerIcon]: icon === 'eye' },
           )}
-          onClick={
-            icon === 'close'
-              ? () => setValue('')
-              : () => setValueVisibility(!valueVisibility)
-          }
-        >
+          onClick={icon === 'close' ? () => setValue('') : () => setValueVisibility(!valueVisibility)}>
           <img
             className={classnames(styles.icon)}
-            src={
-              icon === 'close'
-                ? close
-                : valueVisibility === false
-                ? closedEye
-                : eye
-            }
+            src={icon === 'close' ? close : valueVisibility === false ? closedEye : eye}
             alt={icon}
           />
         </button>
