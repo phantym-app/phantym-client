@@ -41,10 +41,10 @@ const FriendsMenu = (props: Props) => {
   const sortFriends = (friends: Array<{ name: string; status: string }>) => {
     // const onlineFriends = friends.sort((a,b) => (a.name > b.name) ? 1 : -1);
     const onlineFriends = friends
-      .filter((friend) => friend.status === 'online')
+      .filter(friend => friend.status === 'online')
       .sort((a, b) => (a.name > b.name ? 1 : -1));
     const offlineFriends = friends
-      .filter((friend) => friend.status === 'offline')
+      .filter(friend => friend.status === 'offline')
       .sort((a, b) => (a.name > b.name ? 1 : -1));
     const returnArr = onlineFriends.concat(offlineFriends);
     return returnArr;
@@ -63,8 +63,7 @@ const FriendsMenu = (props: Props) => {
             <h6
               className={classnames({
                 [styles.active]: activeMenu === 'friends',
-              })}
-            >
+              })}>
               Friends
             </h6>
           </button>
@@ -72,8 +71,7 @@ const FriendsMenu = (props: Props) => {
             <h6
               className={classnames({
                 [styles.active]: activeMenu === 'groups',
-              })}
-            >
+              })}>
               Groups
             </h6>
           </button>
@@ -90,9 +88,7 @@ const FriendsMenu = (props: Props) => {
           <p>{`Online (${onlineFriends}/${amountOfFriends})`}</p>
         </div>
         {sortFriends(friends).map((friend, index) => {
-          return (
-            <Friend key={index} name={friend.name} status={friend.status} />
-          );
+          return <Friend key={index} name={friend.name} status={friend.status} />;
         })}
       </div>
     </div>

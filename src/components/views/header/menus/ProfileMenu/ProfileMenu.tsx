@@ -27,8 +27,7 @@ const ProfileMenu = (props: Props) => {
     <div
       //@ts-ignore
       ref={ref}
-      className={classnames(styles.root)}
-    >
+      className={classnames(styles.root)}>
       <div className={classnames(styles.triangle)} />
       <button className={classnames(styles.option)}>
         <img src={user} alt={'profile'} />
@@ -39,8 +38,7 @@ const ProfileMenu = (props: Props) => {
           setVisibility(!visibility);
           console.log(visibility);
         }}
-        className={classnames(styles.option, styles.visible)}
-      >
+        className={classnames(styles.option, styles.visible)}>
         <img src={visibility ? visible : notVisible} alt={'visible'} />
         <p>Visible</p>
         <Toggle checked={visibility} />

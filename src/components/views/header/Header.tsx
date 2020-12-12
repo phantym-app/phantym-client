@@ -36,19 +36,11 @@ const Header = (props: Props) => {
         <div>
           <button
             className={classnames(styles.headerAction)}
-            onKeyPress={(e: any) =>
-              e.key === 'Enter' &&
-              setActiveMenu(activeMenu === 'friends' ? '' : 'friends')
-            }
-            onMouseDown={() =>
-              setActiveMenu(activeMenu === 'friends' ? '' : 'friends')
-            }
-          >
+            onKeyPress={(e: any) => e.key === 'Enter' && setActiveMenu(activeMenu === 'friends' ? '' : 'friends')}
+            onMouseDown={() => setActiveMenu(activeMenu === 'friends' ? '' : 'friends')}>
             <img src={friends} alt={'friends'} />
           </button>
-          {activeMenu === 'friends' && (
-            <FriendsMenu setMenuState={setActiveMenu} />
-          )}
+          {activeMenu === 'friends' && <FriendsMenu setMenuState={setActiveMenu} />}
         </div>
 
         {/* Notifications menu */}
@@ -57,17 +49,9 @@ const Header = (props: Props) => {
           <button
             className={classnames(styles.headerAction)}
             onKeyPress={(e: any) =>
-              e.key === 'Enter' &&
-              setActiveMenu(
-                activeMenu === 'notifications' ? '' : 'notifications',
-              )
+              e.key === 'Enter' && setActiveMenu(activeMenu === 'notifications' ? '' : 'notifications')
             }
-            onMouseDown={() =>
-              setActiveMenu(
-                activeMenu === 'notifications' ? '' : 'notifications',
-              )
-            }
-          >
+            onMouseDown={() => setActiveMenu(activeMenu === 'notifications' ? '' : 'notifications')}>
             <img src={notifications} alt={'notifications'} />
           </button>
         </div>
@@ -84,25 +68,14 @@ const Header = (props: Props) => {
           <div>
             <button
               className={classnames(styles.headerAction)}
-              onKeyPress={(e: any) =>
-                e.key === 'Enter' &&
-                setActiveMenu(activeMenu === 'profile' ? '' : 'profile')
-              }
-              onMouseDown={() =>
-                setActiveMenu(activeMenu === 'profile' ? '' : 'profile')
-              }
-            >
+              onKeyPress={(e: any) => e.key === 'Enter' && setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}
+              onMouseDown={() => setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}>
               <p>{user?.displayName}</p>
               <div className={classnames(styles.imageContainer)}>
-                <img
-                  src={(user !== undefined && user?.photoURL) || ''}
-                  alt={'user'}
-                />
+                <img src={(user !== undefined && user?.photoURL) || ''} alt={'user'} />
               </div>
             </button>
-            {activeMenu === 'profile' && (
-              <ProfileMenu setMenuState={setActiveMenu} />
-            )}
+            {activeMenu === 'profile' && <ProfileMenu setMenuState={setActiveMenu} />}
           </div>
         )}
       </div>

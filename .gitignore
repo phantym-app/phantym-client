@@ -11,3 +11,4 @@ ui-debug.log
 /src/node_modules/@sapper/
 yarn-error.log
 /__sapper__/
+.firebase/

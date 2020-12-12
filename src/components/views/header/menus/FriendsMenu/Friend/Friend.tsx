@@ -15,8 +15,7 @@ const Friend = (props: Props) => {
       <div
         className={classnames(styles.status, {
           [styles.online]: status === 'online',
-        })}
-      >
+        })}>
         <div className={classnames(styles.light)} />
         <p>{status}</p>
       </div>
