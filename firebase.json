@@ -5,13 +5,28 @@
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+
     "rewrites": [
       {
-        "source": "/game",
-        "destination": "https://europe-west2-un-sole.cloudfunctions.net/ssr"
+        "source": "**",
+        "dynamicLinks": true,
+        "destination": "/index.html"
       }
-    ]
+    ],
+
+    "redirects": [
+      {
+        "source": "/game",
+        "destination": "https://europe-west2-un-sole.cloudfunctions.net/ssr",
+        "type": 301
+      }
+    ],
+
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "appAssociation": "AUTO"
   },
+
   "emulators": {
     "functions": {
       "port": 5555

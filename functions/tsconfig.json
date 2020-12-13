@@ -12,5 +12,5 @@
     "jsxFactory": "h"
   },
   "compileOnSave": true,
-  "include": ["src"]
+  "include": ["src", "../src/routes/Game"]
 }
