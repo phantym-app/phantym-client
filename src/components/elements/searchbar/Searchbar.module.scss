@@ -1,0 +1,32 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  .imageContainer {
+    display: flex;
+    height: 50px;
+    padding-left: 20px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+
+    img {
+      height: 18px;
+      z-index: 0;
+    }
+  }
+  .input {
+    background-color: $backgroundLifted2;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px 0 53px;
+    height: 50px;
+    width: 350px;
+    color: $white;
+    @include text('regularFont', 16px, $white);
+
+    &::placeholder {
+      @include text('regularFont', 16px, $grey);
+    }
+  }
+}

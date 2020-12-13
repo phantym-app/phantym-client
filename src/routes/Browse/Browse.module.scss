@@ -5,6 +5,13 @@
   height: 100%;
   padding: 25px 100px;
 
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .filters {
     margin: 25px 0;
     height: 50px;
@@ -22,7 +29,7 @@
   }
 
   .labelsContainer {
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 
     > p {
       margin-bottom: 15px;
