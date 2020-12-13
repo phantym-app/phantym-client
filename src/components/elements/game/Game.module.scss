@@ -28,6 +28,15 @@
       margin-top: 15px;
     }
 
+    > :first-child {
+      > p {
+        cursor: pointer;
+        &:hover {
+          color: $purple;
+        }
+      }
+    }
+
     div {
       width: 100%;
       display: flex;
@@ -41,11 +50,6 @@
 
       > p {
         @include text('boldFont', 16px, $white);
-        cursor: pointer;
-
-        &:hover {
-          color: $purple;
-        }
       }
 
       .availability {
