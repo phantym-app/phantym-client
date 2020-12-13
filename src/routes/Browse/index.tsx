@@ -1,67 +1,36 @@
 import { h } from 'preact';
 import styles from './Browse.module.scss';
 import classnames from 'classnames';
+import Select from '../../components/elements/select/Select';
 import GameOverview from '../../components/collections/gameOverview/GameOverview';
 import LabelOverview from '../../components/collections/labelOverview/LabelOverview';
 import { browseContainer } from './browseState';
+import mockData from './mockData.json';
 
 const Browse = () => {
-  const mockGames = [
-    {
-      title: 'League of Legends',
-      favourite: false,
-      price: 'FREE',
-      availability: {
-        desktop: true,
-        mobile: true,
-        casting: true,
-      },
-    },
-    {
-      title: 'World of Warcraft',
-      favourite: false,
-      price: 10.00,
-      availability: {
-        desktop: true,
-        mobile: false,
-        casting: false,
-      },
-    },
-    {
-      title: 'Awesomenauts',
-      favourite: false,
-      price: 15.99,
-      availability: {
-        desktop: true,
-        mobile: true,
-        casting: false,
-      },
-    },
-    {
-      title: 'Among Us',
-      favourite: true,
-      price: 41.25,
-      availability: {
-        desktop: false,
-        mobile: true,
-        casting: true,
-      },
-    },
-  ];
-
-  const mockLabels = [
-    {
-      title: 'Horror',
-    },
-    {
-      title: 'MMORPG',
-    },
-  ];
+  const { mockGames, mockLabels } = mockData;
 
   return (
     <div className={classnames(styles.root)}>
       <h1>Browse</h1>
-      <div className={classnames(styles.filters)}></div>
+      <div className={classnames(styles.filters)}>
+        <Select
+          options={[
+            'All games',
+            'Desktop support',
+            'Mobile support',
+            'Castable',
+          ]}
+        />
+        <Select
+          options={[
+            'All games',
+            'Desktop support',
+            'Mobile support',
+            'Castable',
+          ]}
+        />
+      </div>
       <div className={classnames(styles.labelsContainer)}>
         <p>Genres</p>
         <div className={classnames(styles.labels)}>
