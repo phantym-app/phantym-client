@@ -1,10 +1,8 @@
 import { useState } from 'preact/hooks';
-import { createContainer } from 'unstated-next';
 
-function useBrowse() {
+export function useBrowse() {
   const [activeLabels, setActiveLabel] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  return { activeLabels, setActiveLabel };
+  return { activeLabels, setActiveLabel, searchQuery, setSearchQuery };
 }
-
-export const browseContainer = createContainer(useBrowse);

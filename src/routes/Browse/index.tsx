@@ -4,15 +4,22 @@ import classnames from 'classnames';
 import Select from '../../components/elements/select/Select';
 import GameOverview from '../../components/collections/gameOverview/GameOverview';
 import LabelOverview from '../../components/collections/labelOverview/LabelOverview';
-import { browseContainer } from './browseState';
+import Searchbar from '../../components/elements/searchbar/Searchbar';
+import { useBrowse } from './browseState';
 import mockData from './mockData.json';
 
 const Browse = () => {
   const { mockGames, mockLabels, options } = mockData;
-
+  const { activeLabels, setActiveLabel, setSearchQuery } = useBrowse();
   return (
     <div className={classnames(styles.root)}>
-      <h1>Browse</h1>
+      <div className={classnames(styles.header)}>
+        <h1>Browse</h1>
+        <Searchbar
+          placeholder={'Find a game'}
+          onChange={(e: any) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className={classnames(styles.filters)}>
         <Select options={options[0]} />
         <Select options={options[1]} />
@@ -20,9 +27,17 @@ const Browse = () => {
       <div className={classnames(styles.labelsContainer)}>
         <p>Genres</p>
         <div className={classnames(styles.labels)}>
-          <browseContainer.Provider>
-            <LabelOverview labels={mockLabels} />
-          </browseContainer.Provider>
+          <LabelOverview
+            labels={mockLabels}
+            activeLabels={activeLabels}
+            onLabelClick={(title: string) =>
+              setActiveLabel(
+                activeLabels.includes(title)
+                  ? activeLabels.filter((_title) => title !== _title)
+                  : activeLabels.concat(title),
+              )
+            }
+          />
         </div>
       </div>
       <GameOverview games={mockGames} />

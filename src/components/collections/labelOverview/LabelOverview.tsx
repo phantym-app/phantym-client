@@ -2,24 +2,27 @@ import { h } from 'preact';
 import styles from './LabelOverview.module.scss';
 import classnames from 'classnames';
 import Label from '../../elements/label/Label';
-import { browseContainer } from '../../../routes/Browse/browseState';
 
 type Props = {
   labels: {
     title: string;
   }[];
+  activeLabels?: Array<string>;
+  onLabelClick?: (title: string) => void;
 };
 
 const LabelOverview = (props: Props) => {
-  const { activeLabels } = browseContainer.useContainer();
-  const { labels } = props;
+  const { labels, onLabelClick, activeLabels } = props;
   return (
     <div className={classnames(styles.root)}>
       {labels.map((label, index) => (
         <Label
+          onClick={onLabelClick && onLabelClick}
           key={index}
           title={label.title}
-          active={activeLabels.includes(label.title) ? true : false}
+          active={(title: string) =>
+            activeLabels && activeLabels.includes(title) ? true : false
+          }
         />
       ))}
     </div>
