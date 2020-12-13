@@ -29,7 +29,6 @@ const ProfileMenu = (props: Props) => {
       ref={ref}
       className={classnames(styles.root)}
     >
-      <div className={classnames(styles.triangle)} />
       <button className={classnames(styles.option)}>
         <img src={user} alt={'profile'} />
         <p>Profile</p>

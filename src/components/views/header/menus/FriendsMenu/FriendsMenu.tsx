@@ -56,7 +56,6 @@ const FriendsMenu = (props: Props) => {
   return (
     //@ts-ignore
     <div ref={ref} className={classnames(styles.root)}>
-      <div className={classnames(styles.triangle)} />
       <div className={classnames(styles.header)}>
         <div className={classnames(styles.navigation)}>
           <button onClick={() => setActiveMenu('friends')}>
