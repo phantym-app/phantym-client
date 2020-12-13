@@ -18,7 +18,10 @@ const Select = (props: Props) => {
   return (
     <div
       ref={selectRef}
-      className={classnames(styles.root, { [styles.active]: isOpen })}
+      className={classnames(styles.root, {
+        [styles.active]: isOpen,
+        [styles.pickedValue]: value !== '' && value !== options[0],
+      })}
     >
       <input
         onClick={() => setOpen(!isOpen)}

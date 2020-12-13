@@ -8,28 +8,14 @@ import { browseContainer } from './browseState';
 import mockData from './mockData.json';
 
 const Browse = () => {
-  const { mockGames, mockLabels } = mockData;
+  const { mockGames, mockLabels, options } = mockData;
 
   return (
     <div className={classnames(styles.root)}>
       <h1>Browse</h1>
       <div className={classnames(styles.filters)}>
-        <Select
-          options={[
-            'All games',
-            'Desktop support',
-            'Mobile support',
-            'Castable',
-          ]}
-        />
-        <Select
-          options={[
-            'All games',
-            'Desktop support',
-            'Mobile support',
-            'Castable',
-          ]}
-        />
+        <Select options={options[0]} />
+        <Select options={options[1]} />
       </div>
       <div className={classnames(styles.labelsContainer)}>
         <p>Genres</p>

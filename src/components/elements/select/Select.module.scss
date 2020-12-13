@@ -5,6 +5,7 @@
   border: 2px $backgroundLifted2 solid;
   width: fit-content;
   width: 250px;
+  height: fit-content;
   border-radius: 5px;
   align-items: flex-start;
   cursor: pointer;
@@ -54,10 +55,13 @@
     display: none;
     flex-direction: column;
     width: 100%;
+    height: fit-content;
+    max-height: calc(6.5 * 42px);
     background-color: $background;
     border-top: none;
     z-index: 0;
     user-select: none;
+    overflow-y: scroll;
 
     > :first-child {
       color: $grey !important;
@@ -76,6 +80,10 @@
       }
     }
   }
+}
+
+.root.pickedValue {
+  border: 2px $purple solid;
 }
 
 .root.active {
