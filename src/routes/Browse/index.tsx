@@ -10,9 +10,39 @@ const Browse = () => {
     {
       title: 'League of Legends',
       favourite: false,
-      price: 0,
+      price: 'FREE',
       availability: {
         desktop: true,
+        mobile: true,
+        casting: true,
+      },
+    },
+    {
+      title: 'World of Warcraft',
+      favourite: false,
+      price: 10.00,
+      availability: {
+        desktop: true,
+        mobile: false,
+        casting: false,
+      },
+    },
+    {
+      title: 'Awesomenauts',
+      favourite: false,
+      price: 15.99,
+      availability: {
+        desktop: true,
+        mobile: true,
+        casting: false,
+      },
+    },
+    {
+      title: 'Among Us',
+      favourite: true,
+      price: 41.25,
+      availability: {
+        desktop: false,
         mobile: true,
         casting: true,
       },
