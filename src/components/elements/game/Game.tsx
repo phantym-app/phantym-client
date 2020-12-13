@@ -43,20 +43,41 @@ function Game(props: Props) {
         </div>
         <div>
           <div className={classnames(styles.availability)}>
-            <img
-              src={desktop ? desktopIcon : noDesktop}
-              alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
-            />{' '}
-            <img
-              src={mobile ? mobileIcon : noMobile}
-              alt={mobile ? 'available-mobile' : 'unavailable-mobile'}
-            />{' '}
-            <img
-              src={casting ? castable : notCastable}
-              alt={casting ? 'castable' : 'not-castable'}
-            />
+            <div>
+              <span className={styles.tooltiptext}>
+                {desktop
+                  ? 'This game is playable on a computer'
+                  : 'This game is not playable on a computer'}
+              </span>
+              <img
+                src={desktop ? desktopIcon : noDesktop}
+                alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
+              />
+            </div>
+            <div>
+              <img
+                src={mobile ? mobileIcon : noMobile}
+                alt={mobile ? 'available-mobile' : 'unavailable-mobile'}
+              />
+              <span className={styles.tooltiptext}>
+                {mobile
+                  ? 'This game is playable on phones'
+                  : 'This game is not playable on phones'}
+              </span>
+            </div>
+            <div>
+              <img
+                src={casting ? castable : notCastable}
+                alt={casting ? 'castable' : 'not-castable'}
+              />
+              <span className={styles.tooltiptext}>
+                {casting
+                  ? 'This game is castable to Chromecast'
+                  : 'This game is not castable to Chromecast'}
+              </span>
+            </div>
           </div>
-          <p>{`£${price}`}</p>
+          {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
         </div>
       </div>
     </div>
