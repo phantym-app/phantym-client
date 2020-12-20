@@ -4,21 +4,16 @@ import classnames from 'classnames';
 import Select from '../../components/elements/select/Select';
 import GameOverview from '../../components/collections/gameOverview/GameOverview';
 import LabelOverview from '../../components/collections/labelOverview/LabelOverview';
-import Searchbar from '../../components/elements/searchbar/Searchbar';
 import { useBrowse } from './browseState';
 import mockData from './mockData.json';
 
 const Browse = () => {
   const { mockGames, mockLabels, options } = mockData;
-  const { activeLabels, setActiveLabel, setSearchQuery } = useBrowse();
+  const { activeLabels, setActiveLabel } = useBrowse();
   return (
     <div className={classnames(styles.root)}>
       <div className={classnames(styles.header)}>
         <h1>Browse</h1>
-        <Searchbar
-          placeholder={'Find a game'}
-          onChange={(e: any) => setSearchQuery(e.target.value)}
-        />
       </div>
       <div className={classnames(styles.filters)}>
         <Select options={options[0]} />

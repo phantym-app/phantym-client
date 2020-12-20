@@ -7,16 +7,29 @@
 
   .imageContainer {
     width: 100%;
-    height: 300px;
-    border-radius: 5px;
-    background-color: $backgroundLifted2;
+    height: 250px;
+    border-radius: 10px;
+    background-color: $backgroundLifted;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
 
     > img {
       min-width: 100%;
       min-height: 100%;
       object-fit: cover;
+    }
+  }
+
+  .imageContainer.noPicture {
+    justify-content: center;
+    align-items: center;
+
+    > img {
+      min-width: unset;
+      min-height: unset;
+      width: 60px;
+      height: auto;
     }
   }
 
@@ -29,10 +42,14 @@
     }
 
     > :first-child {
-      > p {
-        cursor: pointer;
-        &:hover {
-          color: $purple;
+      a {
+        > p {
+          @include text('boldFont', 16px, $white);
+          cursor: pointer;
+
+          &:hover {
+            color: $purple;
+          }
         }
       }
     }
@@ -57,7 +74,7 @@
         align-items: center;
 
         > div {
-          margin-right: 10px;
+          margin-left: 10px;
           width: 20px;
           height: 20px;
           display: flex;

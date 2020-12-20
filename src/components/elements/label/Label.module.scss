@@ -8,22 +8,16 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  border: 2px $backgroundLifted2 solid;
-  background-color: transparent;
+  border: 2px $backgroundLifted solid;
+  background-color: $backgroundLifted;
   cursor: pointer;
 
   > p {
-    color: $grey;
-    user-select: none;
+    color: $white;
   }
 }
 
 .root.active {
   border: 2px $purple solid;
-  background-color: rgba(147, 129, 255, 0.2);
-
-  > p {
-    color: $white;
-    user-select: none;
-  }
+  background-color: rgba(147, 129, 255, 0.5);
 }

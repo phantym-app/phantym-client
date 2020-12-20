@@ -15,14 +15,14 @@ const Searchbar = (props: Props) => {
 
   return (
     <div className={classnames(styles.root)}>
-      <div className={classnames(styles.imageContainer)}>
-        <img src={search} alt={'search'} />
-      </div>
       <input
         onChange={debounce(onChange, 1000, false)}
         className={classnames(styles.input)}
         placeholder={placeholder}
       />
+      <button className={classnames(styles.imageContainer)}>
+        <img src={search} alt={'search'} />
+      </button>
     </div>
   );
 };

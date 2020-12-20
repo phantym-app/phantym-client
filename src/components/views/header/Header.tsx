@@ -3,12 +3,16 @@ import { useState } from 'preact/hooks';
 import classnames from 'classnames';
 import styles from './Header.module.scss';
 
+import search from '@assets/icons/search.svg';
 import friends from '@assets/icons/users.svg';
 import notifications from '@assets/icons/bell.svg';
 import logIn from '@assets/icons/log-in.svg';
+import gamepad from '@assets/icons/gamepad.svg';
+import compass from '@assets/icons/compass.svg';
 
 import FriendsMenu from './menus/FriendsMenu/FriendsMenu';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
+
 import type firebase from 'firebase';
 import { Link } from 'react-router-dom';
 
@@ -24,13 +28,34 @@ const Header = (props: Props) => {
       <div className={classnames(styles.logo)} />
       <div className={classnames(styles.links)}>
         <Link to={'/browse'}>
-          <p>Browse</p>
+          <div className={styles.pageLink}>
+            <img src={compass} alt={'My games'} />
+            <p>Browse</p>
+          </div>{' '}
         </Link>
         <Link to={'/'}>
-          <p>My games</p>
+          <div className={styles.pageLink}>
+            <img src={gamepad} alt={'My games'} />
+            <p>My games</p>
+          </div>
         </Link>
       </div>
       <div className={classnames(styles.actions)}>
+        <div>
+          <button
+            className={classnames(styles.headerAction)}
+            onKeyPress={(e: any) =>
+              e.key === 'Enter' &&
+              setActiveMenu(activeMenu === 'search' ? '' : 'search')
+            }
+            onMouseDown={() =>
+              setActiveMenu(activeMenu === 'search' ? '' : 'search')
+            }
+          >
+            <img src={search} alt={'search'} />
+          </button>
+        </div>
+
         {/* Friends menu */}
 
         <div>

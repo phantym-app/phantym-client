@@ -1,13 +1,13 @@
 @import '../../../styling/sass.scss';
 
 .root {
-  background-color: $backgroundLifted;
+  background-color: $background;
+  border-bottom: 2px $backgroundLifted solid;
   height: 75px;
   width: 100%;
   position: sticky;
   top: 0;
   display: flex;
-  padding: 0 100px;
   z-index: 10;
 
   .links {
@@ -18,17 +18,21 @@
     justify-content: center;
     align-items: center;
 
-    p {
-      @include text('boldFont', 16px, $white);
+    .pageLink {
+      display: flex;
+      height: 75px;
+      padding: 0 25px;
+      justify-content: center;
+      align-items: center;
 
       &:hover {
-        color: $purple;
-        filter: brightness(120%);
+        background-color: $backgroundLifted;
       }
-    }
 
-    > :first-child {
-      margin-right: 50px;
+      p {
+        margin-left: 10px;
+        @include text('boldFont', 16px, $white);
+      }
     }
   }
 
@@ -42,15 +46,14 @@
     a {
       .headerAction {
         height: 75px;
-        min-width: 75px;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background-color: $backgroundLifted;
+        background-color: transparent;
         border: none;
         cursor: pointer;
-        padding: 0 20px;
+        padding: 0 25px;
 
         > p {
           margin-right: 20px;
@@ -62,7 +65,7 @@
           height: 35px;
           border-radius: 25px;
           overflow: hidden;
-          background-color: $backgroundLifted2;
+          background-color: $background;
 
           > img {
             min-width: 100%;
@@ -72,7 +75,7 @@
         }
 
         &:hover {
-          background-color: $backgroundLifted2;
+          background-color: $backgroundLifted;
         }
       }
     }
@@ -84,15 +87,14 @@
 
       .headerAction {
         height: 75px;
-        min-width: 75px;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        background-color: $backgroundLifted;
+        background-color: transparent;
         border: none;
         cursor: pointer;
-        padding: 0 20px;
+        padding: 0 25px;
 
         > p {
           margin-right: 20px;
@@ -114,7 +116,7 @@
         }
 
         &:hover {
-          background-color: $backgroundLifted2;
+          background-color: $backgroundLifted;
         }
       }
     }

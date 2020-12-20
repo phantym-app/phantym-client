@@ -1,17 +1,21 @@
 import { h } from 'preact';
 import styles from './Game.module.scss';
 import classnames from 'classnames';
-import favouriteEmpty from '@assets/icons/star.svg';
-import favouriteFull from '@assets/icons/star-full.svg';
+import { Link } from 'react-router-dom';
+
+import favouriteEmpty from '@assets/icons/heart-empty.svg';
+import favouriteFull from '@assets/icons/heart-full.svg';
 import desktopIcon from '@assets/icons/computer.svg';
 import noDesktop from '@assets/icons/no-computer.svg';
 import mobileIcon from '@assets/icons/phone.svg';
 import noMobile from '@assets/icons/no-phone.svg';
 import castable from '@assets/icons/cast.svg';
 import notCastable from '@assets/icons/not-castable.svg';
+import noPicture from '@assets/icons/picture.svg';
 
 type Props = {
   game: {
+    picture: string;
     title: string;
     favourite: boolean;
     price: number | 'FREE';
@@ -24,17 +28,26 @@ type Props = {
 };
 
 function Game(props: Props) {
-  const { title, favourite, price, availability } = props.game;
+  const { picture, title, favourite, price, availability } = props.game;
   const { desktop, mobile, casting } = availability;
 
   return (
     <div className={classnames(styles.root)}>
-      <div className={classnames(styles.imageContainer)}>
-        <img src={''} alt={''} />
-      </div>
+      <Link to={`/browse/game?selected=${title}`}>
+        <div
+          className={classnames(styles.imageContainer, {
+            [styles.noPicture]: !picture,
+          })}
+        >
+          <img src={picture ? picture : noPicture} alt={'game-art'} />
+        </div>
+      </Link>
+
       <div className={classnames(styles.details)}>
         <div>
-          <p>{title}</p>
+          <Link to={`/browse/game?selected=${title}`}>
+            <p>{title}</p>
+          </Link>
           <img
             className={styles.favourite}
             src={favourite ? favouriteFull : favouriteEmpty}
@@ -42,6 +55,8 @@ function Game(props: Props) {
           />
         </div>
         <div>
+          {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
+
           <div className={classnames(styles.availability)}>
             <div>
               <span className={styles.tooltiptext}>
@@ -77,7 +92,6 @@ function Game(props: Props) {
               </span>
             </div>
           </div>
-          {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
         </div>
       </div>
     </div>

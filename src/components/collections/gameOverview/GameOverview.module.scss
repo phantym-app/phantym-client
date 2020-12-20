@@ -1,9 +1,14 @@
 @import '../../../styling/sass.scss';
 
 .root {
-  display: flex;
-
-  > * {
-    margin-right: 25px;
-  }
+  width: 100%;
+  display: grid;
+  grid-template-columns:
+    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
+    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
+    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
+    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
+    calc(calc(100% / 5) - calc(25px - calc(25px / 5)));
+  column-gap: 25px;
+  row-gap: 50px;
 }
