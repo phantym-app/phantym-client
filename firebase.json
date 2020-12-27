@@ -8,17 +8,9 @@
 
     "rewrites": [
       {
-        "source": "**",
+        "source": "game/**",
         "dynamicLinks": true,
-        "destination": "/index.html"
-      }
-    ],
-
-    "redirects": [
-      {
-        "source": "/game",
-        "destination": "https://europe-west2-un-sole.cloudfunctions.net/ssr",
-        "type": 301
+        "function": "game"
       }
     ],
 

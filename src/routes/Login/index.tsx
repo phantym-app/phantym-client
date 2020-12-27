@@ -2,18 +2,15 @@ import { h } from 'preact';
 
 import LoginForm from '../../components/views/loginForm/LoginForm';
 
-import classnames from 'classnames';
 import styles from './Login.module.scss';
 
-const Login = ({ signInWithGoogle }: any) => {
-  return (
-    <div className={classnames(styles.root)}>
-      <div className={classnames(styles.banner)} />
-      <div className={classnames(styles.content)}>
-        <LoginForm signInWithGoogle={signInWithGoogle} />
-      </div>
+const Login = ({ signInWithGoogle }: any) => (
+  <div class={styles.root}>
+    <div class={styles.banner} />
+    <div class={styles.content}>
+      <LoginForm signInWithGoogle={signInWithGoogle} />
     </div>
-  );
-};
+  </div>
+);
 
 export default Login;

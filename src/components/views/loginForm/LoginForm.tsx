@@ -3,19 +3,18 @@ import { h } from 'preact';
 import Button from '../../elements/button/Button';
 import Input from '../../elements/input/Input';
 
-import classnames from 'classnames';
 import styles from './LoginForm.module.scss';
 
-const LoginForm = ({ signInWithGoogle }: { signInWithGoogle: () => any }) => {
+function LoginForm({ signInWithGoogle }: { signInWithGoogle: () => any }) {
   //TODO: make sure this isn't just a mouse event but also keyboard
-  const handleSubmit = (e: any) => {
+  function handleSubmit(e: any) {
     e.preventDefault();
     console.log('Send data');
-  };
+  }
 
   return (
-    <div className={classnames(styles.root)}>
-      <form onSubmit={handleSubmit} className={classnames(styles.form)}>
+    <div class={styles.root}>
+      <form onSubmit={handleSubmit} class={styles.form}>
         <h4>Sign in</h4>
         <Input icon={'close'} type={'email'} label={'Email address'} placeholder={'Example@example.com'} />
         <Input
@@ -30,7 +29,7 @@ const LoginForm = ({ signInWithGoogle }: { signInWithGoogle: () => any }) => {
       <p>
         Not a member? <a href={''}>Sign up here!</a>
       </p>
-      <div className={classnames(styles.alternativeLogin)}>
+      <div class={styles.alternativeLogin}>
         <p>Or</p>
         <Button style={'google'} onClick={signInWithGoogle}>
           Sign in with Google
@@ -39,6 +38,6 @@ const LoginForm = ({ signInWithGoogle }: { signInWithGoogle: () => any }) => {
       </div>
     </div>
   );
-};
+}
 
 export default LoginForm;

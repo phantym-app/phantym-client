@@ -2,13 +2,13 @@
   "include": ["src", "types"],
   "exclude": ["node_modules/*", "__sapper__/*", "static/*"],
   "compilerOptions": {
+    "typeRoots": ["types"],
     "module": "esnext",
     "target": "ES2015",
     "moduleResolution": "node",
     "jsx": "preserve",
     // "jsxFactory": "h",
     "baseUrl": "./",
-    /* paths - If you configure Snowpack import aliases, add them here. */
     "paths": {
       "react": ["preact/compat"],
       "react-dom": ["preact/compat"],

@@ -1,4 +1,5 @@
-import 'preact/debug'; // delete in production
+import 'preact/debug'; // TODO delete in production
+import './preact_mod';
 
 import { h, render, Fragment } from 'preact';
 import { Suspense, lazy, StrictMode } from 'preact/compat';
@@ -29,7 +30,7 @@ const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
 /* TODO add proper fallbacks */
 const Fallback = () => <div>loading...</div>;
 
-const App = () => {
+function App() {
   const { user, signInWithGoogle, signOut } = AuthContainer.useContainer();
 
   return (
@@ -58,7 +59,7 @@ const App = () => {
       )}
     </BrowserRouter>
   );
-};
+}
 
 render(
   <StrictMode>

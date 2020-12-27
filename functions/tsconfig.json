@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
+    "noImplicitAny": false,
     // "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
@@ -12,5 +13,11 @@
     "jsxFactory": "h"
   },
   "compileOnSave": true,
-  "include": ["src", "../src/routes/Game"]
+  "include": ["src", "../src/routes/Game"],
+
+  "watchOptions": {
+    "watchFile": "useFsEvents",
+    "watchDirectory": "useFsEvents",
+    "fallbackPolling": "dynamicPriority"
+  }
 }

@@ -1,12 +1,16 @@
 import * as functions from 'firebase-functions';
-import { h } from 'preact';
-
 import express from 'express';
-import render from 'preact-render-to-string';
+import cors from 'cors';
+import * as admin from 'firebase-admin';
 
-import Game from '../../src/routes/Game';
+admin.initializeApp({
+  credential: admin.credential.cert('C:/Users/Oliwer/unsole/un-sole-firebase-adminsdk-libmh-1bbd4b3d11.json'),
+  storageBucket: 'gs://un-sole.appspot.com',
+});
 
-const template = (innerHtml?: string) => `
+const bucket = admin.storage().bucket();
+
+const template = `
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -30,14 +34,19 @@ const template = (innerHtml?: string) => `
 
       <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
     </div>
-    ${innerHtml}
   </body>
 </html>
 `;
 
-const ssr = express().get('*', (req, res) => {
-  // let html = render(<Game />);
-  res.send(template());
+const app = express().use(cors({ origin: true }));
+
+app.get('*', (req, res) => {
+  bucket
+    .file('games/webplatformer/webPlatformer.framework.wasm')
+    .download()
+    .then(foo => foo);
+
+  res.send(template);
 });
 
-exports.ssr = functions.region('europe-west2').https.onRequest(ssr);
+exports.game = functions.https.onRequest(app);

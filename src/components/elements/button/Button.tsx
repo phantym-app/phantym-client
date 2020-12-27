@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import styles from './Button.module.scss';
-import classnames from 'classnames';
 
 type Props = {
   children: any;
@@ -8,21 +7,19 @@ type Props = {
   onClick?: () => void;
 };
 
-function Button(props: Props) {
-  const { children, style, onClick = () => {} } = props;
-
-  return (
-    <button
-      onClick={onClick}
-      className={classnames(
-        styles.root,
-        { [styles.icon]: style },
-        { [styles.google]: style === 'google' },
-        { [styles.facebook]: style === 'facebook' },
-      )}>
-      {children}
-    </button>
-  );
-}
+const Button = ({ children, style, onClick }: Props) => (
+  <button
+    onClick={onClick ? onClick : () => {}}
+    class={[
+      styles.root,
+      {
+        [styles.icon]: style !== undefined,
+        [styles.google]: style === 'google',
+        [styles.facebook]: style === 'facebook',
+      },
+    ]}>
+    {children}
+  </button>
+);
 
 export default Button;

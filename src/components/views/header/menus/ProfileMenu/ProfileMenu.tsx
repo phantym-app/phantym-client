@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
-import classnames from 'classnames';
 import styles from './ProfileMenu.module.scss';
 import user from '@assets/icons/user.svg';
 import visible from '@assets/icons/eye.svg';
@@ -16,43 +15,41 @@ type Props = {
   setMenuState: (a: string) => void;
 };
 
-const ProfileMenu = (props: Props) => {
-  const { setMenuState } = props;
+function ProfileMenu({ setMenuState }: Props) {
   const [visibility, setVisibility] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setMenuState(''));
   const { signOut } = AuthContainer.useContainer();
 
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, function () {
+    setMenuState('');
+  });
+
   return (
-    <div
-      //@ts-ignore
-      ref={ref}
-      className={classnames(styles.root)}>
-      <div className={classnames(styles.triangle)} />
-      <button className={classnames(styles.option)}>
+    <div ref={ref} class={styles.root}>
+      <div class={styles.triangle} />
+      <button class={styles.option}>
         <img src={user} alt={'profile'} />
         <p>Profile</p>
       </button>
       <button
-        onClick={() => {
+        onClick={function () {
           setVisibility(!visibility);
-          console.log(visibility);
         }}
-        className={classnames(styles.option, styles.visible)}>
+        class={[styles.option, styles.visible]}>
         <img src={visibility ? visible : notVisible} alt={'visible'} />
         <p>Visible</p>
         <Toggle checked={visibility} />
       </button>
-      <button className={classnames(styles.option)}>
+      <button class={styles.option}>
         <img src={settings} alt={'settings'} />
         <p>Settings</p>
       </button>
-      <button onClick={signOut} className={classnames(styles.option)}>
+      <button onClick={signOut} class={styles.option}>
         <img src={logOut} alt={'profile'} />
         <p>Log out</p>
       </button>
     </div>
   );
-};
+}
 
 export default ProfileMenu;

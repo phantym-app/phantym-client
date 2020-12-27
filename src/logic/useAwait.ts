@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useCallback, useState } from 'preact/hooks';
 
 function useAwait<V>(promise: Promise<V>) {
   const [flatPromise, _set] = useState<
@@ -11,19 +11,26 @@ function useAwait<V>(promise: Promise<V>) {
     error: undefined,
   });
 
-  const execute = useMemo(
-    () =>
-      function () {
-        promise
-          .then(value => _set({ status: 'success', value, error: undefined }))
-          .catch(error => _set({ status: 'error', value: undefined, error }));
-      },
+  let hasCanceled = false;
+
+  const execute = useCallback(
+    function () {
+      promise
+        .then(value => !hasCanceled && _set({ status: 'success', value, error: undefined }))
+        .catch(error => !hasCanceled && _set({ status: 'error', value: undefined, error }));
+    },
     [promise],
   );
 
-  useEffect(execute, [execute]);
+  // const cancel = useCallback(function () {
+  //   hasCanceled = true;
+  // }, []);
 
-  return flatPromise;
+  useEffect(execute, [execute]);
+  // useEffect(() => cancel, []);
+
+  // return { ...flatPromise, cancel };
+  return { ...flatPromise };
 }
 
 export default useAwait;
