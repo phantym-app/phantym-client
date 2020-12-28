@@ -67,7 +67,9 @@ const Browse = () => {
       <div className={classnames(styles.content)}>
         <div className={classnames(styles.actions)}>
           <div className={classnames(styles.search)}>
+            {/* TODO: Add filter functions */}
             <Button squared squaredIcon={'filter'} />
+            {/* TODO: Add Search function */}
             <Searchbar
               onChange={(e) => console.log(e)}
               placeholder={'Search for a game'}
