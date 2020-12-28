@@ -71,6 +71,10 @@
       p {
         @include text('boldFont', 16px, $white);
       }
+
+      p.active {
+        @include text('boldFont', 16px, $purple);
+      }
     }
   }
 }
