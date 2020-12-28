@@ -13,6 +13,7 @@ import mobileIcon from '@assets/icons/phone.svg';
 import noMobile from '@assets/icons/no-phone.svg';
 import castable from '@assets/icons/cast.svg';
 import notCastable from '@assets/icons/not-castable.svg';
+import picture from '@assets/icons/picture.svg';
 
 import { useHero } from './heroState';
 
@@ -133,10 +134,15 @@ const Hero = (props: Props) => {
       <div ref={bannerRef} className={classnames(styles.banners)}>
         {games.map((game, index) => {
           return (
-            <div key={index} className={classnames(styles.bannerContainer)}>
+            <div
+              key={index}
+              className={classnames(styles.bannerContainer, {
+                [styles.noImage]: game.bannerImage === undefined || null,
+              })}
+            >
               <img
                 className={classnames(styles.banner)}
-                src={game.bannerImage}
+                src={game.bannerImage ? game.bannerImage : picture}
                 alt={game.title}
               />
             </div>

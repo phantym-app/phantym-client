@@ -31,6 +31,14 @@
         object-fit: cover;
       }
     }
+
+    .bannerContainer.noImage {
+      .banner {
+        width: 20px;
+        height: 20px;
+        object-fit: none;
+      }
+    }
   }
   .shade {
     position: absolute;

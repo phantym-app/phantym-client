@@ -46,7 +46,6 @@ const Browse = () => {
       },
     },
     {
-      bannerImage: mockBanner,
       title: 'Bloodborne',
       price: 59.99,
       availability: {
