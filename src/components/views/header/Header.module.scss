@@ -2,122 +2,74 @@
 
 .root {
   background-color: $background;
-  border-bottom: 2px $backgroundLifted solid;
-  height: 75px;
-  width: 100%;
+  height: 100vh;
+  width: 300px;
   position: sticky;
   top: 0;
+  left: 0;
   display: flex;
+  flex-direction: column;
   z-index: 10;
+  justify-content: space-between;
+  padding: 50px 0;
+
+  > :last-child {
+    margin-left: 50px;
+  }
 
   .links {
-    height: 100%;
-    width: fit-content;
+    width: 100%;
+    height: fit-content;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    .profileMenu {
+      display: flex;
+      flex-direction: row;
+
+      .pageLink {
+        .iconContainer {
+          border-radius: 25px;
+          background-color: $background;
+
+          > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+
     .pageLink {
+      padding: 0 0 0 50px;
       display: flex;
       height: 75px;
-      padding: 0 25px;
-      justify-content: center;
+      width: 300px;
+      justify-content: start;
       align-items: center;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      .iconContainer {
+        width: 35px;
+        height: 35px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        overflow: hidden;
+        margin-right: 25px;
+      }
 
       &:hover {
         background-color: $backgroundLifted;
       }
 
       p {
-        margin-left: 10px;
         @include text('boldFont', 16px, $white);
-      }
-    }
-  }
-
-  .actions {
-    margin-left: auto;
-    height: 100%;
-    width: fit-content;
-    display: flex;
-    flex-direction: row;
-
-    a {
-      .headerAction {
-        height: 75px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0 25px;
-
-        > p {
-          margin-right: 20px;
-          @include text('boldFont', 16px, $white);
-        }
-
-        .imageContainer {
-          width: 35px;
-          height: 35px;
-          border-radius: 25px;
-          overflow: hidden;
-          background-color: $background;
-
-          > img {
-            min-width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-        &:hover {
-          background-color: $backgroundLifted;
-        }
-      }
-    }
-
-    > div {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-
-      .headerAction {
-        height: 75px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0 25px;
-
-        > p {
-          margin-right: 20px;
-          @include text('boldFont', 16px, $white);
-        }
-
-        .imageContainer {
-          width: 35px;
-          height: 35px;
-          border-radius: 25px;
-          overflow: hidden;
-          background-color: $backgroundLifted2;
-
-          > img {
-            min-width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-        &:hover {
-          background-color: $backgroundLifted;
-        }
       }
     }
   }

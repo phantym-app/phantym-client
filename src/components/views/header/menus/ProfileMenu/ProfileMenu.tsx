@@ -44,10 +44,6 @@ const ProfileMenu = (props: Props) => {
         <p>Visible</p>
         <Toggle checked={visibility} />
       </button>
-      <button className={classnames(styles.option)}>
-        <img src={settings} alt={'settings'} />
-        <p>Settings</p>
-      </button>
       <button onClick={signOut} className={classnames(styles.option)}>
         <img src={logOut} alt={'profile'} />
         <p>Log out</p>

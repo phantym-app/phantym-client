@@ -13,14 +13,14 @@ const Label = (props: Props) => {
   const { title, active, onClick } = props;
   const { activeState, setActiveState } = useLabel();
   return (
-    <div
+    <button
       onClick={onClick ? () => onClick(title) : () => setActiveState(title)}
       className={classnames(styles.root, {
         [styles.active]: active ? active(title) : activeState,
       })}
     >
       <p>{title}</p>
-    </div>
+    </button>
   );
 };
 

@@ -3,14 +3,15 @@ import { useState } from 'preact/hooks';
 import classnames from 'classnames';
 import styles from './Header.module.scss';
 
-import search from '@assets/icons/search.svg';
+import cog from '@assets/icons/cog.svg';
 import friends from '@assets/icons/users.svg';
-import notifications from '@assets/icons/bell.svg';
+import room from '@assets/icons/grid.svg';
 import logIn from '@assets/icons/log-in.svg';
 import gamepad from '@assets/icons/gamepad.svg';
 import compass from '@assets/icons/compass.svg';
+import cart from '@assets/icons/shopping-cart.svg';
 
-import FriendsMenu from './menus/FriendsMenu/FriendsMenu';
+import Button from '../../elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 
 import type firebase from 'firebase';
@@ -25,90 +26,22 @@ const Header = (props: Props) => {
   const { user } = props;
   return (
     <header className={classnames(styles.root)}>
-      <div className={classnames(styles.logo)} />
       <div className={classnames(styles.links)}>
-        <Link to={'/browse'}>
-          <div className={styles.pageLink}>
-            <img src={compass} alt={'My games'} />
-            <p>Browse</p>
-          </div>{' '}
-        </Link>
-        <Link to={'/'}>
-          <div className={styles.pageLink}>
-            <img src={gamepad} alt={'My games'} />
-            <p>My games</p>
-          </div>
-        </Link>
-      </div>
-      <div className={classnames(styles.actions)}>
-        <div>
-          <button
-            className={classnames(styles.headerAction)}
-            onKeyPress={(e: any) =>
-              e.key === 'Enter' &&
-              setActiveMenu(activeMenu === 'search' ? '' : 'search')
-            }
-            onMouseDown={() =>
-              setActiveMenu(activeMenu === 'search' ? '' : 'search')
-            }
-          >
-            <img src={search} alt={'search'} />
-          </button>
-        </div>
-
-        {/* Friends menu */}
-
-        <div>
-          <button
-            className={classnames(styles.headerAction)}
-            onKeyPress={(e: any) =>
-              e.key === 'Enter' &&
-              setActiveMenu(activeMenu === 'friends' ? '' : 'friends')
-            }
-            onMouseDown={() =>
-              setActiveMenu(activeMenu === 'friends' ? '' : 'friends')
-            }
-          >
-            <img src={friends} alt={'friends'} />
-          </button>
-          {activeMenu === 'friends' && (
-            <FriendsMenu setMenuState={setActiveMenu} />
-          )}
-        </div>
-
-        {/* Notifications menu */}
-
-        <div>
-          <button
-            className={classnames(styles.headerAction)}
-            onKeyPress={(e: any) =>
-              e.key === 'Enter' &&
-              setActiveMenu(
-                activeMenu === 'notifications' ? '' : 'notifications',
-              )
-            }
-            onMouseDown={() =>
-              setActiveMenu(
-                activeMenu === 'notifications' ? '' : 'notifications',
-              )
-            }
-          >
-            <img src={notifications} alt={'notifications'} />
-          </button>
-        </div>
-
         {/* Profile button */}
 
         {user && user.isAnonymous ? (
           <a href={'/login'}>
-            <button className={classnames(styles.headerAction)}>
-              <p>Sign in</p> <img src={logIn} alt={'log-in'} />
+            <button className={classnames(styles.pageLink)}>
+              <div className={classnames(styles.iconContainer)}>
+                <img src={logIn} alt={'log-in'} />
+              </div>
+              <p>Sign in</p>
             </button>
           </a>
         ) : (
-          <div>
+          <div className={classnames(styles.profileMenu)}>
             <button
-              className={classnames(styles.headerAction)}
+              className={classnames(styles.pageLink)}
               onKeyPress={(e: any) =>
                 e.key === 'Enter' &&
                 setActiveMenu(activeMenu === 'profile' ? '' : 'profile')
@@ -117,20 +50,78 @@ const Header = (props: Props) => {
                 setActiveMenu(activeMenu === 'profile' ? '' : 'profile')
               }
             >
-              <p>{user?.displayName}</p>
-              <div className={classnames(styles.imageContainer)}>
+              <div className={classnames(styles.iconContainer)}>
                 <img
                   src={(user !== undefined && user?.photoURL) || ''}
                   alt={'user'}
                 />
               </div>
+              <p>{user?.displayName}</p>
             </button>
             {activeMenu === 'profile' && (
               <ProfileMenu setMenuState={setActiveMenu} />
             )}
           </div>
         )}
+
+        {/* Browse button */}
+
+        <Link to={'/browse'} className={classnames(styles.pageLink)}>
+          <div className={classnames(styles.iconContainer)}>
+            <img src={compass} alt={'My games'} />
+          </div>
+          <p>Browse</p>
+        </Link>
+
+        {/* My games button */}
+
+        <Link to={'/'} className={classnames(styles.pageLink)}>
+          <div className={classnames(styles.iconContainer)}>
+            <img src={gamepad} alt={'My games'} />
+          </div>
+          <p>My games</p>
+        </Link>
+
+        {/* Cart button */}
+
+        <Link to={'/cart'} className={classnames(styles.pageLink)}>
+          <div className={classnames(styles.iconContainer)}>
+            <img src={cart} alt={'cart'} />
+          </div>
+          <p>Cart</p>
+        </Link>
+
+        {/* Friends button */}
+
+        <Link
+          to={'/social?page=friends'}
+          className={classnames(styles.pageLink)}
+        >
+          <div className={classnames(styles.iconContainer)}>
+            <img src={friends} alt={'friends'} />
+          </div>
+          <p>Friends</p>
+        </Link>
+
+        {/* Room button */}
+
+        <Link to={'/'} className={classnames(styles.pageLink)}>
+          <div className={classnames(styles.iconContainer)}>
+            <img src={room} alt={'My games'} />
+          </div>
+          <p>Room</p>
+        </Link>
+
+        {/* Settings button */}
+
+        <Link to={'/'} className={classnames(styles.pageLink)}>
+          <div className={classnames(styles.iconContainer)}>
+            <img src={cog} alt={'My games'} />
+          </div>
+          <p>Settings</p>
+        </Link>
       </div>
+      <Button style={'cast'}>Start casting</Button>
     </header>
   );
 };
