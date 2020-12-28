@@ -3,6 +3,7 @@ import 'preact/debug'; // delete in production
 import { h, render, Fragment } from 'preact';
 import { Suspense, lazy, StrictMode } from 'preact/compat';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Loader from './components/elements/loader/Loader';
 
 import { AuthContainer } from './store/auth';
 
@@ -26,7 +27,7 @@ const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
 );
 
 /* TODO add proper fallbacks */
-const Fallback = () => <div>loading...</div>;
+const Fallback = () => <Loader />;
 
 const App = () => {
   const { user, signInWithGoogle, signOut } = AuthContainer.useContainer();
@@ -35,7 +36,7 @@ const App = () => {
     <BrowserRouter>
       {user && (
         <>
-          <Suspense fallback={<Fallback />}>
+          <Suspense fallback={null}>
             {window.location.pathname !== '/login' && <Header user={user} />}
           </Suspense>
           <main>
