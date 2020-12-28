@@ -42,14 +42,12 @@
     }
 
     > :first-child {
-      a {
-        > p {
-          @include text('boldFont', 16px, $white);
-          cursor: pointer;
+      > p {
+        @include text('boldFont', 16px, $white);
+        cursor: pointer;
 
-          &:hover {
-            color: $purple;
-          }
+        &:hover {
+          color: $purple;
         }
       }
     }
@@ -91,7 +89,7 @@
             visibility: hidden;
             width: 150px;
             padding: 10px 10px;
-            background-color: $darkest;
+            background-color: $background;
             text-align: center;
             border-radius: 5px;
             position: absolute;
@@ -107,7 +105,7 @@
               margin-left: -5px;
               border-width: 5px;
               border-style: solid;
-              border-color: $darkest transparent transparent transparent;
+              border-color: $background transparent transparent transparent;
             }
           }
         }

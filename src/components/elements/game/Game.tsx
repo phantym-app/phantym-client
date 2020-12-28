@@ -32,8 +32,8 @@ function Game(props: Props) {
   const { desktop, mobile, casting } = availability;
 
   return (
-    <div className={classnames(styles.root)}>
-      <Link to={`/browse/game?selected=${title}`}>
+    <Link to={`/browse/game?selected=${title}`}>
+      <div className={classnames(styles.root)}>
         <div
           className={classnames(styles.imageContainer, {
             [styles.noPicture]: !picture,
@@ -41,60 +41,58 @@ function Game(props: Props) {
         >
           <img src={picture ? picture : noPicture} alt={'game-art'} />
         </div>
-      </Link>
 
-      <div className={classnames(styles.details)}>
-        <div>
-          <Link to={`/browse/game?selected=${title}`}>
+        <div className={classnames(styles.details)}>
+          <div>
             <p>{title}</p>
-          </Link>
-          <img
-            className={styles.favourite}
-            src={favourite ? favouriteFull : favouriteEmpty}
-            alt={favourite ? 'favourite' : 'no-favourite'}
-          />
-        </div>
-        <div>
-          {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
+            <img
+              className={styles.favourite}
+              src={favourite ? favouriteFull : favouriteEmpty}
+              alt={favourite ? 'favourite' : 'no-favourite'}
+            />
+          </div>
+          <div>
+            {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
 
-          <div className={classnames(styles.availability)}>
-            <div>
-              <span className={styles.tooltiptext}>
-                {desktop
-                  ? 'This game is playable on a computer'
-                  : 'This game is not playable on a computer'}
-              </span>
-              <img
-                src={desktop ? desktopIcon : noDesktop}
-                alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
-              />
-            </div>
-            <div>
-              <img
-                src={mobile ? mobileIcon : noMobile}
-                alt={mobile ? 'available-mobile' : 'unavailable-mobile'}
-              />
-              <span className={styles.tooltiptext}>
-                {mobile
-                  ? 'This game is playable on phones'
-                  : 'This game is not playable on phones'}
-              </span>
-            </div>
-            <div>
-              <img
-                src={casting ? castable : notCastable}
-                alt={casting ? 'castable' : 'not-castable'}
-              />
-              <span className={styles.tooltiptext}>
-                {casting
-                  ? 'This game is castable to Chromecast'
-                  : 'This game is not castable to Chromecast'}
-              </span>
+            <div className={classnames(styles.availability)}>
+              <div>
+                <span className={styles.tooltiptext}>
+                  {desktop
+                    ? 'This game is playable on a computer'
+                    : 'This game is not playable on a computer'}
+                </span>
+                <img
+                  src={desktop ? desktopIcon : noDesktop}
+                  alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
+                />
+              </div>
+              <div>
+                <img
+                  src={mobile ? mobileIcon : noMobile}
+                  alt={mobile ? 'available-mobile' : 'unavailable-mobile'}
+                />
+                <span className={styles.tooltiptext}>
+                  {mobile
+                    ? 'This game is playable on phones'
+                    : 'This game is not playable on phones'}
+                </span>
+              </div>
+              <div>
+                <img
+                  src={casting ? castable : notCastable}
+                  alt={casting ? 'castable' : 'not-castable'}
+                />
+                <span className={styles.tooltiptext}>
+                  {casting
+                    ? 'This game is castable to Chromecast'
+                    : 'This game is not castable to Chromecast'}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

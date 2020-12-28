@@ -1,8 +1,8 @@
 @import '../../../styling/sass.scss';
 
 .root {
-  padding: 12px 20px;
-  min-width: 250px;
+  padding: 12px 35px;
+  height: 50px;
   width: fit-content;
   border: none;
   border-radius: 25px;
@@ -16,6 +16,13 @@
   &:hover {
     filter: brightness(120%);
   }
+}
+
+.root.squared {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  padding: 0;
 }
 
 .root.icon::before {
@@ -36,4 +43,8 @@
 
 .root.facebook::before {
   content: url('/assets/icons/facebook.svg');
+}
+
+.root.cast::before {
+  content: url('/assets/icons/cast.svg');
 }
