@@ -1,9 +1,9 @@
 import { h } from 'preact';
-import Loader from '../../components/elements/loader/Loader';
+import styles from './Friends.module.scss';
+import classnames from 'classnames';
 
-const Index = () => {
-  if (window.location.pathname !== '/') window.location.pathname = '/';
-  return <Loader />;
+const Friends = () => {
+  return <div className={classnames(styles.root)}>Hi this is friends</div>;
 };
 
-export default Index;
+export default Friends;

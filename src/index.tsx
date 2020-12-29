@@ -46,6 +46,38 @@ const App = () => {
           <main>
             <Switch>
               <LazyRoute
+                path={'/room'}
+                component={Room}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/cart'}
+                component={Cart}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/social'}
+                component={Friends}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/settings'}
+                component={Settings}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
                 path={'/browse'}
                 component={Browse}
                 props={{ user, signOut }}
@@ -64,42 +96,11 @@ const App = () => {
               )}
 
               <LazyRoute
-                path={'/cart'}
-                component={Cart}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/friends'}
-                component={Friends}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/settings'}
-                component={Settings}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/room'}
-                component={Room}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
                 path={'/'}
                 component={Home}
                 props={{ user }}
                 fallback={<Fallback />}
+                exact
               />
             </Switch>
           </main>

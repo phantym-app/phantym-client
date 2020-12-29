@@ -1,9 +1,9 @@
 import { h } from 'preact';
-import Loader from '../../components/elements/loader/Loader';
+import styles from './Cart.module.scss';
+import classnames from 'classnames';
 
-const Index = () => {
-  if (window.location.pathname !== '/') window.location.pathname = '/';
-  return <Loader />;
+const Cart = () => {
+  return <div className={classnames(styles.root)}>Hi this is your cart</div>;
 };
 
-export default Index;
+export default Cart;

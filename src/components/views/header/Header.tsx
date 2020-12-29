@@ -155,7 +155,7 @@ const Header = (props: Props) => {
 
         {/* Room button */}
 
-        <Link to={'/'} className={classnames(styles.pageLink)}>
+        <Link to={'/room'} className={classnames(styles.pageLink)}>
           <div className={classnames(styles.iconContainer)}>
             <img
               src={activePage === '/room' ? activeRoom : room}
@@ -173,7 +173,7 @@ const Header = (props: Props) => {
 
         {/* Settings button */}
 
-        <Link to={'/'} className={classnames(styles.pageLink)}>
+        <Link to={'/settings'} className={classnames(styles.pageLink)}>
           <div className={classnames(styles.iconContainer)}>
             <img
               src={activePage === '/settings' ? activeCog : cog}
