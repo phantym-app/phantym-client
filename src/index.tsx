@@ -14,6 +14,7 @@ const Settings = lazy(() => import('./routes/Settings'));
 const Room = lazy(() => import('./routes/Room'));
 const Friends = lazy(() => import('./routes/Friends'));
 const Cart = lazy(() => import('./routes/Cart'));
+const BrowseGame = lazy(() => import('./routes/BrowseGame'));
 const Browse = lazy(() => import('./routes/Browse'));
 const Login = lazy(() => import('./routes/Login'));
 const Home = lazy(() => import('./routes/Home'));
@@ -72,6 +73,14 @@ const App = () => {
               <LazyRoute
                 path={'/settings'}
                 component={Settings}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/browse/game'}
+                component={BrowseGame}
                 props={{ user }}
                 fallback={<Fallback />}
                 exact

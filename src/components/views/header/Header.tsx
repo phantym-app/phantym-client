@@ -83,13 +83,13 @@ const Header = (props: Props) => {
         <Link to={'/browse'} className={classnames(styles.pageLink)}>
           <div className={classnames(styles.iconContainer)}>
             <img
-              src={activePage === '/browse' ? activeCompass : compass}
+              src={activePage.startsWith('/browse') ? activeCompass : compass}
               alt={'Browse'}
             />
           </div>
           <p
             className={classnames({
-              [styles.active]: activePage === '/browse',
+              [styles.active]: activePage.startsWith('/browse'),
             })}
           >
             Browse
@@ -119,13 +119,13 @@ const Header = (props: Props) => {
         <Link to={'/cart'} className={classnames(styles.pageLink)}>
           <div className={classnames(styles.iconContainer)}>
             <img
-              src={activePage === '/cart' ? activeCart : cart}
+              src={activePage.startsWith('/cart') ? activeCart : cart}
               alt={'cart'}
             />
           </div>
           <p
             className={classnames({
-              [styles.active]: activePage === '/cart',
+              [styles.active]: activePage.startsWith('/cart'),
             })}
           >
             Cart
@@ -140,13 +140,13 @@ const Header = (props: Props) => {
         >
           <div className={classnames(styles.iconContainer)}>
             <img
-              src={activePage === '/friends' ? activeFriends : friends}
-              alt={'friends'}
+              src={activePage.startsWith('/social') ? activeFriends : friends}
+              alt={'social'}
             />
           </div>
           <p
             className={classnames({
-              [styles.active]: activePage === '/friends',
+              [styles.active]: activePage.startsWith('/social'),
             })}
           >
             Friends
@@ -158,13 +158,13 @@ const Header = (props: Props) => {
         <Link to={'/room'} className={classnames(styles.pageLink)}>
           <div className={classnames(styles.iconContainer)}>
             <img
-              src={activePage === '/room' ? activeRoom : room}
+              src={activePage.startsWith('/room') ? activeRoom : room}
               alt={'room'}
             />
           </div>
           <p
             className={classnames({
-              [styles.active]: activePage === '/room',
+              [styles.active]: activePage.startsWith('/room'),
             })}
           >
             Room
@@ -176,13 +176,13 @@ const Header = (props: Props) => {
         <Link to={'/settings'} className={classnames(styles.pageLink)}>
           <div className={classnames(styles.iconContainer)}>
             <img
-              src={activePage === '/settings' ? activeCog : cog}
+              src={activePage.startsWith('/settings') ? activeCog : cog}
               alt={'settings'}
             />
           </div>
           <p
             className={classnames({
-              [styles.active]: activePage === '/settings',
+              [styles.active]: activePage.startsWith('/settings'),
             })}
           >
             Settings
