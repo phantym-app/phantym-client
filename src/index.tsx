@@ -10,6 +10,10 @@ import { AuthContainer } from './store/auth';
 import './global.scss';
 
 // lazy route imports
+const Settings = lazy(() => import('./routes/Settings'));
+const Room = lazy(() => import('./routes/Room'));
+const Friends = lazy(() => import('./routes/Friends'));
+const Cart = lazy(() => import('./routes/Cart'));
 const Browse = lazy(() => import('./routes/Browse'));
 const Login = lazy(() => import('./routes/Login'));
 const Home = lazy(() => import('./routes/Home'));
@@ -58,6 +62,38 @@ const App = () => {
                   exact
                 />
               )}
+
+              <LazyRoute
+                path={'/cart'}
+                component={Cart}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/friends'}
+                component={Friends}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/settings'}
+                component={Settings}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
+
+              <LazyRoute
+                path={'/room'}
+                component={Room}
+                props={{ user }}
+                fallback={<Fallback />}
+                exact
+              />
 
               <LazyRoute
                 path={'/'}
