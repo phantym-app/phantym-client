@@ -5,6 +5,7 @@ import Game from '../../elements/game/Game';
 
 type Props = {
   games: {
+    picture: string;
     title: string;
     favourite: boolean;
     price: number | 'FREE';

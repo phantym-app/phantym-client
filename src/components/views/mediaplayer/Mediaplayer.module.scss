@@ -1,0 +1,62 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  .select {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 25px;
+
+    p {
+      margin-right: 25px;
+      cursor: pointer;
+      @include text('boldFont', 16px, $backgroundLifted2);
+    }
+
+    .active {
+      cursor: default;
+      color: $white;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+
+    .mediaContainer {
+      background-color: $background;
+      width: 1045px;
+      height: calc(1045px / 1.7778);
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .mediaSelector {
+      display: block;
+      flex-direction: column;
+      margin-left: 25px;
+      height: calc(1045px / 1.7778);
+      overflow-y: scroll;
+      position: relative;
+
+      &::-webkit-scrollbar {
+        width: 0px; /* Remove scrollbar space */
+      }
+
+      .mediaSelect {
+        margin-bottom: 25px;
+        border-radius: 5px;
+        background-color: $background;
+        width: 250px;
+        height: calc(250px / 1.7778);
+      }
+
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
