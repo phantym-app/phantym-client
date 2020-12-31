@@ -17,6 +17,10 @@ type Props = {
 };
 
 const Video = (props: Props) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainer = useRef<HTMLDivElement>(null);
+  const videoProgress = useRef<HTMLProgressElement>(null);
+  const videoHandle = useRef<HTMLInputElement>(null);
   const [videoDetails, setVideoDetails] = useState<{
     currentTime: number;
     duration: number;
@@ -32,10 +36,7 @@ const Video = (props: Props) => {
     volume: 100,
     isFullscreen: false,
   });
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const videoContainer = useRef<HTMLDivElement>(null);
-  const videoProgress = useRef<HTMLProgressElement>(null);
-  const videoHandle = useRef<HTMLInputElement>(null);
+
   const { video } = props;
 
   // Setting initial video vars
@@ -71,10 +72,9 @@ const Video = (props: Props) => {
       <div className={classnames(styles.progressbar)}>
         <input
           onChange={(e: any) => (
-            (videoRef.current.currentTime =
-              (e.target.value / 10000) * duration),
             isPaused ? (wasPlaying = true) : (wasPlaying = false),
-            wasPlaying && setVideoDetails({ ...videoDetails, isPaused: true })
+            wasPlaying && setVideoDetails({ ...videoDetails, isPaused: true }),
+            (videoRef.current.currentTime = (e.target.value / 10000) * duration)
           )}
           onMouseUp={() =>
             wasPlaying && setVideoDetails({ ...videoDetails, isPaused: false })
