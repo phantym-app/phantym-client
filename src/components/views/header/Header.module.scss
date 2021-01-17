@@ -9,6 +9,9 @@
   display: flex;
   padding: 0 100px;
 
+  // WARNING OLO ATTEMPTED CSS
+  transition: 200ms;
+
   .links {
     height: 100%;
     width: fit-content;
@@ -75,3 +78,18 @@
     }
   }
 }
+
+// WARNING OLO ATTEMPTED CSS
+.hidden {
+  position: absolute;
+  transform: translateY(-100%);
+}
+
+// @keyframes fadeIn {
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }

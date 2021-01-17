@@ -7,22 +7,20 @@ import notVisible from '@assets/icons/eye-close.svg';
 import settings from '@assets/icons/cog.svg';
 import logOut from '@assets/icons/log-out.svg';
 
-import { useOnClickOutside } from '../../../../../logic/useOnClickOutside';
+import { useOnClickOutside } from '@logic/useOnClickOutside';
 import Toggle from '../../../../elements/toggle/Toggle';
-import { AuthContainer } from '../../../../../store/auth';
+import { AuthContainer } from '@store/auth';
 
 type Props = {
-  setMenuState: (a: string) => void;
+  hideMenu: () => void;
 };
 
-function ProfileMenu({ setMenuState }: Props) {
+function ProfileMenu({ hideMenu }: Props) {
   const [visibility, setVisibility] = useState(false);
   const { signOut } = AuthContainer.useContainer();
 
   const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, function () {
-    setMenuState('');
-  });
+  useOnClickOutside(ref, hideMenu);
 
   return (
     <div ref={ref} class={styles.root}>

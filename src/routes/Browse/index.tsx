@@ -1,5 +1,14 @@
 import { h } from 'preact';
+import { AuthContainer } from '@store/auth';
 
-const Browse = ({ user, signOut }: any) => <button onClick={signOut}></button>;
+function Browse() {
+  const { signOut } = AuthContainer.useContainer();
+
+  return (
+    <div>
+      <button onClick={signOut}>foo</button>
+    </div>
+  );
+}
 
 export default Browse;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
-import { providerGoogle, auth, fs } from '../logic/firebase/auth';
+import { providerGoogle, auth, fs } from '@logic/firebase/auth';
 import type firebase from 'firebase';
 
 // the store's hook

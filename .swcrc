@@ -1,0 +1,22 @@
+{
+  "jsc": {
+    "target": "es2016",
+
+    "transform": {
+      "react": {
+        "pragma": "h",
+        "pragmaFrag": "Fragment",
+        "throwIfNamespace": true,
+        "development": false,
+        "useBuiltins": false
+      }
+    },
+
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": false,
+      "dynamicImport": true
+    }
+  }
+}

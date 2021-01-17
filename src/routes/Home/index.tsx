@@ -1,9 +1,13 @@
 import { h } from 'preact';
 
-function Index() {
-  if (window.location.pathname !== '/') window.location.pathname = '/';
+import { Link } from 'react-router-dom';
 
-  return <p>loading</p>;
+function Index() {
+  return (
+    <div>
+      <Link to='/login'>login</Link>
+    </div>
+  );
 }
 
 export default Index;

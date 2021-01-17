@@ -1,28 +1,26 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
+
 module.exports = {
   mount: {
     src: { url: '/_dist_' },
     public: { url: '/', static: true, resolve: false },
   },
-  plugins: ['@snowpack/plugin-typescript', '@snowpack/plugin-sass', '@prefresh/snowpack'],
-  install: [
-    /* ... */
-  ],
-  installOptions: {
+  plugins: ['snowpack-plugin-swc', '@snowpack/plugin-sass', '@prefresh/snowpack'],
+  packageOptions: {
     installTypes: true,
   },
-  devOptions: {
-    /* ... */
-  },
   buildOptions: {
-    /* ... */
-  },
-  proxy: {
-    /* ... */
+    out: 'build',
+    watch: false, // useful if using own backend instead of dev server
   },
   alias: {
     react: 'preact/compat',
     'react-dom': 'preact/compat',
+
     '@assets/': './public/assets/',
+    '@routes/': './src/routes/',
+    '@store/': './src/store/',
+    '@logic/': './src/logic/',
+    '@components/': './src/components/',
   },
 };

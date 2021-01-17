@@ -34,12 +34,10 @@ function Input({ label, placeholder, icon, type, link }: Props) {
     else setValue('');
   }
 
-  const inputType = useMemo(() => (type === 'password' && isValueVisible ? 'text' : type), [isValueVisible]);
-
   const iconInvisible = useMemo(() => icon === 'close' && value === '', [value]);
   const iconBordered = useMemo(() => value !== '', [value]);
   const iconLarger = useMemo(() => icon === 'eye', []);
-
+  const inputType = useMemo(() => (type === 'password' && isValueVisible ? 'text' : type), [isValueVisible]);
   const imageSrc = useMemo(() => (icon === 'eye' ? (isValueVisible ? eye : closedEye) : close), [isValueVisible]);
 
   return (

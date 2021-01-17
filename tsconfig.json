@@ -1,26 +1,20 @@
 {
   "include": ["src", "types"],
-  "exclude": ["node_modules/*", "__sapper__/*", "static/*"],
+  "exclude": ["node_modules/*", "build/*", ".firebase/*"],
+
   "compilerOptions": {
-    "typeRoots": ["types"],
-    "module": "esnext",
-    "target": "ES2015",
-    "moduleResolution": "node",
     "jsx": "preserve",
-    // "jsxFactory": "h",
+    "jsxFactory": "h",
+
+    "lib": ["ESNext", "DOM"],
+
     "baseUrl": "./",
     "paths": {
-      "react": ["preact/compat"],
-      "react-dom": ["preact/compat"],
-      "/web_modules/*.js": ["node_modules/@types/*", "node_modules/*", "web_modules/*.js"]
-    },
-    "noEmit": true,
-    /* Additional Options */
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "importsNotUsedAsValues": "error"
+      "@routes/*": ["src/routes/*"],
+      "@assets/*": ["public/assets/*"],
+      "@store/*": ["src/store/*"],
+      "@logic/*": ["src/logic/*"],
+      "@components/*": ["src/components/*"]
+    }
   }
 }

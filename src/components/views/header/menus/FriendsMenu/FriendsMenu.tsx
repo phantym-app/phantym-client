@@ -1,12 +1,12 @@
 import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
 import styles from './FriendsMenu.module.scss';
-import { useOnClickOutside } from '../../../../../logic/useOnClickOutside';
+import { useOnClickOutside } from '@logic/useOnClickOutside';
 import addFriend from '@assets/icons/user-plus.svg';
 import Friend from './Friend/Friend';
 
 type Props = {
-  setMenuState: (a: string) => void;
+  hideMenu: () => void;
 };
 
 type Friend = {
@@ -14,13 +14,11 @@ type Friend = {
   status: 'online' | 'offline';
 };
 
-function FriendsMenu({ setMenuState }: Props) {
+function FriendsMenu({ hideMenu }: Props) {
   const [activeSubmenu, setActiveSubmenu] = useState('friends');
 
   const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, function () {
-    setMenuState('');
-  });
+  useOnClickOutside(ref, hideMenu);
 
   const friends: Friend[] = [
     {
