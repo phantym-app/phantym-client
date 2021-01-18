@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
-import Button from '../../elements/button/Button';
-import Input from '../../elements/input/Input';
+import Button from '@components/elements/button/Button';
+import Input from '@components/elements/input/Input';
 
 import styles from './LoginForm.module.scss';
 

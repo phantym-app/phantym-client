@@ -55,5 +55,12 @@ declare module '*.png' {
   const ref: string;
   export default ref;
 }
-
 /* CUSTOM: ADD YOUR OWN HERE */
+declare module '*.mp4' {
+  const src: string;
+  export default src;
+}
+declare module '*.json' {
+  const object: { [key: string]: any };
+  export default object;
+}

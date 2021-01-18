@@ -1,0 +1,45 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  flex-direction: row;
+
+  .input {
+    background-color: $backgroundLifted;
+    border: none;
+    border-radius: 10px;
+    padding: 0 20px;
+    height: 50px;
+    width: 350px;
+    color: $white;
+    @include text('regularFont', 16px, $white);
+
+    &::placeholder {
+      @include text('regularFont', 16px, $grey);
+    }
+  }
+
+  .imageContainer {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    margin-left: 300px;
+    background-color: $purple;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    cursor: pointer;
+    border: none;
+
+    &:hover {
+      filter: brightness(110%);
+    }
+
+    img {
+      height: 18px;
+      z-index: 0;
+    }
+  }
+}

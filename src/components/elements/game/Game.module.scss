@@ -1,0 +1,152 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+
+  .imageContainer {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    background-color: $backgroundLifted;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+
+    > img {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .imageContainer.noPicture {
+    justify-content: center;
+    align-items: center;
+
+    > img {
+      min-width: unset;
+      min-height: unset;
+      width: 60px;
+      height: auto;
+    }
+  }
+
+  .details {
+    width: 100%;
+    margin-top: 15px;
+
+    > :nth-child(2) {
+      margin-top: 15px;
+    }
+
+    > :first-child {
+      > p {
+        @include text('boldFont', 16px, $white);
+        cursor: pointer;
+
+        &:hover {
+          color: $purple;
+        }
+      }
+    }
+
+    div {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .favourite {
+        cursor: pointer;
+      }
+
+      > p {
+        @include text('boldFont', 16px, $white);
+      }
+
+      .availability {
+        width: fit-content;
+        align-items: center;
+
+        > div {
+          margin-left: 10px;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            max-width: 20px;
+            max-height: 20px;
+          }
+
+          .tooltiptext {
+            align-self: flex-end;
+            visibility: hidden;
+            width: 150px;
+            padding: 10px 10px;
+            background-color: $background;
+            text-align: center;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            margin-bottom: 30px;
+            @include text('regularFont', 14px, $white);
+
+            &:after {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              margin-left: -5px;
+              border-width: 5px;
+              border-style: solid;
+              border-color: $background transparent transparent transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .root {
+    .details {
+      div {
+        .availability {
+          > div {
+            &:hover {
+              .tooltiptext {
+                -moz-animation: cssAnimation 0s ease-in 1s forwards;
+                /* Firefox */
+                -webkit-animation: cssAnimation 0s ease-in 1s forwards;
+                /* Safari and Chrome */
+                -o-animation: cssAnimation 0s ease-in 1s forwards;
+                /* Opera */
+                animation: cssAnimation 0s ease-in 1s forwards;
+                -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes cssAnimation {
+  to {
+    visibility: visible;
+  }
+}
+@-webkit-keyframes cssAnimation {
+  to {
+    visibility: visible;
+  }
+} ;

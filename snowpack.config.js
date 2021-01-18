@@ -23,4 +23,5 @@ module.exports = {
     '@logic/': './src/logic/',
     '@components/': './src/components/',
   },
+  routes: [{ match: 'routes', src: '.*', dest: '/index.html' }],
 };

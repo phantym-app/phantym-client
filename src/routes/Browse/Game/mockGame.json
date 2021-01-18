@@ -1,0 +1,13 @@
+{
+  "gameInfo": {
+    "title": "The Witcher 3 - Game Of The Year Edition",
+    "price": "59.99",
+    "availability": {
+      "desktop": true,
+      "mobile": false,
+      "castable": true
+    },
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec ultricies mauris, vitae tincidunt lacus. Etiam efficitur metus vitae laoreet eleifend. Sed commodo iaculis vestibulum. Aenean viverra finibus erat a volutpat. Vestibulum aliquam, velit porttitor gravida iaculis, odio neque tincidunt turpis, dictum porttitor lectus turpis vitae dui. Nunc mattis augue nisl, et ullamcorper turpis consequat at. Donec finibus erat ac consectetur vehicula. Donec aliquet ipsum a libero pulvinar placerat. Quisque eu iaculis nisl. Cras ultricies elementum ante, eget vehicula velit convallis in. Nunc a magna et augue ultricies faucibus eu nec dolor. Quisque vel turpis at augue convallis faucibus ut nec purus. Morbi magna urna, imperdiet ac diam ut, semper maximus metus. Ut volutpat sodales diam, ut pharetra arcu ornare ut. Quisque volutpat pharetra mi quis tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce consectetur purus non scelerisque laoreet.",
+    "releaseDate": "19/11//2020"
+  }
+}

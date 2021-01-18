@@ -1,0 +1,106 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  background-color: $backgroundLifted;
+  border: 2px $backgroundLifted solid;
+  width: fit-content;
+  width: 250px;
+  height: fit-content;
+  border-radius: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+  @include text('regularFont', 16px, $white);
+
+  .select {
+    padding: 10px 15px;
+    width: 100%;
+    height: 100%;
+    background-color: $backgroundLifted;
+    border: none;
+    cursor: pointer;
+    @include text('regularFont', 16px, $white);
+    z-index: 1;
+    user-select: none;
+    border-radius: 10px;
+  }
+
+  .select.initialValue {
+    color: $grey;
+  }
+
+  .chevronContainer {
+    position: absolute;
+    height: 46px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    margin: -44px 0 0 198px;
+
+    img {
+      max-width: 20px;
+      max-height: 20px;
+      transition: 0.2s ease-out;
+    }
+  }
+
+  hr {
+    margin: 0 auto;
+    border: none;
+    width: calc(100% - 20px);
+  }
+
+  .optionsMenu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    max-height: calc(6.5 * 42px);
+    background-color: $backgroundLifted;
+    border-top: none;
+    z-index: 0;
+    user-select: none;
+    overflow-y: scroll;
+
+    > :first-child {
+      color: $grey !important;
+    }
+
+    .option {
+      background-color: $backgroundLifted;
+      border: none;
+      padding: 10px 15px;
+      text-align: start;
+      cursor: pointer;
+      @include text('regularFont', 16px, $white);
+
+      &:hover {
+        background-color: $backgroundLifted2;
+      }
+    }
+  }
+}
+
+.root.pickedValue {
+  border: 2px $purple solid;
+}
+
+.root.active {
+  .chevronContainer {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  hr {
+    border: 1px $backgroundLifted2 solid;
+    border-right: none;
+    border-left: none;
+  }
+
+  .optionsMenu {
+    display: flex;
+  }
+}

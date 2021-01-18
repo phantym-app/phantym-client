@@ -1,0 +1,172 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+
+  video {
+    cursor: pointer;
+    width: inherit;
+    height: inherit;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: $background;
+  }
+
+  .mediaUI {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    height: fit-content;
+    bottom: 0px;
+    padding: 0 25px 25px;
+    justify-content: flex-end;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 25%,
+      rgba(0, 0, 0, 0.8) 50%,
+      rgba(0, 0, 0, 1) 100%
+    );
+
+    .progressbar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      position: relative;
+
+      .handle {
+        background-color: transparent;
+        width: 100%;
+        height: 2px;
+        outline: none;
+        cursor: pointer;
+        position: absolute;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-apperance: none;
+
+        &::-webkit-slider-thumb {
+          border: none;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: $white;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-apperance: none;
+        }
+      }
+
+      progress[value] {
+        height: 2px;
+        width: 100%;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+        &::-webkit-progress-bar {
+          background-color: $backgroundLifted;
+          border-radius: 10px;
+        }
+
+        &::-webkit-progress-value {
+          background-color: $purple;
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .leftSideVideo button,
+      .rightSideVideo button {
+        background-color: transparent;
+        width: 35px;
+        height: 25px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .leftSideVideo {
+        display: flex;
+
+        .volumeButton {
+          display: flex;
+
+          .volumeSlider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100%;
+            position: relative;
+            margin-left: 15px;
+
+            input {
+              width: 100%;
+              height: 10px;
+              position: absolute;
+              cursor: pointer;
+              background-color: transparent;
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+
+              &::-webkit-slider-thumb {
+                border: none;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-color: $white;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-apperance: none;
+              }
+            }
+
+            progress[value] {
+              width: 100%;
+              height: 5px;
+              appearance: none;
+              -webkit-appearance: none;
+              -moz-appearance: none;
+
+              &::-webkit-progress-bar {
+                background-color: $backgroundLifted;
+                border-radius: 10px;
+              }
+
+              &::-webkit-progress-value {
+                background-color: $purple;
+                border-radius: 10px;
+              }
+            }
+          }
+        }
+
+        > * {
+          margin-right: 25px;
+          @include text('boldFont', 16px, $white);
+        }
+      }
+
+      .rightSideVideo {
+        display: flex;
+      }
+    }
+  }
+}

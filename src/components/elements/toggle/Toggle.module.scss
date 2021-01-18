@@ -1,4 +1,5 @@
-@import '../../../global.scss';
+@import '../../../styling/sass.scss';
+
 .root {
   display: flex;
   justify-content: center;
@@ -11,7 +12,7 @@
   }
 
   .input + .label {
-    background: $backgroundLifted;
+    background: $background;
   }
 
   .input:checked + .label {

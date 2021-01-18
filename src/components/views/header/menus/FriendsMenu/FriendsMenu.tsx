@@ -54,7 +54,6 @@ function FriendsMenu({ hideMenu }: Props) {
   return (
     //@ts-ignore
     <div ref={ref} class={styles.root}>
-      <div class={styles.triangle} />
       <div class={styles.header}>
         <div class={styles.navigation}>
           <button

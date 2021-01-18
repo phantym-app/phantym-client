@@ -9,15 +9,17 @@ import { AuthContainer } from '@store/auth';
 
 import './global.scss';
 
-// lazy route imports
 import Header from '@components/views/header/Header';
+import Loader from '@components/elements/loader/Loader';
+
 const Home = lazy(() => import('@routes/Home'));
 const Browse = lazy(() => import('@routes/Browse'));
 const Login = lazy(() => import('@routes/Login'));
-// const Game = lazy(() => import('@routes/Game'));
-
-/* TODO add proper fallbacks */
-const Fallback = () => <h1>loading...</h1>;
+const Settings = lazy(() => import('@routes/Settings'));
+const Room = lazy(() => import('@routes/Room'));
+const Friends = lazy(() => import('@routes/Friends'));
+const Cart = lazy(() => import('@routes/Cart'));
+const BrowseGame = lazy(() => import('@routes/Browse/Game'));
 
 render(
   <StrictMode>
@@ -26,10 +28,15 @@ render(
         <Header />
         <main>
           <Switch>
-            <Suspense fallback={<Fallback />}>
+            <Suspense fallback={<Loader />}>
+              <Route path={'/room'} render={() => <Room />} exact />
+              <Route path={'/cart'} render={() => <Cart />} exact />
+              <Route path={'/social'} render={() => <Friends />} exact />
+              <Route path={'/settings'} render={() => <Settings />} exact />
+              <Route path={'/browse/game'} render={() => <BrowseGame />} exact />
               <Route path={'/browse'} render={() => <Browse />} exact />
               <Route path={'/login'} render={() => <Login />} exact />
-              <Route path={'/'} render={() => <Home />} />
+              <Route path={'/'} render={() => <Home />} exact />
             </Suspense>
           </Switch>
         </main>

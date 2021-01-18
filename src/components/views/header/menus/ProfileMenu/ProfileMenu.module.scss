@@ -1,19 +1,24 @@
-@import '../../../../../global.scss';
+@import '../../../../../styling/sass.scss';
+
 .root {
-  background-color: $darkest;
+  background-color: $backgroundLifted;
   position: absolute;
   width: 200px;
-  margin: 30px 0 0 0;
   border-radius: 5px;
   display: block;
+  margin-left: 325px;
+  z-index: 10;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 
-  .triangle {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 15px solid $darkest;
-    margin: -15px 0 0 150px;
+  &:before {
+    content: '';
+    position: absolute;
+    top: calc(65px / 2);
+    left: -15px;
+    margin-left: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent $backgroundLifted transparent transparent;
   }
 
   > :nth-child(2) {
@@ -35,7 +40,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $darkest;
+      background-color: $backgroundLifted;
       filter: brightness(150%);
     }
 
