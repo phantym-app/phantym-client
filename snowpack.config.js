@@ -4,6 +4,7 @@ module.exports = {
   mount: {
     src: { url: '/_dist_' },
     public: { url: '/', static: true, resolve: false },
+    dev: { url: '/_dist_' },
   },
   plugins: ['snowpack-plugin-swc', '@snowpack/plugin-sass', '@prefresh/snowpack'],
   packageOptions: {
