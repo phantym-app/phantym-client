@@ -1,5 +1,5 @@
 import 'preact/debug'; // TODO delete in production
-import './preactImplicitClassnames';
+import '../dev/preact/preactImplicitClassnames';
 
 import { h, render } from 'preact';
 import { Suspense, lazy, StrictMode } from 'preact/compat';
