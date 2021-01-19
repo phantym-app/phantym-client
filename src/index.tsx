@@ -20,17 +20,6 @@ const Login = lazy(() => import('./routes/Login'));
 const Home = lazy(() => import('./routes/Home'));
 const Header = lazy(() => import('./components/views/header/Header'));
 
-const LazyRoute = ({ path, component: Component, props, fallback }: any) => (
-  <Route
-    path={path}
-    render={() => (
-      <Suspense fallback={fallback}>
-        <Component {...props} />
-      </Suspense>
-    )}
-  />
-);
-
 /* TODO add proper fallbacks */
 const Fallback = () => <Loader />;
 
@@ -46,71 +35,73 @@ const App = () => {
           </Suspense>
           <main>
             <Switch>
-              <LazyRoute
-                path={'/room'}
-                component={Room}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/cart'}
-                component={Cart}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/social'}
-                component={Friends}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/settings'}
-                component={Settings}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/browse/game'}
-                component={BrowseGame}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              <LazyRoute
-                path={'/browse'}
-                component={Browse}
-                props={{ user, signOut }}
-                fallback={<Fallback />}
-                exact
-              />
-
-              {user.isAnonymous && (
-                <LazyRoute
-                  path={'/login'}
-                  component={Login}
-                  props={{ user, signInWithGoogle }}
+              <Suspense fallback={Fallback}>
+                <Route
+                  path={'/room'}
+                  component={Room}
+                  props={{ user }}
                   fallback={<Fallback />}
                   exact
                 />
-              )}
 
-              <LazyRoute
-                path={'/'}
-                component={Home}
-                props={{ user }}
-                fallback={<Fallback />}
-                exact
-              />
+                <Route
+                  path={'/cart'}
+                  component={Cart}
+                  props={{ user }}
+                  fallback={<Fallback />}
+                  exact
+                />
+
+                <Route
+                  path={'/social'}
+                  component={Friends}
+                  props={{ user }}
+                  fallback={<Fallback />}
+                  exact
+                />
+
+                <Route
+                  path={'/settings'}
+                  component={Settings}
+                  props={{ user }}
+                  fallback={<Fallback />}
+                  exact
+                />
+
+                <Route
+                  path={'/browse/game'}
+                  component={BrowseGame}
+                  props={{ user }}
+                  fallback={<Fallback />}
+                  exact
+                />
+
+                <Route
+                  path={'/browse'}
+                  component={Browse}
+                  props={{ user, signOut }}
+                  fallback={<Fallback />}
+                  exact
+                />
+
+                {user.isAnonymous && (
+                  <Route
+                    path={'/login'}
+                    component={Login}
+                    props={{ user, signInWithGoogle }}
+                    fallback={<Fallback />}
+                    exact
+                  />
+                )}
+
+                <Route
+                  path={'/'}
+                  component={Home}
+                  props={{ user }}
+                  fallback={<Fallback />}
+                  exact
+                />
+              </Suspense>
             </Switch>
           </main>
         </>

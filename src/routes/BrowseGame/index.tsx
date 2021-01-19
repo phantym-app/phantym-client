@@ -29,42 +29,44 @@ const Game = () => {
   return (
     <div className={classnames(styles.root)}>
       <div className={classnames(styles.header)}>
-        <Link to={'/browse'}>
-          <div className={classnames(styles.backContainer)}>
-            <img src={arrowLeft} alt={'backArrow'} />
-            <p>Browse</p>
+        <div className={classnames(styles.headerContent)}>
+          <Link to={'/browse'}>
+            <div className={classnames(styles.backContainer)}>
+              <img src={arrowLeft} alt={'backArrow'} />
+              <p>Browse</p>
+            </div>
+          </Link>
+          <div className={classnames(styles.navigation)}>
+            <p
+              className={classnames({
+                [styles.active]: currentSection === 0,
+              })}
+            >
+              Overview
+            </p>
+            <p
+              className={classnames({
+                [styles.active]: currentSection === 1,
+              })}
+            >
+              About
+            </p>
+            <p
+              className={classnames({
+                [styles.active]: currentSection === 2,
+              })}
+            >
+              Reviews
+            </p>
+            <p
+              className={classnames({
+                [styles.active]: currentSection === 3,
+              })}
+            >
+              More like this
+            </p>
+            <Button>Add to cart</Button>
           </div>
-        </Link>
-        <div className={classnames(styles.navigation)}>
-          <p
-            className={classnames({
-              [styles.active]: currentSection === 0,
-            })}
-          >
-            Overview
-          </p>
-          <p
-            className={classnames({
-              [styles.active]: currentSection === 1,
-            })}
-          >
-            About
-          </p>
-          <p
-            className={classnames({
-              [styles.active]: currentSection === 2,
-            })}
-          >
-            Reviews
-          </p>
-          <p
-            className={classnames({
-              [styles.active]: currentSection === 3,
-            })}
-          >
-            More like this
-          </p>
-          <Button>Add to cart</Button>
         </div>
       </div>
       <div className={classnames(styles.content)}>

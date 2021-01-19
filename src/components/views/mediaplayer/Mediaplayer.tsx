@@ -5,7 +5,7 @@ import classnames from 'classnames';
 
 import mockVideo from '@assets/videos/mockVideo.mp4';
 
-import Video from '../../elements/video/Video';
+import VideoPlayer from '../../elements/videoPlayer/VideoPlayer';
 
 type Props = {
   type: 'onlyVideo' | 'onlyImages' | 'videoAndImages';
@@ -35,7 +35,7 @@ const Mediaplayer = (props: Props) => {
       )}
       <div className={classnames(styles.content)}>
         <div className={classnames(styles.mediaContainer)}>
-          <Video video={mockVideo} />
+          <VideoPlayer video={mockVideo} />
         </div>
         <div className={classnames(styles.mediaSelector)}>
           <div className={classnames(styles.mediaSelect)}></div>
