@@ -11,13 +11,6 @@ import gamepad from '@assets/icons/gamepad.svg';
 import compass from '@assets/icons/compass.svg';
 import cart from '@assets/icons/shopping-cart.svg';
 
-import activeCog from '@assets/icons/activeCog.svg';
-import activeFriends from '@assets/icons/activeUsers.svg';
-import activeRoom from '@assets/icons/activeGrid.svg';
-import activeGamepad from '@assets/icons/activeGamepad.svg';
-import activeCompass from '@assets/icons/activeCompass.svg';
-import activeCart from '@assets/icons/activeShoppingcart.svg';
-
 import Button from '@components/elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 
@@ -30,28 +23,28 @@ function Header() {
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
 
-  const PageLink = ({ to, activeImage, inactiveImage, children }: any) => (
+  const PageLink = ({ to, isActive, imageSrc, children }: any) => (
     <Link to={to} class={styles.pageLink}>
       <div class={styles.iconContainer}>
-        <img src={pathname.startsWith(to) ? activeImage : inactiveImage} alt={'room'} />
+        <img class={{ [styles.active]: isActive }} src={imageSrc} alt={'room'} />
       </div>
-      <p class={{ [styles.active]: pathname.startsWith(to) }}>{children}</p>
+      <p class={{ [styles.active]: isActive }}>{children}</p>
     </Link>
   );
 
   return (
-    <header class={styles.root}>
+    <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
       <div class={styles.links}>
         {/* Profile button */}
         {user && user.isAnonymous ? (
-          <a href={'/login'}>
+          <Link to={'/login'}>
             <button class={styles.pageLink}>
               <div class={styles.iconContainer}>
                 <img src={logIn} alt={'log-in'} />
               </div>
               <p>Sign in</p>
             </button>
-          </a>
+          </Link>
         ) : (
           <div class={styles.profileMenu}>
             <button
@@ -67,83 +60,29 @@ function Header() {
           </div>
         )}
 
-        {/* Browse button */}
-        <Link to={'/browse'} class={styles.pageLink}>
-          <div class={styles.iconContainer}>
-            <img src={pathname.startsWith('/browse') ? activeCompass : compass} alt={'Browse'} />
-          </div>
-          <p
-            class={{
-              [styles.active]: pathname.startsWith('/browse'),
-            }}>
-            Browse
-          </p>
-        </Link>
+        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} imageSrc={compass}>
+          Browse
+        </PageLink>
 
-        {/* My games button */}
-        <Link to={'/'} class={styles.pageLink}>
-          <div class={styles.iconContainer}>
-            <img src={pathname === '/' ? activeGamepad : gamepad} alt={'My games'} />
-          </div>
-          <p
-            class={{
-              [styles.active]: pathname === '/',
-            }}>
-            My games
-          </p>
-        </Link>
+        <PageLink to={'/'} isActive={pathname === '/'} imageSrc={gamepad}>
+          My games
+        </PageLink>
 
-        {/* Cart button */}
-        <Link to={'/cart'} class={styles.pageLink}>
-          <div class={styles.iconContainer}>
-            <img src={pathname.startsWith('/cart') ? activeCart : cart} alt={'cart'} />
-          </div>
-          <p
-            class={{
-              [styles.active]: pathname.startsWith('/cart'),
-            }}>
-            Cart
-          </p>
-        </Link>
+        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} imageSrc={cart}>
+          Cart
+        </PageLink>
 
-        {/* Friends button */}
-        <Link to={'/social?page=friends'} class={styles.pageLink}>
-          <div class={styles.iconContainer}>
-            <img src={pathname.startsWith('/social') ? activeFriends : friends} alt={'social'} />
-          </div>
-          <p
-            class={{
-              [styles.active]: pathname.startsWith('/social'),
-            }}>
-            Friends
-          </p>
-        </Link>
+        <PageLink to={'/social?page=friends'} isActive={pathname.startsWith('/social')} imageSrc={friends}>
+          Friends
+        </PageLink>
 
-        {/* Room button */}
-        <Link to={'/room'} class={styles.pageLink}>
-          <div class={styles.iconContainer}>
-            <img src={pathname.startsWith('/room') ? activeRoom : room} alt={'room'} />
-          </div>
-          <p
-            class={{
-              [styles.active]: pathname.startsWith('/room'),
-            }}>
-            Room
-          </p>
-        </Link>
+        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room}>
+          Room
+        </PageLink>
 
-        {/* Settings button */}
-        <Link to={'/settings'} class={styles.pageLink}>
-          <div class={styles.iconContainer}>
-            <img src={pathname.startsWith('/settings') ? activeCog : cog} alt={'settings'} />
-          </div>
-          <p
-            class={{
-              [styles.active]: pathname.startsWith('/settings'),
-            }}>
-            Settings
-          </p>
-        </Link>
+        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog}>
+          Settings
+        </PageLink>
       </div>
       <Button style={'cast'}>Start casting</Button>
     </header>

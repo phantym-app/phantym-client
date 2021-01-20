@@ -17,7 +17,6 @@
     margin-left: 50px;
   }
 
-  // WARNING OLO ATTEMPTED CSS
   transition: 200ms;
 
   .links {
@@ -65,6 +64,11 @@
         display: flex;
         overflow: hidden;
         margin-right: 25px;
+
+        img.active {
+          filter: brightness(0) saturate(100%) invert(59%) sepia(31%) saturate(5403%) hue-rotate(216deg)
+            brightness(100%) contrast(103%);
+        }
       }
 
       &:hover {
@@ -82,17 +86,7 @@
   }
 }
 
-// WARNING OLO ATTEMPTED CSS
 .hidden {
   position: absolute;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
-
-// @keyframes fadeIn {
-//   0% {
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
