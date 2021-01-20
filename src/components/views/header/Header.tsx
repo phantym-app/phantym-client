@@ -63,7 +63,12 @@ function Header() {
         <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} imageSrc={compass} title={'Browse'} />
         <PageLink to={'/'} isActive={pathname === '/'} imageSrc={gamepad} title={'My games'} />
         <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} imageSrc={cart} title={'Cart'} />
-        <PageLink to={'/social?page=friends'} isActive={pathname.startsWith('/social')} imageSrc={friends} title={'Friends'} />
+        <PageLink
+          to={'/social?page=friends'}
+          isActive={pathname.startsWith('/social')}
+          imageSrc={friends}
+          title={'Friends'}
+        />
         <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room} title={'Room'} />
         <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog} title={'Settings'} />
       </div>
