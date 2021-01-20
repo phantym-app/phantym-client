@@ -36,7 +36,7 @@ function Header() {
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
       <div class={styles.links}>
         {/* Profile button */}
-        {user && user.isAnonymous ? (
+        {user === undefined || user.isAnonymous ? (
           <Link to={'/login'}>
             <button class={styles.pageLink}>
               <div class={styles.iconContainer}>
@@ -52,7 +52,7 @@ function Header() {
               onKeyPress={(e: any) => e.key === 'Enter' && setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}
               onMouseDown={() => setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}>
               <div class={styles.iconContainer}>
-                <img src={(user !== undefined && user?.photoURL) || ''} alt={'user'} />
+                <img src={user?.photoURL || ''} alt={'user'} />
               </div>
               <p>{user?.displayName}</p>
             </button>
