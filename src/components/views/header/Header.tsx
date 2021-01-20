@@ -18,19 +18,19 @@ import { Link } from 'react-router-dom';
 
 import { AuthContainer } from '@store/auth';
 
+const PageLink = ({ to, isActive, imageSrc, title }: any) => (
+  <Link to={to} class={styles.pageLink}>
+    <div class={styles.iconContainer}>
+      <img class={{ [styles.active]: isActive }} src={imageSrc} alt={'room'} />
+    </div>
+    <p class={{ [styles.active]: isActive }}>{title}</p>
+  </Link>
+);
+
 function Header() {
   const [activeMenu, setActiveMenu] = useState<string>('');
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
-
-  const PageLink = ({ to, isActive, imageSrc, children }: any) => (
-    <Link to={to} class={styles.pageLink}>
-      <div class={styles.iconContainer}>
-        <img class={{ [styles.active]: isActive }} src={imageSrc} alt={'room'} />
-      </div>
-      <p class={{ [styles.active]: isActive }}>{children}</p>
-    </Link>
-  );
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
@@ -60,29 +60,12 @@ function Header() {
           </div>
         )}
 
-        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} imageSrc={compass}>
-          Browse
-        </PageLink>
-
-        <PageLink to={'/'} isActive={pathname === '/'} imageSrc={gamepad}>
-          My games
-        </PageLink>
-
-        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} imageSrc={cart}>
-          Cart
-        </PageLink>
-
-        <PageLink to={'/social?page=friends'} isActive={pathname.startsWith('/social')} imageSrc={friends}>
-          Friends
-        </PageLink>
-
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room}>
-          Room
-        </PageLink>
-
-        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog}>
-          Settings
-        </PageLink>
+        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} imageSrc={compass} title={'Browse'} />
+        <PageLink to={'/'} isActive={pathname === '/'} imageSrc={gamepad} title={'My games'} />
+        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} imageSrc={cart} title={'Cart'} />
+        <PageLink to={'/social?page=friends'} isActive={pathname.startsWith('/social')} imageSrc={friends} title={'Friends'} />
+        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room} title={'Room'} />
+        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog} title={'Settings'} />
       </div>
       <Button style={'cast'}>Start casting</Button>
     </header>
