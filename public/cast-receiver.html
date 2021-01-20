@@ -8,6 +8,10 @@
     <title>unsole cast</title>
   </head>
 
+  <script>
+    const pipe = (...fns) => (args = null) => fns.reduce((A, fn) => (typeof fn === 'string' ? A[fn] : fn(A)), args);
+  </script>
+
   <body id="root">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <script type="module" src="/_dist_/index-cast-receiver.js"></script>

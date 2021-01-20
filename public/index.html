@@ -5,8 +5,15 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Web site created using create-snowpack-app" />
+
     <title>unsole</title>
+
+    <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
   </head>
+
+  <script>
+    const pipe = (...fns) => (args = null) => fns.reduce((A, fn) => (typeof fn === 'string' ? A[fn] : fn(A)), args);
+  </script>
 
   <body id="root">
     <noscript>You need to enable JavaScript to run this app.</noscript>

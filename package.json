@@ -3,8 +3,7 @@
     "start": "npx snowpack dev",
     "format": "npx prettier --write \"src/**/*.{ts,tsx,scss}\"",
     "build": "npx snowpack build",
-    "serve": "serve -s ./build",
-    "deploy": "cd functions && npm run build && cd .. && npm run build && firebase deploy"
+    "serve": "serve -s ./build"
   },
   "dependencies": {
     "firebase": "^8.2.3",

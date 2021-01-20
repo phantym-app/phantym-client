@@ -7,7 +7,7 @@ type Props = {
   squared?: boolean;
   squaredIcon?: string;
   style?: 'google' | 'facebook' | 'cast';
-  onClick?: () => void;
+  onClick?: (...args: any) => void;
 };
 
 const Button = ({ children, squared, squaredIcon, style, onClick = () => {} }: Props) => (

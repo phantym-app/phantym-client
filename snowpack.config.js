@@ -27,10 +27,10 @@ module.exports = {
     react: 'preact/compat',
     'react-dom': 'preact/compat',
 
-    '@assets/': './public/assets/',
-    '@routes/': './src/routes/',
-    '@store/': './src/store/',
-    '@logic/': './src/logic/',
-    '@components/': './src/components/',
+    '@assets': './public/assets',
+    '@routes': './src/routes',
+    '@store': './src/store',
+    '@logic': './src/logic',
+    '@components': './src/components',
   },
 };

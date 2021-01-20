@@ -4,13 +4,12 @@ import { h, render } from 'preact';
 import { Suspense, lazy, StrictMode } from 'preact/compat';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { AuthContainer } from '@store/auth';
+import StoreProvider from '@store';
 
 import './global.scss';
 
 import Header from '@components/views/header/Header';
 import Loader from '@components/elements/loader/Loader';
-
 const Home = lazy(() => import('@routes/Home'));
 const Browse = lazy(() => import('@routes/Browse'));
 const Login = lazy(() => import('@routes/Login'));
@@ -28,7 +27,7 @@ async function _render() {
 
   render(
     <StrictMode>
-      <AuthContainer.Provider>
+      <StoreProvider>
         <BrowserRouter>
           <Header />
           <main>
@@ -46,10 +45,9 @@ async function _render() {
             </Switch>
           </main>
         </BrowserRouter>
-      </AuthContainer.Provider>
+      </StoreProvider>
     </StrictMode>,
     document.getElementById('root') as Element,
   );
 }
-
 _render();

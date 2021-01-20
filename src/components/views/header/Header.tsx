@@ -17,8 +17,9 @@ import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 import { Link } from 'react-router-dom';
 
 import { AuthContainer } from '@store/auth';
+import { CasterContainer } from '@store/caster';
 
-const PageLink = ({ to, isActive, imageSrc, title }: any) => (
+const PageLink = ({ to, isActive = false, imageSrc, title }: any) => (
   <Link to={to} class={styles.pageLink}>
     <div class={styles.iconContainer}>
       <img class={{ [styles.active]: isActive }} src={imageSrc} alt={'room'} />
@@ -27,37 +28,44 @@ const PageLink = ({ to, isActive, imageSrc, title }: any) => (
   </Link>
 );
 
+function ProfileButton({ user }) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  function _toggle() {
+    setIsOpen(!isOpen);
+  }
+
+  return (
+    <div class={styles.profileMenu}>
+      <button class={styles.pageLink} onKeyPress={e => e.key === 'Enter' && _toggle()} onMouseDown={_toggle}>
+        <div class={styles.iconContainer}>
+          <img src={user?.photoURL || ''} alt={'user'} />
+        </div>
+
+        <p>{user?.displayName}</p>
+      </button>
+
+      {isOpen && <ProfileMenu hideMenu={() => setIsOpen(false)} />}
+    </div>
+  );
+}
+
 function Header() {
-  const [activeMenu, setActiveMenu] = useState<string>('');
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
+  const { receiverIsAvailable, launchApp } = CasterContainer.useContainer();
+
+  function handleCast(e) {
+    launchApp();
+  }
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
       <div class={styles.links}>
-        {/* Profile button */}
         {user === undefined || user.isAnonymous ? (
-          <Link to={'/login'}>
-            <button class={styles.pageLink}>
-              <div class={styles.iconContainer}>
-                <img src={logIn} alt={'log-in'} />
-              </div>
-              <p>Sign in</p>
-            </button>
-          </Link>
+          <PageLink to={'/login'} imageSrc={logIn} title={'Sign in'} />
         ) : (
-          <div class={styles.profileMenu}>
-            <button
-              class={styles.pageLink}
-              onKeyPress={(e: any) => e.key === 'Enter' && setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}
-              onMouseDown={() => setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}>
-              <div class={styles.iconContainer}>
-                <img src={user?.photoURL || ''} alt={'user'} />
-              </div>
-              <p>{user?.displayName}</p>
-            </button>
-            {activeMenu === 'profile' && <ProfileMenu hideMenu={() => setActiveMenu('')} />}
-          </div>
+          <ProfileButton user={user} />
         )}
 
         <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} imageSrc={compass} title={'Browse'} />
@@ -72,7 +80,12 @@ function Header() {
         <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room} title={'Room'} />
         <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog} title={'Settings'} />
       </div>
-      <Button style={'cast'}>Start casting</Button>
+
+      {receiverIsAvailable && (
+        <Button style={'cast'} onClick={handleCast}>
+          Start casting
+        </Button>
+      )}
     </header>
   );
 }

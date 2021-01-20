@@ -1,4 +1,5 @@
 import 'preact';
+import 'preact/hooks';
 
 type ToggleableString = { [key: string]: boolean };
 
@@ -8,4 +9,8 @@ declare module 'preact' {
       class?: string | ToggleableString | Array<string | ToggleableString>;
     }
   }
+}
+
+declare module 'preact/hooks' {
+  function useEffect(effect: EffectCallback | (() => Promise<void>), inputs?: Inputs): void;
 }
