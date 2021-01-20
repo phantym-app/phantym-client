@@ -6,14 +6,23 @@ module.exports = {
     public: { url: '/', static: true, resolve: false },
     'dev/mods': '/_dist_',
   },
-  plugins: ['snowpack-plugin-swc', '@snowpack/plugin-sass', '@prefresh/snowpack'],
-  packageOptions: {
-    installTypes: true,
-  },
-  buildOptions: {
-    out: 'build',
-    watch: false, // useful if using own backend instead of dev server
-  },
+
+  routes: [
+    { src: '/cast', dest: '/cast-receiver.html' },
+    { match: 'routes', src: '.*', dest: '/index.html' },
+  ],
+
+  plugins: [
+    '@snowpack/plugin-svelte',
+    '@snowpack/plugin-dotenv',
+    'snowpack-plugin-swc',
+    '@snowpack/plugin-sass',
+    '@prefresh/snowpack',
+  ],
+
+  buildOptions: { out: 'build' },
+  // packageOptions: { types: true, source: "remote" },
+
   alias: {
     react: 'preact/compat',
     'react-dom': 'preact/compat',
@@ -24,5 +33,4 @@ module.exports = {
     '@logic/': './src/logic/',
     '@components/': './src/components/',
   },
-  routes: [{ match: 'routes', src: '.*', dest: '/index.html' }],
 };
