@@ -18,7 +18,7 @@ declare const chrome: {
 
 const apiHasLoaded = new Promise<void>(res => {
   const _pollApi = setInterval(function () {
-    if (chrome.cast.isAvailable) {
+    if (chrome?.cast?.isAvailable) {
       clearInterval(_pollApi);
       res();
     }
