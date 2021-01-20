@@ -4,7 +4,7 @@ import styles from './Mediaplayer.module.scss';
 
 import mockVideo from '@assets/videos/mockVideo.mp4';
 
-import Video from '@components/elements/video/Video';
+import VideoPlayer from '@components/elements/videoPlayer/VideoPlayer';
 
 type Props = {
   type: 'onlyVideo' | 'onlyImages' | 'videoAndImages';
@@ -31,7 +31,7 @@ const Mediaplayer = ({ type }: Props) => {
       )}
       <div class={styles.content}>
         <div class={styles.mediaContainer}>
-          <Video video={mockVideo} />
+          <VideoPlayer video={mockVideo} />
         </div>
         <div class={styles.mediaSelector}>
           <div class={styles.mediaSelect}></div>

@@ -28,18 +28,20 @@ const Game = () => {
   return (
     <div class={styles.root}>
       <div class={styles.header}>
-        <Link to={'/browse'}>
-          <div class={styles.backContainer}>
-            <img src={arrowLeft} alt={'backArrow'} />
-            <p>Browse</p>
+        <div class={styles.headerContent}>
+          <Link to={'/browse'}>
+            <div class={styles.backContainer}>
+              <img src={arrowLeft} alt={'backArrow'} />
+              <p>Browse</p>
+            </div>
+          </Link>
+          <div class={styles.navigation}>
+            <p class={{ [styles.active]: currentSection === 0 }}>Overview</p>
+            <p class={{ [styles.active]: currentSection === 1 }}>About</p>
+            <p class={{ [styles.active]: currentSection === 2 }}>Reviews</p>
+            <p class={{ [styles.active]: currentSection === 3 }}>More like this</p>
+            <Button>Add to cart</Button>
           </div>
-        </Link>
-        <div class={styles.navigation}>
-          <p class={{ [styles.active]: currentSection === 0 }}>Overview</p>
-          <p class={{ [styles.active]: currentSection === 1 }}>About</p>
-          <p class={{ [styles.active]: currentSection === 2 }}>Reviews</p>
-          <p class={{ [styles.active]: currentSection === 3 }}>More like this</p>
-          <Button>Add to cart</Button>
         </div>
       </div>
       <div class={styles.content}>
