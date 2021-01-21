@@ -1,89 +1,83 @@
 import { useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
-declare const chrome: {
-  cast: {
-    initialize: (apiConfig, onInitSuccess?, onInitError?) => any;
-    media: {
-      DEFAULT_MEDIA_RECEIVER_APP_ID;
-      MediaInfo;
-      LoadRequest;
-    };
-    SessionRequest;
-    ApiConfig;
-    isAvailable;
-    requestSession;
-  };
-};
+declare const chrome, cast;
 
-const apiHasLoaded = new Promise<void>(res => {
-  const _pollApi = setInterval(function () {
-    if (chrome?.cast?.isAvailable) {
-      clearInterval(_pollApi);
-      res();
-    }
-  }, 1000);
-});
+const apiLoaded = pipe(
+  loadScript,
+  wait(500),
+)('https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1');
 
 function useCaster() {
-  const [session, _setSession] = useState<any>(undefined);
-  const [receiverIsAvailable, _setReceiverAvailable] = useState(false);
+  const [receiverIsAvailable, setReceiverAvailable] = useState(false);
+  const [session, setSession] = useState<any>(undefined);
+  const [castContext, setCastContext] = useState<any>(undefined);
 
-  useEffect(async function initApi() {
-    await apiHasLoaded;
+  async function getCastContext() {
+    await apiLoaded;
 
-    const _config = new chrome.cast.ApiConfig(
-      new chrome.cast.SessionRequest('4D7DAAD2'),
-      sessionListener,
-      receiverListener,
-    );
+    const castContext = cast.framework.CastContext.getInstance();
+    castContext.setOptions({
+      receiverApplicationId: '4D7DAAD2',
+      // receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+      autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+    });
 
-    chrome.cast.initialize(_config);
-  }, []);
+    setCastContext(castContext);
+  }
 
-  function receiverListener(e) {
-    if (e === 'available') {
-      console.log('Chromecast was found on the network.');
-      _setReceiverAvailable(true);
-    } else {
-      console.log('There are no Chromecasts available.');
-      _setReceiverAvailable(false);
+  function listenForCasts() {
+    if (castContext === undefined) return;
+
+    onCastStateChange({ castState: castContext.getCastState() });
+    onSessionStateChange({ sessionState: castContext.getSessionState() });
+
+    const { CAST_STATE_CHANGED, SESSION_STATE_CHANGED } = cast.framework.CastContextEventType;
+    castContext.addEventListener(CAST_STATE_CHANGED, onCastStateChange);
+    castContext.addEventListener(SESSION_STATE_CHANGED, onSessionStateChange);
+    return function cleanup() {
+      castContext.removeEventListener(CAST_STATE_CHANGED, onCastStateChange);
+      castContext.removeEventListener(SESSION_STATE_CHANGED, onSessionStateChange);
+    };
+  }
+
+  function onCastStateChange({ castState }) {
+    switch (castState) {
+      case 'NO_DEVICES_AVAILABLE':
+        setReceiverAvailable(false);
+        break;
+
+      case 'NOT_CONNECTED':
+        setReceiverAvailable(true);
+        break;
+
+      case 'CONNECTING':
+      case 'CONNECTED':
+        break;
+        throw new Error('unhandled castStateChange');
     }
   }
 
-  function sessionListener(e) {
-    _setSession(e);
-    console.log('New session');
-    if (session.media.length != 0) {
-      console.log('Found ' + session.media.length + ' sessions.');
+  function onSessionStateChange({ sessionState /* ,session */ }) {
+    switch (sessionState) {
+      default:
     }
   }
 
-  async function launchApp() {
+  useEffect(getCastContext, []);
+  useEffect(listenForCasts, [castContext]);
+
+  async function sendCast() {
     try {
-      console.log('Launching the Chromecast App...');
-      const session: any = await new Promise(chrome.cast.requestSession);
-      console.log('Successfully created session: ' + session.sessionId);
-      _setSession(session);
-
-      let mediaInfo = new chrome.cast.media.MediaInfo('http://i.imgur.com/IFD14.jpg');
-      mediaInfo.contentType = 'image/jpg';
-
-      let request = new chrome.cast.media.LoadRequest(mediaInfo);
-      request.autoplay = true;
-
-      await new Promise((res, rej) => session.loadMedia(request, res, rej));
-
-      console.log('Successfully loaded image.');
-
+      const session: any = await castContext.requestSession();
+      setSession(castContext.getCurrentSession());
       return;
     } catch (err) {
-      console.log('Error connecting to the Chromecast or Failed to load image.');
-      throw new Error('Error connecting to the Chromecast or Failed to load image.');
+      throw new Error('Error connecting to the Chromecast');
     }
   }
 
-  async function stopApp() {
+  async function stopCast() {
     try {
       await new Promise(session.stop);
       console.log('Successfully stopped app.');
@@ -94,8 +88,8 @@ function useCaster() {
 
   return {
     receiverIsAvailable,
-    launchApp,
-    stopApp,
+    sendCast,
+    stopCast,
   };
 }
 

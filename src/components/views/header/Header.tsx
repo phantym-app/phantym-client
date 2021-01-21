@@ -53,10 +53,10 @@ function ProfileButton({ user }) {
 function Header() {
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
-  const { receiverIsAvailable, launchApp } = CasterContainer.useContainer();
+  const { receiverIsAvailable, sendCast } = CasterContainer.useContainer();
 
   function handleCast(e) {
-    launchApp();
+    sendCast().catch(console.log);
   }
 
   return (

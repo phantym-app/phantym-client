@@ -7,11 +7,6 @@ module.exports = {
     'dev/mods': '/_dist_',
   },
 
-  routes: [
-    { src: '/cast', dest: '/cast-receiver.html' },
-    { match: 'routes', src: '.*', dest: '/index.html' },
-  ],
-
   plugins: [
     '@snowpack/plugin-svelte',
     '@snowpack/plugin-dotenv',
@@ -23,6 +18,12 @@ module.exports = {
   buildOptions: { out: 'build' },
   // packageOptions: { types: true, source: "remote" },
 
+  optimize: {
+    bundle: true,
+    minify: false,
+    target: 'es2018',
+  },
+
   alias: {
     react: 'preact/compat',
     'react-dom': 'preact/compat',
@@ -33,4 +34,7 @@ module.exports = {
     '@logic': './src/logic',
     '@components': './src/components',
   },
+
+  // spa fallback
+  routes: [{ match: 'routes', src: '.*', dest: '/index.html' }],
 };

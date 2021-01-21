@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   export let url = 'https://drywa.dev/';
   export let size = 200;
   export let foreground = 'black';
@@ -22,3 +22,9 @@
 </svelte:head>
 
 <canvas bind:this={element} />
+
+<style>
+  canvas {
+    grid-area: qr;
+  }
+</style>
