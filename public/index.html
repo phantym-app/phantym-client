@@ -2,11 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Web site created using create-snowpack-app" />
+    <!-- TODO <link rel="canonical" href="https://unsole.com/" /> -->
+
     <title>unsole</title>
+    <meta name="description" content="TODO this will be displayed in search engine" />
+
+    <!-- ------------- -->
+    <!-- CUSTOMIZATION -->
+    <!-- ------------- -->
+    <link rel="manifest" href="/site.webmanifest?v=0" />
+    <link rel="shortcut icon" href="/app-icons/favicon.ico?v=0" />
+    <meta name="theme-color" content="#1c1c1e" />
+
+    <!-- MICROSOFT -->
+    <meta name="msapplication-TileColor" content="#9381ff" />
+
+    <!-- GOOGLE -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/app-icons/favicon-32x32.png?v=0" />
+    <link rel="icon" type="image/png" sizes="194x194" href="/app-icons/favicon-194x194.png?v=0" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/android-chrome-192x192.png?v=0" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/app-icons/favicon-16x16.png?v=0" />
+
+    <!-- APPLE -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/app-icons/apple-touch-icon.png?v=0" />
+    <link rel="mask-icon" href="/app-icons/safari-pinned-tab.svg?v=0" color="#9381ff" />
   </head>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/serviceworker.js');
+      window.addEventListener('beforeinstallprompt', e => (window.installPrompt = e));
+    }
+  </script>
 
   <body id="root">
     <noscript>You need to enable JavaScript to run this app.</noscript>
