@@ -53,10 +53,11 @@ function ProfileButton({ user }) {
 function Header() {
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
-  const { receiverIsAvailable, sendCast } = CasterContainer.useContainer();
+  const { receiverIsAvailable, sendCast, isCasting, stopCast } = CasterContainer.useContainer();
 
   function handleCast(e) {
-    sendCast().catch(console.log);
+    if (isCasting) stopCast();
+    else sendCast();
   }
 
   return (

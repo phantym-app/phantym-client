@@ -36,5 +36,8 @@ module.exports = {
   },
 
   // spa fallback
-  routes: [{ match: 'routes', src: '.*', dest: '/index.html' }],
+  routes: [
+    { src: '/cast', dest: '/cast.html' },
+    { match: 'routes', src: '.*', dest: '/index.html' },
+  ],
 };
