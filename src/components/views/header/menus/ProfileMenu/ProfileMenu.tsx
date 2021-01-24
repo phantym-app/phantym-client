@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useRef, useState } from 'preact/hooks';
 import styles from './ProfileMenu.module.scss';
 import user from '@assets/icons/user.svg';
-import visible from '@assets/icons/eye.svg';
+import visibleEye from '@assets/icons/eye.svg';
 import notVisible from '@assets/icons/eye-close.svg';
 import logOut from '@assets/icons/log-out.svg';
 
@@ -12,10 +12,12 @@ import { AuthContainer } from '@store/auth';
 
 type Props = {
   hideMenu: () => void;
+  visible: boolean;
+  setVisible: (visibility: boolean) => void;
 };
 
-function ProfileMenu({ hideMenu }: Props) {
-  const [visibility, setVisibility] = useState(false);
+function ProfileMenu({ hideMenu, visible, setVisible }: Props) {
+  // const [visibility, setVisibility] = useState(false);
   const { signOut } = AuthContainer.useContainer();
 
   const ref = useRef<HTMLDivElement>(null);
@@ -29,12 +31,12 @@ function ProfileMenu({ hideMenu }: Props) {
       </button>
       <button
         onClick={function () {
-          setVisibility(!visibility);
+          setVisible(!visible);
         }}
         class={[styles.option, styles.visible]}>
-        <img src={visibility ? visible : notVisible} alt={'visible'} />
+        <img src={visible ? visibleEye : notVisible} alt={'visible'} />
         <p>Visible</p>
-        <Toggle checked={visibility} />
+        <Toggle checked={visible} />
       </button>
       <button onClick={signOut} class={styles.option}>
         <img src={logOut} alt={'profile'} />
