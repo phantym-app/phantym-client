@@ -17,6 +17,7 @@ import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 import { Link } from 'react-router-dom';
 
 import { AuthContainer } from '@store/auth';
+import { useHeader } from './HeaderState';
 
 const PageLink = ({ to, isActive, imageSrc, title }: any) => (
   <Link to={to} class={styles.pageLink}>
@@ -31,6 +32,7 @@ function Header() {
   const [activeMenu, setActiveMenu] = useState<string>('');
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
+  const { visibility, setVisibility } = useHeader();
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
@@ -53,10 +55,13 @@ function Header() {
               onMouseDown={() => setActiveMenu(activeMenu === 'profile' ? '' : 'profile')}>
               <div class={styles.iconContainer}>
                 <img src={user?.photoURL || ''} alt={'user'} />
+                <div class={[styles.profileVisibility, { [styles.visible]: visibility }]} />
               </div>
               <p>{user?.displayName}</p>
             </button>
-            {activeMenu === 'profile' && <ProfileMenu hideMenu={() => setActiveMenu('')} />}
+            {activeMenu === 'profile' && (
+              <ProfileMenu hideMenu={() => setActiveMenu('')} visible={visibility} setVisible={setVisibility} />
+            )}
           </div>
         )}
 

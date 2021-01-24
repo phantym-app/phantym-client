@@ -58,15 +58,29 @@
       .iconContainer {
         width: 35px;
         height: 35px;
-        justify-content: center;
-        align-items: center;
         display: flex;
         overflow: hidden;
         margin-right: 25px;
 
         img.active {
+          align-self: center;
+          justify-self: center;
           filter: brightness(0) saturate(100%) invert(49%) sepia(65%) saturate(1469%) hue-rotate(217deg)
             brightness(101%) contrast(101%);
+        }
+
+        .profileVisibility {
+          width: 15px;
+          height: 15px;
+          background-color: $grey;
+          border: 2px $background solid;
+          position: absolute;
+          border-radius: 25px;
+          margin: -5px 0 0 25px;
+        }
+
+        .profileVisibility.visible {
+          background-color: $green;
         }
       }
 
