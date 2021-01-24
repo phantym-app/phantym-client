@@ -13,6 +13,7 @@ import cart from '@assets/icons/shopping-cart.svg';
 
 import Button from '@components/elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
+import Hamburger from '@components/elements/hamburger/Hamburger';
 
 import { Link } from 'react-router-dom';
 
@@ -36,6 +37,10 @@ function Header() {
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
+      <div class={styles.title}>
+        <Hamburger />
+        <h6>unsole</h6>
+      </div>
       <div class={styles.links}>
         {/* Profile button */}
         {user === undefined || user.isAnonymous ? (

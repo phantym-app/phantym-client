@@ -10,12 +10,20 @@
   display: flex;
   flex-direction: column;
   z-index: 10;
-  justify-content: space-between;
   padding: 50px 0;
   transition: 200ms;
 
-  button {
-    margin: 0 auto;
+  .title {
+    width: 100%;
+    padding: 0 0 0 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+
+    button {
+      width: 35px;
+      margin-right: 25px;
+    }
   }
 
   .links {
@@ -60,11 +68,14 @@
         height: 35px;
         display: flex;
         overflow: hidden;
+        justify-content: center;
         margin-right: 25px;
 
-        img.active {
+        img {
           align-self: center;
-          justify-self: center;
+        }
+
+        img.active {
           filter: brightness(0) saturate(100%) invert(49%) sepia(65%) saturate(1469%) hue-rotate(217deg)
             brightness(101%) contrast(101%);
         }
@@ -96,6 +107,10 @@
         @include text('boldFont', 16px, $purple);
       }
     }
+  }
+
+  > :last-child {
+    margin: auto auto 0;
   }
 }
 
