@@ -9,7 +9,7 @@
     width: 100%;
     height: 250px;
     border-radius: 10px;
-    background-color: $backgroundLifted;
+    background-color: $background;
     overflow: hidden;
     cursor: pointer;
     display: flex;
@@ -42,13 +42,15 @@
     }
 
     > :first-child {
+      > a:hover {
+        > p {
+          color: $purple;
+        }
+      }
+
       > p {
         @include text('boldFont', 16px, $white);
         cursor: pointer;
-
-        &:hover {
-          color: $purple;
-        }
       }
     }
 
@@ -89,7 +91,7 @@
             visibility: hidden;
             width: 150px;
             padding: 10px 10px;
-            background-color: $background;
+            background-color: $backgroundLifted;
             text-align: center;
             border-radius: 5px;
             position: absolute;
@@ -105,7 +107,7 @@
               margin-left: -5px;
               border-width: 5px;
               border-style: solid;
-              border-color: $background transparent transparent transparent;
+              border-color: $backgroundLifted transparent transparent transparent;
             }
           }
         }

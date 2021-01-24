@@ -7,6 +7,7 @@ export function useVideoPlayer() {
   const [isMuted, setMuted] = useState<boolean>(true);
   const [volume, setVolume] = useState<number>(100);
   const [isFullscreen, setFullScreen] = useState<boolean>(false);
+  const [video, setVideo] = useState<string>('');
 
   return {
     currentTime,
@@ -21,5 +22,7 @@ export function useVideoPlayer() {
     setVolume,
     isFullscreen,
     setFullScreen,
+    video,
+    setVideo,
   };
 }

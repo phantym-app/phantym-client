@@ -5,17 +5,20 @@
   flex-direction: row;
 
   .input {
-    background-color: $backgroundLifted;
+    background-color: $background;
     border: none;
-    border-radius: 10px;
-    padding: 0 20px;
+    border-radius: 50px;
+    padding: 0 20px 0 53px;
     height: 50px;
     width: 350px;
     color: $white;
+    background-image: url('/assets/icons/search.svg');
+    background-repeat: no-repeat;
+    background-position: 20px;
     @include text('regularFont', 16px, $white);
 
     &::placeholder {
-      @include text('regularFont', 16px, $grey);
+      @include text('regularFont', 16px, $greyLifted);
     }
   }
 

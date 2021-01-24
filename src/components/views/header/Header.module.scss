@@ -12,12 +12,11 @@
   z-index: 10;
   justify-content: space-between;
   padding: 50px 0;
-
-  > :last-child {
-    margin-left: 50px;
-  }
-
   transition: 200ms;
+
+  button {
+    margin: 0 auto;
+  }
 
   .links {
     width: 100%;
@@ -66,13 +65,13 @@
         margin-right: 25px;
 
         img.active {
-          filter: brightness(0) saturate(100%) invert(59%) sepia(31%) saturate(5403%) hue-rotate(216deg)
-            brightness(100%) contrast(103%);
+          filter: brightness(0) saturate(100%) invert(49%) sepia(65%) saturate(1469%) hue-rotate(217deg)
+            brightness(101%) contrast(101%);
         }
       }
 
       &:hover {
-        background-color: $backgroundLifted;
+        background-color: $background;
       }
 
       p {

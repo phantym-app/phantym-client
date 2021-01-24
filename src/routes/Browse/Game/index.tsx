@@ -40,7 +40,7 @@ const Game = () => {
             <p class={{ [styles.active]: currentSection === 1 }}>About</p>
             <p class={{ [styles.active]: currentSection === 2 }}>Reviews</p>
             <p class={{ [styles.active]: currentSection === 3 }}>More like this</p>
-            <Button>Add to cart</Button>
+            <Button colour={'error'}>Add to cart</Button>
           </div>
         </div>
       </div>

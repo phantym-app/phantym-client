@@ -36,51 +36,53 @@ function Game({ game }: Props) {
   } = game;
 
   return (
-    <Link to={`/browse/game?selected=${title}`}>
-      <div class={styles.root}>
+    <div class={styles.root}>
+      <Link to={`/browse/game?selected=${title}`}>
         <div class={[styles.imageContainer, { [styles.noPicture]: !picture }]}>
           <img src={picture ? picture : noPicture} alt={'game-art'} />
         </div>
+      </Link>
 
-        <div class={styles.details}>
-          <div>
+      <div class={styles.details}>
+        <div>
+          <Link to={`/browse/game?selected=${title}`}>
             <p>{title}</p>
-            <img
-              class={styles.favourite}
-              src={favourite ? favouriteFull : favouriteEmpty}
-              alt={favourite ? 'favourite' : 'no-favourite'}
-            />
-          </div>
-          <div>
-            {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
+          </Link>
+          <img
+            class={styles.favourite}
+            src={favourite ? favouriteFull : favouriteEmpty}
+            alt={favourite ? 'favourite' : 'no-favourite'}
+          />
+        </div>
+        <div>
+          {price === 'FREE' ? <p>FREE</p> : <p>{`£${price}`}</p>}
 
-            <div class={styles.availability}>
-              <div>
-                <span class={styles.tooltiptext}>
-                  {desktop ? 'This game is playable on a computer' : 'This game is not playable on a computer'}
-                </span>
-                <img
-                  src={desktop ? desktopIcon : noDesktop}
-                  alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
-                />
-              </div>
-              <div>
-                <img src={mobile ? mobileIcon : noMobile} alt={mobile ? 'available-mobile' : 'unavailable-mobile'} />
-                <span class={styles.tooltiptext}>
-                  {mobile ? 'This game is playable on phones' : 'This game is not playable on phones'}
-                </span>
-              </div>
-              <div>
-                <img src={casting ? castable : notCastable} alt={casting ? 'castable' : 'not-castable'} />
-                <span class={styles.tooltiptext}>
-                  {casting ? 'This game is castable to Chromecast' : 'This game is not castable to Chromecast'}
-                </span>
-              </div>
+          <div class={styles.availability}>
+            <div>
+              <span class={styles.tooltiptext}>
+                {desktop ? 'This game is playable on a computer' : 'This game is not playable on a computer'}
+              </span>
+              <img
+                src={desktop ? desktopIcon : noDesktop}
+                alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
+              />
+            </div>
+            <div>
+              <img src={mobile ? mobileIcon : noMobile} alt={mobile ? 'available-mobile' : 'unavailable-mobile'} />
+              <span class={styles.tooltiptext}>
+                {mobile ? 'This game is playable on phones' : 'This game is not playable on phones'}
+              </span>
+            </div>
+            <div>
+              <img src={casting ? castable : notCastable} alt={casting ? 'castable' : 'not-castable'} />
+              <span class={styles.tooltiptext}>
+                {casting ? 'This game is castable to Chromecast' : 'This game is not castable to Chromecast'}
+              </span>
             </div>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

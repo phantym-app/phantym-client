@@ -8,9 +8,10 @@ type Props = {
   squaredIcon?: string;
   style?: 'google' | 'facebook' | 'cast';
   onClick?: () => void;
+  colour?: 'primary' | 'secondary' | 'error' | 'warning';
 };
 
-const Button = ({ children, squared, squaredIcon, style, onClick = () => {} }: Props) => (
+const Button = ({ children, squared, squaredIcon, style, onClick = () => {}, colour }: Props) => (
   <button
     onClick={onClick}
     class={[
@@ -21,6 +22,10 @@ const Button = ({ children, squared, squaredIcon, style, onClick = () => {} }: P
         [styles.google]: style === 'google',
         [styles.facebook]: style === 'facebook',
         [styles.cast]: style === 'cast',
+        [styles.primary]: colour === 'primary',
+        [styles.secondary]: colour === 'secondary',
+        [styles.error]: colour === 'error',
+        [styles.warning]: colour === 'warning',
       },
     ]}>
     {children}

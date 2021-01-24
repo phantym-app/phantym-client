@@ -17,7 +17,7 @@ type Props = {
   video: string;
 };
 
-const VideoPlayer = ({ video }: Props) => {
+const VideoPlayer = (props: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoContainer = useRef<HTMLDivElement>(null);
   const videoProgress = useRef<HTMLProgressElement>(null);
@@ -35,7 +35,13 @@ const VideoPlayer = ({ video }: Props) => {
     setVolume,
     isFullscreen,
     setFullScreen,
+    video,
+    setVideo,
   } = useVideoPlayer();
+
+  useEffect(() => {
+    setVideo(props.video);
+  }, []);
 
   // Setting initial video vars
   useEffect(() => {

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 import cog from '@assets/icons/cog.svg';
-import friends from '@assets/icons/users.svg';
+import social from '@assets/icons/users.svg';
 import room from '@assets/icons/grid.svg';
 import logIn from '@assets/icons/log-in.svg';
 import gamepad from '@assets/icons/gamepad.svg';
@@ -66,8 +66,8 @@ function Header() {
         <PageLink
           to={'/social?page=friends'}
           isActive={pathname.startsWith('/social')}
-          imageSrc={friends}
-          title={'Friends'}
+          imageSrc={social}
+          title={'Social'}
         />
         <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room} title={'Room'} />
         <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog} title={'Settings'} />

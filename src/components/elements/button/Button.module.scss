@@ -6,7 +6,7 @@
   width: fit-content;
   border: none;
   border-radius: 25px;
-  background-color: $purple;
+  background-color: $buttonPurple;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,4 +47,20 @@
 
 .root.cast::before {
   content: url('/assets/icons/cast.svg');
+}
+
+.root.primary {
+  background-color: $buttonPurple;
+}
+
+.root.secondary {
+  background-color: $background;
+}
+
+.root.error {
+  background-color: $red;
+}
+
+.root.warning {
+  background-color: $orange;
 }
