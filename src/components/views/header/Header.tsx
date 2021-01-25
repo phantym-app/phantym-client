@@ -1,6 +1,5 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { useLocation } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 import cog from '@assets/icons/cog.svg';
@@ -14,21 +13,48 @@ import cart from '@assets/icons/shopping-cart.svg';
 import Button from '@components/elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { AuthContainer } from '@store/auth';
 import { CasterContainer } from '@store/caster';
 
-const PageLink = ({ to, isActive = false, imageSrc, title }: any) => (
+function Header() {
+  const { pathname } = useLocation();
+
+  return (
+    <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
+      <div class={styles.links}>
+        <ProfileButton />
+        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />
+        <PageLink to={'/'} isActive={pathname === '/'} src={gamepad} title={'My games'} />
+        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} src={cart} title={'Cart'} />
+        <PageLink
+          to={'/social?page=friends'}
+          isActive={pathname.startsWith('/social')}
+          src={friends}
+          title={'Friends'}
+        />
+        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} src={room} title={'Room'} />
+        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} src={cog} title={'Settings'} />
+      </div>
+      <CastButton />
+    </header>
+  );
+}
+
+const PageLink = ({ to, isActive = false, src, title }: any) => (
   <Link to={to} class={styles.pageLink}>
     <div class={styles.iconContainer}>
-      <img class={{ [styles.active]: isActive }} src={imageSrc} alt={'room'} />
+      <img class={{ [styles.active]: isActive }} src={src} alt={'room'} />
     </div>
     <p class={{ [styles.active]: isActive }}>{title}</p>
   </Link>
 );
 
-function ProfileButton({ user }) {
+function ProfileButton() {
+  const { user } = AuthContainer.useContainer();
+  if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} src={logIn} title={'Sign in'} />;
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function _toggle() {
@@ -50,45 +76,22 @@ function ProfileButton({ user }) {
   );
 }
 
-function Header() {
-  const { pathname } = useLocation();
-  const { user } = AuthContainer.useContainer();
-  const { receiverIsAvailable, sendCast, isCasting, stopCast } = CasterContainer.useContainer();
+function CastButton() {
+  const { canCast, isCasting, startCast, stopCast } = CasterContainer.useContainer();
 
-  function handleCast(e) {
-    if (isCasting) stopCast();
-    else sendCast();
-  }
+  if (isCasting)
+    return (
+      <Button style={'cast'} onClick={stopCast}>
+        Stop casting
+      </Button>
+    );
 
-  return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
-      <div class={styles.links}>
-        {user === undefined || user.isAnonymous ? (
-          <PageLink to={'/login'} imageSrc={logIn} title={'Sign in'} />
-        ) : (
-          <ProfileButton user={user} />
-        )}
-
-        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} imageSrc={compass} title={'Browse'} />
-        <PageLink to={'/'} isActive={pathname === '/'} imageSrc={gamepad} title={'My games'} />
-        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} imageSrc={cart} title={'Cart'} />
-        <PageLink
-          to={'/social?page=friends'}
-          isActive={pathname.startsWith('/social')}
-          imageSrc={friends}
-          title={'Friends'}
-        />
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room} title={'Room'} />
-        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog} title={'Settings'} />
-      </div>
-
-      {receiverIsAvailable && (
-        <Button style={'cast'} onClick={handleCast}>
-          Start casting
-        </Button>
-      )}
-    </header>
-  );
+  if (canCast)
+    return (
+      <Button style={'cast'} onClick={startCast}>
+        Start casting
+      </Button>
+    );
 }
 
 export default Header;

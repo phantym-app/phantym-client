@@ -2,14 +2,71 @@ import { useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
 declare const chrome, cast;
+type CastSession = any;
+type CastContext = any;
+
+const NAMESPACE = 'urn:x-cast:com.unsole.room';
 
 importScript('https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1');
 const apiAvailable = new Promise(res => (window['__onGCastApiAvailable'] = res));
 
 function useCaster() {
-  const [receiverIsAvailable, setReceiverAvailable] = useState(false);
-  const [session, setSession] = useState<any>(undefined);
-  const [castContext, setCastContext] = useState<any>(undefined);
+  const [canCast, setCanCast] = useState(false);
+  const [castSession, setCastSession] = useState<CastSession>(null);
+  const [castContext, setCastContext] = useState<CastContext>(null);
+
+  function onCastStateChange({ castState }) {
+    switch (castState) {
+      case 'NO_DEVICES_AVAILABLE':
+      case 'CONNECTED':
+        setCanCast(false);
+        break;
+
+      case 'NOT_CONNECTED':
+        setCanCast(true);
+        break;
+
+      case 'CONNECTING':
+        break;
+    }
+  }
+
+  function onSessionStateChange({ errorCode, session, sessionState }) {
+    switch (sessionState) {
+      case 'SESSION_STARTED':
+        session.sendMessage(NAMESPACE, { type: 'SET_ROOM', roomId: 'NICE' });
+      case 'SESSION_RESUMED':
+        session.addMessageListener(NAMESPACE, onMessage);
+        setCastSession(session);
+        break;
+
+      case 'SESSION_ENDED':
+        session.removeMessageListener(NAMESPACE, onMessage);
+        setCastSession(null);
+        break;
+
+      case 'SESSION_STARTING':
+      case 'SESSION_ENDING':
+        break;
+
+      case 'NO_SESSION':
+      case 'SESSION_START_FAILED':
+        throw new Error('unhandled sessionStateChange - ' + sessionState);
+    }
+  }
+
+  function onMessage(_, data: string) {
+    const message = JSON.parse(data);
+    if (message === 'OK') return;
+
+    switch (message.type) {
+      default:
+        console.log(message);
+    }
+  }
+
+  useEffect(getCastContext, []);
+  useEffect(listenForCasts, [castContext]);
 
   async function getCastContext() {
     await apiAvailable;
@@ -17,7 +74,6 @@ function useCaster() {
     const castContext = cast.framework.CastContext.getInstance();
     castContext.setOptions({
       receiverApplicationId: '4D7DAAD2',
-      // receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
       autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
     });
 
@@ -25,7 +81,7 @@ function useCaster() {
   }
 
   function listenForCasts() {
-    if (castContext === undefined) return;
+    if (castContext === null) return;
 
     onCastStateChange({ castState: castContext.getCastState() });
     // onSessionStateChange({ sessionState: castContext.getSessionState() });
@@ -39,79 +95,38 @@ function useCaster() {
     };
   }
 
-  function onCastStateChange({ castState }) {
-    switch (castState) {
-      case 'NO_DEVICES_AVAILABLE':
-        setReceiverAvailable(false);
-        break;
+  function sendMessage(message: object) {
+    if (!castSession) throw new Error('cant send message to cast - no cast session exists');
 
-      case 'NOT_CONNECTED':
-        setReceiverAvailable(true);
-        break;
+    let _handle;
+    let _onOk;
 
-      case 'CONNECTING':
-      case 'CONNECTED':
-        break;
-        throw new Error('unhandled castStateChange');
-    }
-  }
+    // TODO i wish this wasnt so ugly :(
+    return new Promise<void>(function (res, rej) {
+      _handle = setTimeout(rej, 15000);
+      _onOk = function (_, data) {
+        JSON.parse(data) === 'OK' && res();
+      };
 
-  function onSessionStateChange({ errorCode, session, sessionState }) {
-    switch (sessionState) {
-      case 'SESSION_STARTED':
-        const _session = castContext.getCurrentSession();
-        _session.addMessageListener('urn:x-cast:com.unsole.room', onMessage);
-        setSession(_session);
-        break;
-
-      case 'NO_SESSION':
-      case 'SESSION_STARTING':
-      case 'SESSION_START_FAILED':
-      case 'SESSION_ENDING':
-      case 'SESSION_ENDED':
-      case 'SESSION_RESUMED':
-        break;
-        throw new Error('unhandled sessionStateChange');
-    }
-  }
-
-  function onMessage(_namespace, data) {
-    if (data === 'OK') return;
-    console.log(JSON.parse(data));
-  }
-
-  useEffect(getCastContext, []);
-  useEffect(listenForCasts, [castContext]);
-  useEffect(
-    function () {
-      if (session) sendMessage({ type: 'SET_ROOM', roomId: 'NICE' });
-    },
-    [session],
-  );
-
-  async function sendCast() {
-    try {
-      await castContext.requestSession();
-      return;
-    } catch (err) {
-      throw new Error('Error connecting to the Chromecast');
-    }
-  }
-
-  async function sendMessage(message: any) {
-    if (!session) throw new Error('cant send message to cast - no cast session exists');
-    session.sendMessage('urn:x-cast:com.unsole.room', message);
+      castSession.addMessageListener(NAMESPACE, _onOk);
+      castSession.sendMessage(NAMESPACE, message);
+    }).finally(function () {
+      clearTimeout(_handle);
+      castSession.removeMessageListener(NAMESPACE, _onOk);
+    });
   }
 
   return {
-    receiverIsAvailable,
+    canCast,
+    isCasting: !!castSession,
 
-    sendCast,
-    stopCast() {
-      session.endSession(true);
+    async startCast() {
+      await castContext.requestSession();
     },
 
-    isCasting: !!session,
+    stopCast() {
+      castSession.endSession(true);
+    },
   };
 }
 

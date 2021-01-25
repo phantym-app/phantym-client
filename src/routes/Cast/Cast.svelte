@@ -36,7 +36,7 @@
   castContext.addCustomMessageListener(NAMESPACE, onMessage);
 
   function onMessage({ data: message, senderId }) {
-    switch (message.type) {
+    switch (message?.type) {
       case 'SET_ROOM':
         roomId = message.roomId;
         break;
