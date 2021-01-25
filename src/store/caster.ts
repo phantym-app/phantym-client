@@ -45,13 +45,11 @@ function useCaster() {
         setCastSession(null);
         break;
 
+      case 'NO_SESSION':
       case 'SESSION_STARTING':
+      case 'SESSION_START_FAILED':
       case 'SESSION_ENDING':
         break;
-
-      case 'NO_SESSION':
-      case 'SESSION_START_FAILED':
-        throw new Error('unhandled sessionStateChange - ' + sessionState);
     }
   }
 

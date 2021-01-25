@@ -20,8 +20,8 @@ module.exports = {
 
   optimize: {
     bundle: true,
-    minify: false,
-    target: 'es2018',
+    minify: true,
+    target: 'es2020',
   },
 
   alias: {

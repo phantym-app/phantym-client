@@ -37,6 +37,7 @@ function Header() {
         <PageLink to={'/room'} isActive={pathname.startsWith('/room')} src={room} title={'Room'} />
         <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} src={cog} title={'Settings'} />
       </div>
+
       <CastButton />
     </header>
   );

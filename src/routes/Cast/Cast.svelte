@@ -6,63 +6,55 @@
   import QrCard from './_qrCard.svelte';
   import PlayerList from './_playerList.svelte';
 
-  // const castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-
-  // castReceiverManager.onReady = function (e) {
-  //   castReceiverManager.setApplicationState('Waiting for players');
-  // };
-
-  // let roomId = 'ABCD';
-
-  // const messageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.unsole.room');
-  // messageBus.onMessage = function ({ data, senderId }) {
-  //   roomId = JSON.parse(data).roomId;
-  //   messageBus.send(senderId, 'ok');
-  // };
-
-  // castReceiverManager.start({ statusText: 'Creating Room' });
-
-  const castContext = cast.framework.CastReceiverContext.getInstance();
-
-  const { READY, SENDER_DISCONNECTED } = cast.framework.system.EventType;
-  castContext.addEventListener(READY, function () {
-    castContext.setApplicationState('Waiting for players');
-  });
-
-  let roomId = 'ABCD';
-
   const NAMESPACE = 'urn:x-cast:com.unsole.room';
 
-  castContext.addCustomMessageListener(NAMESPACE, onMessage);
+  const castContext = cast.framework.CastReceiverContext.getInstance();
+  const { READY, SENDER_DISCONNECTED } = cast.framework.system.EventType;
 
-  function onMessage({ data: message, senderId }) {
-    switch (message?.type) {
-      case 'SET_ROOM':
-        roomId = message.roomId;
-        break;
-
-      default:
-        break;
+  const roomIdPromise = new Promise(function (res) {
+    function onRoomCode({ data }) {
+      if (data?.type === 'SET_ROOM') {
+        castContext.removeCustomMessageListener(NAMESPACE, onRoomCode);
+        castContext.addCustomMessageListener(NAMESPACE, onMessage);
+        res(data.roomId);
+      }
     }
 
-    castContext.sendCustomMessage(NAMESPACE, senderId, 'OK');
+    castContext.addCustomMessageListener(NAMESPACE, onRoomCode);
+  });
+
+  castContext.addEventListener(READY, onReady);
+
+  castContext.start({
+    skipMplLoad: true,
+    skipPlayersLoad: true,
+    skipShakaLoad: true,
+  });
+
+  function onReady() {
+    castContext.setApplicationState('Waiting for players');
   }
 
-  castContext.start();
-  // {
-  // skipMplLoad: true,
-  // skipPlayersLoad: true,
-  // skipShakaLoad: true,
-  // }
+  function onMessage({ data, senderId }) {
+    switch (data?.type) {
+    }
+    castContext.sendCustomMessage(NAMESPACE, senderId, 'OK');
+  }
 </script>
 
 <main>
-  <QrCard url={'http://en.m.wikipedia.org'} size={300} foreground="#101010" background="#f2f2f2 " />
+  <QrCard foreground="#101010" background="#f2f2f2" {roomIdPromise} />
 
-  <div>
-    <h5>or use room code</h5>
-    <h1>{roomId}</h1>
-  </div>
+  {#await roomIdPromise}
+    <div>
+      <h5>creating room...</h5>
+    </div>
+  {:then roomId}
+    <div>
+      <h5>or use room code</h5>
+      <h1>{roomId}</h1>
+    </div>
+  {/await}
 
   <PlayerList />
 </main>
@@ -73,7 +65,7 @@
   main {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr min-content max-content 1fr;
+    grid-template-columns: 1fr min-content 420px 1fr;
     grid-template-rows: 1fr 400px min-content 1fr;
     grid-template-areas:
       '.... .... .... ....'
@@ -86,6 +78,7 @@
     background-color: $background;
 
     div {
+      height: 133.8px;
       grid-area: code;
 
       margin: auto;

@@ -3,28 +3,29 @@
 </script>
 
 <script>
-  export let url = 'https://drywa.dev/';
-  export let size = 200;
-  export let foreground = 'black';
-  export let background = 'white';
-
-  let element;
+  export let foreground;
+  export let background;
+  export let roomIdPromise;
 
   const qriousLoaded = importScript('https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js');
 
-  qriousLoaded.then(function makeQR() {
+  function qr(element, value) {
     new QRious({
       element,
       foreground,
       background,
-      size,
-      value: url,
+      value,
+      size: 300,
     });
-  });
+  }
 </script>
 
 <div>
-  <canvas bind:this={element} />
+  {#await qriousLoaded then _}
+    {#await roomIdPromise then roomId}
+      <canvas use:qr={`https://un-sole.web.app/room?join=${roomId}`} />
+    {/await}
+  {/await}
 </div>
 
 <style lang="scss">
@@ -32,7 +33,11 @@
 
   div {
     grid-area: qrcd;
+
+    width: 400px;
+    height: 400px;
     background-color: $white;
+
     padding: 50px;
     border-radius: 25px;
   }
