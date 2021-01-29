@@ -4,10 +4,7 @@
   box-sizing: border-box;
 
   &:focus {
-    outline-style: solid;
-    outline-width: 2px;
-    outline-color: $purple;
-    z-index: 2;
+    outline: none;
   }
 }
 
