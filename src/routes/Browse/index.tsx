@@ -68,19 +68,17 @@ const Browse = () => {
             <Button squared squaredIcon={'filter'} colour={'secondary'} />
           </div>
         </div>
-        <div class={styles.labelsContainer}>
-          <LabelOverview
-            labels={mockData.mockLabels}
-            activeLabels={activeLabels}
-            onLabelClick={(title: string) =>
-              setActiveLabel(
-                activeLabels.includes(title)
-                  ? activeLabels.filter(_title => title !== _title)
-                  : activeLabels.concat(title),
-              )
-            }
-          />
-        </div>
+        <LabelOverview
+          labels={mockData.mockLabels}
+          activeLabels={activeLabels}
+          onLabelClick={(title: string) =>
+            setActiveLabel(
+              activeLabels.includes(title)
+                ? activeLabels.filter(_title => title !== _title)
+                : activeLabels.concat(title),
+            )
+          }
+        />
       </div>
       <Hero typeOfContent={'new releases'} type={'carousel'} games={mockGameBanner} />
       <div class={styles.content}>

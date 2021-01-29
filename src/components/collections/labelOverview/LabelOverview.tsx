@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import styles from './LabelOverview.module.scss';
 import Label from '@components/elements/label/Label';
 
@@ -12,15 +12,18 @@ type Props = {
 
 const LabelOverview = ({ labels, onLabelClick, activeLabels }: Props) => {
   return (
-    <div class={styles.root}>
-      {labels.map((label, index) => (
-        <Label
-          onClick={onLabelClick && onLabelClick}
-          key={index}
-          title={label.title}
-          active={(title: string) => (activeLabels && activeLabels.includes(title) ? true : false)}
-        />
-      ))}
+    <div class={styles.labelsContainer}>
+      <div class={styles.root}>
+        {labels.map((label, index) => (
+          <Label
+            onClick={onLabelClick && onLabelClick}
+            key={index}
+            title={label.title}
+            active={(title: string) => (activeLabels && activeLabels.includes(title) ? true : false)}
+          />
+        ))}
+      </div>
+      <div class={styles.fade} />
     </div>
   );
 };
