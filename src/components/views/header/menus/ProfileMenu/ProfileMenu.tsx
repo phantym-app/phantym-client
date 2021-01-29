@@ -14,6 +14,7 @@ type Props = {
   hideMenu: () => void;
   userVisible: boolean;
   toggleUserVisible: (any: any) => void;
+  isCollapsed: boolean;
 };
 
 function ProfileMenu({ hideMenu, userVisible, toggleUserVisible }: Props) {

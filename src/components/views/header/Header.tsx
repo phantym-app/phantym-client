@@ -23,7 +23,7 @@ import { useCast } from '@store/cast';
 
 function Header() {
   const { pathname } = useLocation();
-  const { visibility, setVisibility, isCollapsed, setCollapsed } = useHeader();
+  const [isCollapsed, setCollapsed] = useState<boolean>(false);
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
@@ -31,7 +31,7 @@ function Header() {
         <div class={styles.title}>
           <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
         </div>
-        <ProfileButton />
+        <ProfileButton isCollapsed={isCollapsed} />
         <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />
         <PageLink to={'/'} isActive={pathname === '/'} src={gamepad} title={'My games'} />
         <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} src={cart} title={'Cart'} />
@@ -54,7 +54,7 @@ const PageLink = ({ to, isActive = false, src, title }: any) => (
   </Link>
 );
 
-function ProfileButton() {
+function ProfileButton({ isCollapsed }) {
   const { user } = useAuth();
 
   if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} src={logIn} title={'Sign in'} />;
@@ -86,6 +86,7 @@ function ProfileButton() {
           hideMenu={() => setIsOpen(false)}
           userVisible={userVisible}
           toggleUserVisible={toggleUserVisible}
+          isCollapsed={isCollapsed}
         />
       )}
     </div>
