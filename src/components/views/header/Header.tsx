@@ -21,8 +21,8 @@ import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
 
 function Header() {
-  const { pathname } = useLocation();
   const [isCollapsed, setCollapsed] = useState<boolean>(false);
+  const { pathname } = useLocation();
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
@@ -114,7 +114,7 @@ function CastButton() {
           <div class={styles.iconContainer}>
             <img src={cast} alt={'cast'} />
           </div>
-          <p>Stop casting</p>
+          <p>Start casting</p>
         </div>
       </Button>
     );

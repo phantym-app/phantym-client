@@ -17,7 +17,7 @@ type Props = {
   isCollapsed: boolean;
 };
 
-function ProfileMenu({ hideMenu, userVisible, toggleUserVisible }: Props) {
+function ProfileMenu({ hideMenu, userVisible, toggleUserVisible, isCollapsed }: Props) {
   const { signOut } = useAuth();
 
   const ref = useRef<HTMLDivElement>(null);
