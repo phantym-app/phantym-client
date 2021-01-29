@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import styles from './Header.module.scss';
-import { useHeader } from './HeaderState';
 
 import cog from '@assets/icons/cog.svg';
 import social from '@assets/icons/users.svg';
@@ -26,7 +25,7 @@ function Header() {
   const [isCollapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
+    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
       <div class={styles.links}>
         <div class={styles.title}>
           <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
