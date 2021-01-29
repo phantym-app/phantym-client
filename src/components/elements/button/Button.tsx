@@ -8,7 +8,7 @@ type Props = {
   squaredIcon?: string;
   style?: 'google' | 'facebook' | 'cast';
   onClick?: (...args: any) => void;
-  colour?: 'primary' | 'secondary' | 'error' | 'warning';
+  colour?: 'secondary' | 'error' | 'warning';
 };
 
 const Button = ({ children, squared, squaredIcon, style, onClick = () => {}, colour }: Props) => (
@@ -22,7 +22,6 @@ const Button = ({ children, squared, squaredIcon, style, onClick = () => {}, col
         [styles.google]: style === 'google',
         [styles.facebook]: style === 'facebook',
         [styles.cast]: style === 'cast',
-        [styles.primary]: colour === 'primary',
         [styles.secondary]: colour === 'secondary',
         [styles.error]: colour === 'error',
         [styles.warning]: colour === 'warning',

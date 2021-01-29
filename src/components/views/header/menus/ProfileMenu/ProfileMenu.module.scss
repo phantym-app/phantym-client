@@ -1,7 +1,7 @@
 @import '../../../../../styling/sass.scss';
 
 .root {
-  background-color: $backgroundLifted;
+  background-color: $background;
   position: absolute;
   width: 200px;
   border-radius: 5px;
@@ -9,6 +9,10 @@
   margin-left: 325px;
   z-index: 10;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+  &.isCollapsed {
+    margin-left: 130px;
+  }
 
   &:before {
     content: '';
@@ -18,7 +22,7 @@
     margin-left: -5px;
     border-width: 10px;
     border-style: solid;
-    border-color: transparent $backgroundLifted transparent transparent;
+    border-color: transparent $background transparent transparent;
   }
 
   > :first-child {
@@ -40,7 +44,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: $backgroundLifted;
+      background-color: $background;
       filter: brightness(150%);
     }
 

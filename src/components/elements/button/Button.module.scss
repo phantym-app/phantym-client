@@ -6,14 +6,15 @@
   width: fit-content;
   border: none;
   border-radius: 25px;
-  background-color: $buttonPurple;
+  background-color: $purple;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   @include text('boldFont', 16px, $white);
 
-  &:hover {
+  &:hover,
+  &:focus {
     filter: brightness(120%);
   }
 }
@@ -50,7 +51,7 @@
 }
 
 .root.primary {
-  background-color: $buttonPurple;
+  background-color: $purple;
 }
 
 .root.secondary {

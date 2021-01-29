@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 import styles from './ProfileMenu.module.scss';
 import user from '@assets/icons/user.svg';
 import visibleEye from '@assets/icons/eye.svg';
@@ -23,18 +23,24 @@ function ProfileMenu({ hideMenu, userVisible, toggleUserVisible }: Props) {
   useOnClickOutside(ref, hideMenu);
 
   return (
-    <div ref={ref} class={styles.root}>
+    <div ref={ref} class={[styles.root, { [styles.isCollapsed]: isCollapsed }]}>
       <button class={styles.option}>
-        <img src={user} alt={'profile'} />
+        <div class={styles.iconContainer}>
+          <img src={user} alt={'profile'} />
+        </div>
         <p>Profile</p>
       </button>
       <button onClick={toggleUserVisible} class={[styles.option, styles.visible]}>
-        <img src={userVisible ? visibleEye : notVisible} alt={'visible'} />
+        <div class={styles.iconContainer}>
+          <img src={userVisible ? visibleEye : notVisible} alt={'visible'} />
+        </div>
         <p>Visible</p>
         <Toggle checked={userVisible} />
       </button>
       <button onClick={signOut} class={styles.option}>
-        <img src={logOut} alt={'profile'} />
+        <div class={styles.iconContainer}>
+          <img src={logOut} alt={'profile'} />
+        </div>
         <p>Log out</p>
       </button>
     </div>

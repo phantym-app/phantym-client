@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import styles from './Header.module.scss';
+import { useHeader } from './HeaderState';
 
 import cog from '@assets/icons/cog.svg';
 import social from '@assets/icons/users.svg';
@@ -9,9 +10,11 @@ import logIn from '@assets/icons/log-in.svg';
 import gamepad from '@assets/icons/gamepad.svg';
 import compass from '@assets/icons/compass.svg';
 import cart from '@assets/icons/shopping-cart.svg';
+import cast from '@assets/icons/cast.svg';
 
 import Button from '@components/elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
+import Hamburger from '@components/elements/hamburger/Hamburger';
 
 import { Link, useLocation } from 'react-router-dom';
 
@@ -20,10 +23,14 @@ import { useCast } from '@store/cast';
 
 function Header() {
   const { pathname } = useLocation();
+  const { visibility, setVisibility, isCollapsed, setCollapsed } = useHeader();
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
       <div class={styles.links}>
+        <div class={styles.title}>
+          <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
+        </div>
         <ProfileButton />
         <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />
         <PageLink to={'/'} isActive={pathname === '/'} src={gamepad} title={'My games'} />
@@ -39,11 +46,11 @@ function Header() {
 }
 
 const PageLink = ({ to, isActive = false, src, title }: any) => (
-  <Link to={to} class={styles.pageLink}>
+  <Link to={to} class={[styles.pageLink, { [styles.active]: isActive }]}>
     <div class={styles.iconContainer}>
-      <img class={{ [styles.active]: isActive }} src={src} alt={'room'} />
+      <img src={src} alt={'room'} />
     </div>
-    <p class={{ [styles.active]: isActive }}>{title}</p>
+    <p>{title}</p>
   </Link>
 );
 
@@ -90,15 +97,25 @@ function CastButton() {
 
   if (isCasting)
     return (
-      <Button style={'cast'} onClick={stopCast}>
-        Stop casting
+      <Button onClick={stopCast}>
+        <div class={styles.buttonInner}>
+          <div class={styles.iconContainer}>
+            <img src={cast} alt={'cast'} />
+          </div>
+          <p>Stop casting</p>
+        </div>
       </Button>
     );
 
   if (canCast)
     return (
-      <Button style={'cast'} onClick={startCast}>
-        Start casting
+      <Button onClick={startCast}>
+        <div class={styles.buttonInner}>
+          <div class={styles.iconContainer}>
+            <img src={cast} alt={'cast'} />
+          </div>
+          <p>Stop casting</p>
+        </div>
       </Button>
     );
 }
