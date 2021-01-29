@@ -1,18 +1,39 @@
 <script lang="ts">
+  export let roomId;
+
+  import { readable } from 'svelte/store';
+  import { db } from '@logic/firebase/database';
+  import type firebase from 'firebase';
+
+  function dbReadable(ref: firebase.database.Reference) {
+    const { subscribe } = readable({}, function (set) {
+      const flag = ref.child('isCasting');
+      flag.set(true);
+      flag.onDisconnect().remove();
+
+      const query = ref.orderByChild('index').startAt(0);
+      const sync = snap => set(snap.val());
+      query.on('value', sync);
+      return () => query.off('value', sync);
+    });
+
+    return { subscribe, ref };
+  }
+
+  const room = dbReadable(db.ref('room').child(roomId));
+
+  $: players = Object.values($room ?? {});
+  $: playerCount = players.length;
 </script>
 
 <div class="playerList">
   <h2 class="title">
-    Players in room {3}/{8}
+    {playerCount} player{playerCount === 1 ? '' : 's'} in room
   </h2>
 
-  {#each ['twist', 'Keanu Reeves', 'MarkBoi99'] as player, i}
-    <h4 class="player" class:admin={i == 0}>{player}</h4>
+  {#each players as { displayName }, i}
+    <h4 class="player" class:admin={i == 0}>{displayName}</h4>
   {/each}
-
-  {#if true}
-    <h6 class="subtext">waiting for more players to join...</h6>
-  {/if}
 </div>
 
 <style lang="scss">
@@ -20,7 +41,6 @@
 
   .playerList {
     grid-area: plyr;
-    margin: 0px auto;
     display: flex;
     flex-direction: column;
 
@@ -36,12 +56,6 @@
         padding-right: 10px;
         content: url('/assets/icons/crown.svg');
       }
-    }
-
-    .subtext {
-      padding-left: 30px;
-      margin: 50px 0px 0px;
-      color: $greyLifted;
     }
   }
 </style>

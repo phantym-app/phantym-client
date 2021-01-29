@@ -15,8 +15,8 @@ import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 
 import { Link, useLocation } from 'react-router-dom';
 
-import { AuthContainer } from '@store/auth';
-import { CasterContainer } from '@store/caster';
+import { useAuth } from '@store/auth';
+import { useCast } from '@store/cast';
 
 function Header() {
   const { pathname } = useLocation();
@@ -53,15 +53,14 @@ const PageLink = ({ to, isActive = false, src, title }: any) => (
 );
 
 function ProfileButton() {
-  const { user } = AuthContainer.useContainer();
+  const { user } = useAuth();
+
   if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} src={logIn} title={'Sign in'} />;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
   function _toggle() {
     setIsOpen(!isOpen);
   }
-
   return (
     <div class={styles.profileMenu}>
       <button class={styles.pageLink} onKeyPress={e => e.key === 'Enter' && _toggle()} onMouseDown={_toggle}>
@@ -78,7 +77,7 @@ function ProfileButton() {
 }
 
 function CastButton() {
-  const { canCast, isCasting, startCast, stopCast } = CasterContainer.useContainer();
+  const { canCast, isCasting, startCast, stopCast } = useCast();
 
   if (isCasting)
     return (

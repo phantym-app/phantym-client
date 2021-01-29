@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "firebase": "^8.2.3",
+    "hashids": "^2.2.8",
     "preact": "^10.5.10",
     "react-router-dom": "^5.1.2",
     "svelte": "^3.31.2",

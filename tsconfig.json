@@ -27,7 +27,8 @@
     },
 
     "module": "esnext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true
 
     // "target": "esnext",
   }

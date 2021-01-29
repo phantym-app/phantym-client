@@ -8,7 +8,7 @@ import logOut from '@assets/icons/log-out.svg';
 
 import { useOnClickOutside } from '@logic/useOnClickOutside';
 import Toggle from '@components/elements/toggle/Toggle';
-import { AuthContainer } from '@store/auth';
+import { useAuth } from '@store/auth';
 
 type Props = {
   hideMenu: () => void;
@@ -16,7 +16,7 @@ type Props = {
 
 function ProfileMenu({ hideMenu }: Props) {
   const [visibility, setVisibility] = useState(false);
-  const { signOut } = AuthContainer.useContainer();
+  const { signOut } = useAuth();
 
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, hideMenu);

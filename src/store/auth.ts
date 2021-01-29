@@ -2,76 +2,72 @@ import { useCallback, useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
 import { providerGoogle, auth, fs } from '@logic/firebase/auth';
+import usePromisedState from '@logic/usePromisedState';
 import type firebase from 'firebase';
 
 // the store's hook
-function useFirebaseAuth() {
-  // signs in user as anonymous if signed out
-  const [user, setUser] = useState<firebase.User | undefined>(undefined);
-  const handleAuthChange = useCallback((u: firebase.User | null) => {
-    u === null ? auth.signInAnonymously() : setUser(u);
-  }, []);
+function useAuth() {
+  const [user, userPromise, setUser] = usePromisedState<firebase.User>(undefined);
+
+  function handleAuthChange(u: firebase.User | null) {
+    // signs in user as anonymous if signed out
+    if (u === null) auth.signInAnonymously();
+    else setUser(u);
+  }
+
   useEffect(() => auth.onAuthStateChanged(handleAuthChange), []);
 
   // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
-  const signInWithGoogle = useCallback(
-    async function () {
-      if (!user || !user.isAnonymous) return;
+  async function signInWithGoogle() {
+    const user = await userPromise;
 
-      try {
-        const userCred = await user.linkWithPopup(providerGoogle);
+    try {
+      const userCred = await user.linkWithPopup(providerGoogle);
 
-        // @ts-ignore
-        const displayName = userCred.additionalUserInfo.profile.name;
-        // @ts-ignore
-        const photoURL = userCred.additionalUserInfo.profile.picture;
+      // @ts-ignore
+      const displayName = userCred.additionalUserInfo.profile.name;
+      // @ts-ignore
+      const photoURL = userCred.additionalUserInfo.profile.picture;
 
-        await user.updateProfile({ displayName, photoURL });
-        // @ts-ignore
-        setUser({ ...userCred.user });
-      } catch ({ code, credential }) {
-        if (code === 'auth/credential-already-in-use') {
-          await auth.signInWithCredential(credential);
-        } else if (code === 'auth/account-exists-with-different-credential') {
-        }
-      } finally {
-        fs.doc(`users/${user.uid}`).set({ joined: new Date() });
-        window.location.pathname = '/';
+      await user.updateProfile({ displayName, photoURL });
+      setUser({ ...userCred.user });
+    } catch ({ code, credential }) {
+      if (code === 'auth/credential-already-in-use') {
+        await auth.signInWithCredential(credential);
+      } else if (code === 'auth/account-exists-with-different-credential') {
       }
-    },
-    [user],
-  );
-  const signInWithEmailAndPassword = useCallback(
-    async function (email: string, password: string) {
-      if (!user || !user.isAnonymous) return;
+    } finally {
+      fs.doc(`users/${user.uid}`).set({ joined: new Date() });
+      window.location.pathname = '/';
+    }
+  }
 
-      try {
-        const userCred = await auth.signInWithEmailAndPassword(email, password);
+  async function signInWithEmailAndPassword(email: string, password: string) {
+    const user = await userPromise;
 
-        // @ts-ignore
-        setUser({ ...userCred.user });
-      } catch ({ code, credential }) {
-        if (code === 'auth/account-exists-with-different-credential') {
-        }
-      } finally {
-        fs.doc(`users/${user.uid}`).set({ joined: new Date() });
-        window.location.pathname = '/';
+    try {
+      const userCred = await auth.signInWithEmailAndPassword(email, password);
+      setUser({ ...userCred.user });
+    } catch ({ code, credential }) {
+      if (code === 'auth/account-exists-with-different-credential') {
       }
-    },
-    [user],
-  );
+    } finally {
+      fs.doc(`users/${user.uid}`).set({ joined: new Date() });
+      window.location.pathname = '/';
+    }
+  }
 
   return {
     user,
+    userPromise,
 
     signInWithGoogle,
     signInWithEmailAndPassword,
-
     signOut() {
       auth.signOut();
     },
   };
 }
 
-const AuthContainer = createContainer(useFirebaseAuth);
-export { AuthContainer };
+const { Provider, useContainer } = createContainer(useAuth);
+export { Provider as AuthProvider, useContainer as useAuth };

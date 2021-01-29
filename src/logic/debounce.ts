@@ -1,4 +1,5 @@
 type Args = [(...args: any[]) => any, number, boolean?];
+
 export default function debounce(...args: Args) {
   const [func, wait, instant = false] = args;
   let timeout: any;

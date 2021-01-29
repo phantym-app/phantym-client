@@ -16,6 +16,7 @@
       background,
       value,
       size: 300,
+      level: 'H',
     });
   }
 </script>

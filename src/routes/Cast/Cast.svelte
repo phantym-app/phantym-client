@@ -6,12 +6,12 @@
   import QrCard from './_qrCard.svelte';
   import PlayerList from './_playerList.svelte';
 
-  const NAMESPACE = 'urn:x-cast:com.unsole.room';
+  const NAMESPACE = 'urn:x-cast:com.phantym.room';
 
   const castContext = cast.framework.CastReceiverContext.getInstance();
   const { READY, SENDER_DISCONNECTED } = cast.framework.system.EventType;
 
-  const roomIdPromise = new Promise(function (res) {
+  const roomIdPromise = new Promise<string>(function (res) {
     function onRoomCode({ data }) {
       if (data?.type === 'SET_ROOM') {
         castContext.removeCustomMessageListener(NAMESPACE, onRoomCode);
@@ -46,17 +46,23 @@
   <QrCard foreground="#101010" background="#f2f2f2" {roomIdPromise} />
 
   {#await roomIdPromise}
-    <div>
+    <div class="roomCode">
       <h5>creating room...</h5>
     </div>
   {:then roomId}
-    <div>
+    <div class="roomCode">
       <h5>or use room code</h5>
       <h1>{roomId}</h1>
     </div>
   {/await}
 
-  <PlayerList />
+  {#await roomIdPromise}
+    <div class="playerList">
+      <h2 class="title">Waiting for players</h2>
+    </div>
+  {:then roomId}
+    <PlayerList {roomId} />
+  {/await}
 </main>
 
 <style lang="scss">
@@ -65,20 +71,21 @@
   main {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr min-content 420px 1fr;
-    grid-template-rows: 1fr 400px min-content 1fr;
+    // TODO use non absolute, what if 4k???
+    grid-template-columns: 1fr 400px 420px 1fr;
+    grid-template-rows: 1fr 400px 135px 1fr;
     grid-template-areas:
       '.... .... .... ....'
       '.... qrcd plyr ....'
       '.... code plyr ....'
       '.... .... .... ....';
 
-    column-gap: 100px;
+    column-gap: 150px;
 
     background-color: $background;
 
-    div {
-      height: 133.8px;
+    .roomCode {
+      height: 100%;
       grid-area: code;
 
       margin: auto;
@@ -88,6 +95,10 @@
       h1 {
         color: $purple;
       }
+    }
+
+    .playerList {
+      grid-area: plyr;
     }
   }
 </style>

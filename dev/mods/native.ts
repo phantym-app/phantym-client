@@ -1,11 +1,11 @@
 type fn = (any: any) => any;
 
 declare interface Window {
-  pipe(...fns: (fn | string)[]): (arg: any) => any;
-  importScript(url: string): Promise<Event>;
+  pipe;
+  importScript;
 }
 
-window.pipe = (...fns) => (args = null) => fns.reduce((A, fn) => (typeof fn === 'string' ? A[fn] : fn(A)), args);
+window.pipe = (...fns) => args => fns.reduce((A, fn) => fn(A), args);
 
 window.importScript = function (url) {
   const s = document.createElement('script');

@@ -3,10 +3,10 @@ import { h, Fragment } from 'preact';
 import LoginForm from '@components/views/loginForm/LoginForm';
 
 import styles from './Login.module.scss';
-import { AuthContainer } from '@store/auth';
+import { useAuth } from '@store/auth';
 
 function Login() {
-  const { user, signInWithGoogle } = AuthContainer.useContainer();
+  const { user, signInWithGoogle } = useAuth();
 
   if (user === undefined) return <></>;
 

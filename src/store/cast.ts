@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
+import randomRoomId from '@logic/randomRoomId';
+import { useRoom } from './room';
 
 declare const chrome, cast;
 type CastSession = any;
 type CastContext = any;
 
-const NAMESPACE = 'urn:x-cast:com.unsole.room';
+const NAMESPACE = 'urn:x-cast:com.phantym.room';
 
 importScript('https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1');
 const apiAvailable = new Promise(res => (window['__onGCastApiAvailable'] = res));
 
-function useCaster() {
+function useCast() {
+  const { createRoom } = useRoom();
   const [canCast, setCanCast] = useState(false);
   const [castSession, setCastSession] = useState<CastSession>(null);
   const [castContext, setCastContext] = useState<CastContext>(null);
@@ -31,10 +34,10 @@ function useCaster() {
     }
   }
 
-  function onSessionStateChange({ errorCode, session, sessionState }) {
+  async function onSessionStateChange({ errorCode, session, sessionState }) {
     switch (sessionState) {
       case 'SESSION_STARTED':
-        session.sendMessage(NAMESPACE, { type: 'SET_ROOM', roomId: 'NICE' });
+        session.sendMessage(NAMESPACE, { type: 'SET_ROOM', roomId: await createRoom() });
       case 'SESSION_RESUMED':
         session.addMessageListener(NAMESPACE, onMessage);
         setCastSession(session);
@@ -128,5 +131,5 @@ function useCaster() {
   };
 }
 
-const CasterContainer = createContainer(useCaster);
-export { CasterContainer };
+const { Provider, useContainer } = createContainer(useCast);
+export { Provider as CastProvider, useContainer as useCast };
