@@ -48,7 +48,9 @@ function useRoom() {
 
         // TODO this call to db is prob unnecessary
         const highestIndex =
-          (await __roomRef.orderByChild('index').startAt(0).limitToFirst(1).once('value')).val()?.index ?? 0;
+          Object.values<{ index?: number }>(
+            (await __roomRef.orderByChild('index').startAt(0).limitToFirst(1).once('value')).val() ?? {},
+          )[0]?.index ?? 0;
 
         // adds player to db
         __playerRef.onDisconnect().remove();
