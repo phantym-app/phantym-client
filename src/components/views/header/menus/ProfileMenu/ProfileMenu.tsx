@@ -8,17 +8,16 @@ import logOut from '@assets/icons/log-out.svg';
 
 import { useOnClickOutside } from '@logic/useOnClickOutside';
 import Toggle from '@components/elements/toggle/Toggle';
-import { AuthContainer } from '@store/auth';
+import { useAuth } from '@store/auth';
 
 type Props = {
   hideMenu: () => void;
-  visible: boolean;
-  setVisible: (visibility: boolean) => void;
+  userVisible: boolean;
+  toggleUserVisible: (any: any) => void;
 };
 
-function ProfileMenu({ hideMenu, visible, setVisible }: Props) {
-  // const [visibility, setVisibility] = useState(false);
-  const { signOut } = AuthContainer.useContainer();
+function ProfileMenu({ hideMenu, userVisible, toggleUserVisible }: Props) {
+  const { signOut } = useAuth();
 
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, hideMenu);
@@ -29,14 +28,10 @@ function ProfileMenu({ hideMenu, visible, setVisible }: Props) {
         <img src={user} alt={'profile'} />
         <p>Profile</p>
       </button>
-      <button
-        onClick={function () {
-          setVisible(!visible);
-        }}
-        class={[styles.option, styles.visible]}>
-        <img src={visible ? visibleEye : notVisible} alt={'visible'} />
+      <button onClick={toggleUserVisible} class={[styles.option, styles.visible]}>
+        <img src={userVisible ? visibleEye : notVisible} alt={'visible'} />
         <p>Visible</p>
-        <Toggle checked={visible} />
+        <Toggle checked={userVisible} />
       </button>
       <button onClick={signOut} class={styles.option}>
         <img src={logOut} alt={'profile'} />

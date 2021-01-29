@@ -55,6 +55,7 @@ declare module '*.png' {
   const ref: string;
   export default ref;
 }
+
 /* CUSTOM: ADD YOUR OWN HERE */
 declare module '*.mp4' {
   const src: string;
@@ -63,4 +64,8 @@ declare module '*.mp4' {
 declare module '*.json' {
   const object: { [key: string]: any };
   export default object;
+}
+declare module '*.svelte' {
+  const ref: any;
+  export default ref;
 }

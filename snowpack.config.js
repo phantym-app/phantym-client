@@ -6,23 +6,38 @@ module.exports = {
     public: { url: '/', static: true, resolve: false },
     'dev/mods': '/_dist_',
   },
-  plugins: ['snowpack-plugin-swc', '@snowpack/plugin-sass', '@prefresh/snowpack'],
-  packageOptions: {
-    installTypes: true,
+
+  plugins: [
+    '@snowpack/plugin-svelte',
+    '@snowpack/plugin-dotenv',
+    'snowpack-plugin-swc',
+    '@snowpack/plugin-sass',
+    '@prefresh/snowpack',
+  ],
+
+  buildOptions: { out: 'build' },
+  // packageOptions: { types: true, source: "remote" },
+
+  optimize: {
+    bundle: true,
+    minify: true,
+    target: 'es2020',
   },
-  buildOptions: {
-    out: 'build',
-    watch: false, // useful if using own backend instead of dev server
-  },
+
   alias: {
     react: 'preact/compat',
     'react-dom': 'preact/compat',
 
-    '@assets/': './public/assets/',
-    '@routes/': './src/routes/',
-    '@store/': './src/store/',
-    '@logic/': './src/logic/',
-    '@components/': './src/components/',
+    '@assets': './public/assets',
+    '@routes': './src/routes',
+    '@store': './src/store',
+    '@logic': './src/logic',
+    '@components': './src/components',
   },
-  routes: [{ match: 'routes', src: '.*', dest: '/index.html' }],
+
+  // spa fallback
+  routes: [
+    { src: '/cast', dest: '/cast.html' },
+    { match: 'routes', src: '.*', dest: '/index.html' },
+  ],
 };

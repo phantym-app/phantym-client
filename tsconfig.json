@@ -11,10 +11,25 @@
     "baseUrl": "./",
     "paths": {
       "@routes/*": ["src/routes/*"],
+      "@routes": ["src/routes"],
+
       "@assets/*": ["public/assets/*"],
+      "@assets": ["public/assets"],
+
       "@store/*": ["src/store/*"],
+      "@store": ["src/store"],
+
       "@logic/*": ["src/logic/*"],
-      "@components/*": ["src/components/*"]
-    }
+      "@logic": ["src/logic"],
+
+      "@components/*": ["src/components/*"],
+      "@components": ["src/components"]
+    },
+
+    "module": "esnext",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true
+
+    // "target": "esnext",
   }
 }

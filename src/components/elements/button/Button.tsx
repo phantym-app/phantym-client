@@ -7,7 +7,7 @@ type Props = {
   squared?: boolean;
   squaredIcon?: string;
   style?: 'google' | 'facebook' | 'cast';
-  onClick?: () => void;
+  onClick?: (...args: any) => void;
   colour?: 'primary' | 'secondary' | 'error' | 'warning';
 };
 
