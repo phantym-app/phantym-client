@@ -4,15 +4,14 @@ import styles from './Hamburger.module.scss';
 
 import { useHamburger } from './HamburgerState';
 
-type Props = {};
+type Props = {
+  isActive: boolean;
+  onClick: () => void;
+};
 
-function Hamburger({}: Props) {
-  const { isActive, setActive } = useHamburger();
+function Hamburger({ isActive, onClick }: Props) {
   return (
-    <button
-      onClick={() => setActive(!isActive)}
-      class={[styles.hamburger, { [styles.isActive]: isActive }]}
-      type={'button'}>
+    <button onClick={onClick} class={[styles.hamburger, { [styles.isActive]: isActive }]} type={'button'}>
       <span class={styles.hamburgerBox}>
         <span class={styles.hamburgerInner}></span>
       </span>

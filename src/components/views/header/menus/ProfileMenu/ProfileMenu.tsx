@@ -14,19 +14,21 @@ type Props = {
   hideMenu: () => void;
   visible: boolean;
   setVisible: (visibility: boolean) => void;
+  isCollapsed: boolean;
 };
 
-function ProfileMenu({ hideMenu, visible, setVisible }: Props) {
-  // const [visibility, setVisibility] = useState(false);
+function ProfileMenu({ hideMenu, visible, setVisible, isCollapsed }: Props) {
   const { signOut } = AuthContainer.useContainer();
 
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, hideMenu);
 
   return (
-    <div ref={ref} class={styles.root}>
+    <div ref={ref} class={[styles.root, { [styles.isCollapsed]: isCollapsed }]}>
       <button class={styles.option}>
-        <img src={user} alt={'profile'} />
+        <div class={styles.iconContainer}>
+          <img src={user} alt={'profile'} />
+        </div>
         <p>Profile</p>
       </button>
       <button
@@ -34,12 +36,16 @@ function ProfileMenu({ hideMenu, visible, setVisible }: Props) {
           setVisible(!visible);
         }}
         class={[styles.option, styles.visible]}>
-        <img src={visible ? visibleEye : notVisible} alt={'visible'} />
+        <div class={styles.iconContainer}>
+          <img src={visible ? visibleEye : notVisible} alt={'visible'} />
+        </div>
         <p>Visible</p>
         <Toggle checked={visible} />
       </button>
       <button onClick={signOut} class={styles.option}>
-        <img src={logOut} alt={'profile'} />
+        <div class={styles.iconContainer}>
+          <img src={logOut} alt={'profile'} />
+        </div>
         <p>Log out</p>
       </button>
     </div>

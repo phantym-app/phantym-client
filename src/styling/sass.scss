@@ -9,8 +9,8 @@
 
 // Extends ------------------------------------------------------------------------------------------------------------
 %buttonIcon {
-  display: inline-block;
-  width: inherit;
+  display: flex;
+  margin-right: 10px;
+  align-items: center;
   height: inherit;
-  margin: auto 10px auto 0;
 }

@@ -15,13 +15,10 @@ $hamburger-hover-filter: opacity(50%) !default;
   display: inline-block;
   cursor: pointer;
   padding: 0;
-  height: fit-content;
-
-  transition-property: opacity, filter;
-  transition-duration: 0.15s;
-  transition-timing-function: linear;
-
-  // Normalize (<button>)
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  min-height: 50px;
   font: inherit;
   color: inherit;
   text-transform: none;
@@ -29,13 +26,11 @@ $hamburger-hover-filter: opacity(50%) !default;
   border: 0;
   margin: 0;
   overflow: visible;
+  transition: $fast-transition;
+  border-radius: 10px;
 
   &:hover {
-    @if $hamburger-hover-use-filter == true {
-      filter: $hamburger-hover-filter;
-    } @else {
-      opacity: $hamburger-hover-opacity;
-    }
+    background-color: $backgroundLifted2;
   }
 
   &.isActive {

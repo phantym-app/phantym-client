@@ -1,10 +1,9 @@
 // Colours ----------------------------------------------------------------------------------------------------------
-$lightPurple: #b8b8ff;
-$purple: #9381ff;
-$buttonPurple: #745ef5;
-$green: #17bf63;
-$orange: #ffbf69;
-$red: #e0245e;
+$darkPurple: #4f1271;
+$purple: #a21bfb;
+$green: #06d6a0;
+$orange: #fe920c;
+$red: #ff2e2f;
 $blue: #1da1f2;
 $darkest: #101010;
 $background: #1c1c1e;
@@ -39,7 +38,7 @@ $facebookBlue: #3b5998;
   src: url('/assets/fonts/thin.otf');
 }
 
-// Custom styling -----------------------------------------------------------------------------------------------------
+// Typography -----------------------------------------------------------------------------------------------------
 $h1Size: 54px;
 $h2Size: 48px;
 $h3Size: 42px;
@@ -47,3 +46,8 @@ $h4Size: 34px;
 $h5Size: 24px;
 $h6Size: 20px;
 $pSize: 16px;
+
+// Animation -------------------------------------------------------------------------------------------------------
+$slow-transition: 0.5s ease-in-out;
+$default-transition: 0.25s ease-in-out;
+$fast-transition: 0.1s ease-in-out;

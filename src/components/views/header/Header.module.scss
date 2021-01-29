@@ -3,45 +3,60 @@
 .root {
   background-color: $background;
   height: 100vh;
-  width: 300px;
+  width: fit-content;
   position: sticky;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   z-index: 10;
-  padding: 50px 0;
-  transition: 200ms;
-
-  .title {
-    width: 100%;
-    padding: 0 0 0 50px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 50px;
-
-    button {
-      width: 35px;
-      margin-right: 25px;
-    }
-  }
 
   .links {
-    width: 100%;
+    margin-top: 50px;
+    width: fit-content;
     height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 300px;
+    transition: $fast-transition;
+
+    .title {
+      width: 100%;
+      padding: 0 27.5px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 50px;
+      height: 50px;
+      overflow: hidden;
+
+      button {
+        width: 35px;
+        margin-right: 25px;
+      }
+    }
+
+    a {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      background-color: transparent;
+    }
 
     .profileMenu {
       display: flex;
+      width: 100%;
       flex-direction: row;
+      background-color: transparent;
+
+      &:hover {
+        background-color: $background;
+      }
 
       .pageLink {
         .iconContainer {
           border-radius: 25px;
-          background-color: $background;
 
           > img {
             width: 100%;
@@ -49,23 +64,49 @@
             object-fit: cover;
           }
         }
+        &:hover {
+          background-color: $backgroundLifted;
+        }
       }
     }
 
     .pageLink {
-      padding: 0 0 0 50px;
+      padding: 0 35px;
       display: flex;
       height: 75px;
-      width: 300px;
+      width: 100%;
       justify-content: start;
       align-items: center;
       background-color: transparent;
       border: none;
       cursor: pointer;
+      overflow: hidden;
+
+      &.active {
+        background-color: rgba(162, 27, 251, 0.1);
+        border-right: 4px $purple solid;
+
+        &:hover {
+          background-color: rgba(162, 27, 251, 0.1);
+        }
+
+        .iconContainer {
+          img {
+            filter: brightness(0) saturate(100%) invert(100%) sepia(22%) saturate(241%) hue-rotate(245deg)
+              brightness(114%) contrast(90%);
+          }
+        }
+
+        p {
+          @include text('boldFont', 16px, $white);
+        }
+      }
 
       .iconContainer {
         width: 35px;
+        min-width: 35px;
         height: 35px;
+        min-height: 35px;
         display: flex;
         overflow: hidden;
         justify-content: center;
@@ -73,11 +114,8 @@
 
         img {
           align-self: center;
-        }
-
-        img.active {
-          filter: brightness(0) saturate(100%) invert(49%) sepia(65%) saturate(1469%) hue-rotate(217deg)
-            brightness(101%) contrast(101%);
+          filter: brightness(0) saturate(100%) invert(62%) sepia(10%) saturate(124%) hue-rotate(202deg) brightness(90%)
+            contrast(81%);
         }
 
         .profileVisibility {
@@ -96,25 +134,106 @@
       }
 
       &:hover {
-        background-color: $background;
+        background-color: $backgroundLifted;
       }
 
       p {
-        @include text('boldFont', 16px, $white);
-      }
-
-      p.active {
-        @include text('boldFont', 16px, $purple);
+        white-space: nowrap;
+        transition: $fast-transition;
+        @include text('boldFont', 16px, $greyLifted);
       }
     }
   }
 
-  > :last-child {
-    margin: auto auto 0;
-  }
-}
+  // Cast button
+  > button {
+    margin: auto 35px 50px 35px;
+    width: calc(100% - 70px);
+    transition: $fast-transition;
+    white-space: nowrap;
+    overflow: hidden;
+    transform-origin: bottom;
 
-.hidden {
-  position: absolute;
-  transform: translateX(-100%);
+    .buttonInner {
+      display: flex;
+      width: 100%;
+      align-items: center;
+
+      .iconContainer {
+        display: flex;
+        align-items: center;
+        margin: 0 15px 0 auto;
+        transition: $fast-transition;
+
+        img {
+          transition: $fast-transition;
+        }
+      }
+
+      p {
+        transition: $fast-transition;
+        margin: 0 auto 0 0;
+        @include text('boldFont', 16px, $white);
+      }
+    }
+  }
+
+  &.hidden {
+    position: absolute;
+    transform: translateX(-100%);
+  }
+
+  &.collapsed {
+    .links {
+      width: 105px;
+      .title {
+        padding: 0 27.5px;
+
+        button {
+          margin: 0 auto 0 0;
+        }
+
+        h6 {
+          display: none;
+        }
+      }
+      .pageLink {
+        padding: 0 35px;
+
+        p {
+          transform: translateX(120px);
+          opacity: 0;
+        }
+      }
+    }
+
+    // Cast button
+    > button {
+      margin: auto 0 0 0;
+      width: 105px;
+      height: 100px;
+      border-radius: 0;
+
+      &::before {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .buttonInner {
+        .iconContainer {
+          margin: auto;
+          width: 35px;
+          min-width: 35px;
+          justify-content: center;
+        }
+        p {
+          transform: translateX(120px);
+          opacity: 0;
+          display: none;
+        }
+      }
+    }
+  }
 }

@@ -10,6 +10,7 @@ import logIn from '@assets/icons/log-in.svg';
 import gamepad from '@assets/icons/gamepad.svg';
 import compass from '@assets/icons/compass.svg';
 import cart from '@assets/icons/shopping-cart.svg';
+import cast from '@assets/icons/cast.svg';
 
 import Button from '@components/elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
@@ -21,11 +22,11 @@ import { AuthContainer } from '@store/auth';
 import { useHeader } from './HeaderState';
 
 const PageLink = ({ to, isActive, imageSrc, title }: any) => (
-  <Link to={to} class={styles.pageLink}>
+  <Link to={to} class={[styles.pageLink, { [styles.active]: isActive }]}>
     <div class={styles.iconContainer}>
-      <img class={{ [styles.active]: isActive }} src={imageSrc} alt={'room'} />
+      <img src={imageSrc} alt={'room'} />
     </div>
-    <p class={{ [styles.active]: isActive }}>{title}</p>
+    <p>{title}</p>
   </Link>
 );
 
@@ -33,15 +34,14 @@ function Header() {
   const [activeMenu, setActiveMenu] = useState<string>('');
   const { pathname } = useLocation();
   const { user } = AuthContainer.useContainer();
-  const { visibility, setVisibility } = useHeader();
+  const { visibility, setVisibility, isCollapsed, setCollapsed } = useHeader();
 
   return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login' }]}>
-      <div class={styles.title}>
-        <Hamburger />
-        <h6>unsole</h6>
-      </div>
+    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
       <div class={styles.links}>
+        <div class={styles.title}>
+          <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
+        </div>
         {/* Profile button */}
         {user === undefined || user.isAnonymous ? (
           <Link to={'/login'}>
@@ -65,7 +65,12 @@ function Header() {
               <p>{user?.displayName}</p>
             </button>
             {activeMenu === 'profile' && (
-              <ProfileMenu hideMenu={() => setActiveMenu('')} visible={visibility} setVisible={setVisibility} />
+              <ProfileMenu
+                isCollapsed={isCollapsed}
+                hideMenu={() => setActiveMenu('')}
+                visible={visibility}
+                setVisible={setVisibility}
+              />
             )}
           </div>
         )}
@@ -82,7 +87,14 @@ function Header() {
         <PageLink to={'/room'} isActive={pathname.startsWith('/room')} imageSrc={room} title={'Room'} />
         <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} imageSrc={cog} title={'Settings'} />
       </div>
-      <Button style={'cast'}>Start casting</Button>
+      <Button>
+        <div class={styles.buttonInner}>
+          <div class={styles.iconContainer}>
+            <img src={cast} alt={'cast'} />
+          </div>
+          <p>Start casting</p>
+        </div>
+      </Button>
     </header>
   );
 }

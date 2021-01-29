@@ -6,7 +6,7 @@
   &:focus {
     outline-style: solid;
     outline-width: 2px;
-    outline-color: $lightPurple;
+    outline-color: $purple;
     z-index: 2;
   }
 }
@@ -55,7 +55,7 @@ main {
 }
 
 main {
-  width: calc(100% - 300px);
+  width: 100%;
 }
 
 code {
@@ -65,10 +65,6 @@ code {
 a {
   color: $purple;
   text-decoration: none;
-
-  &:hover {
-    filter: brightness(120%);
-  }
 }
 
 h1,
