@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useRef } from 'preact/hooks';
 import styles from './ProfileMenu.module.scss';
 import user from '@assets/icons/user.svg';
 import visibleEye from '@assets/icons/eye.svg';
