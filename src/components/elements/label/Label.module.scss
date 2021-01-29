@@ -13,7 +13,7 @@
   cursor: pointer;
 
   > p {
-    color: $white;
+    @include text('boldFont', 16px, $white);
   }
 }
 
