@@ -13,7 +13,7 @@ import { useBrowse } from './browseState';
 import mockData from './mockData.json';
 import mockBanner from '@assets/banner.jpg';
 
-const Browse = () => {
+function Browse() {
   const { activeLabels, setActiveLabel } = useBrowse();
   const mockGameBanner = [
     {
@@ -90,6 +90,6 @@ const Browse = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Browse;
