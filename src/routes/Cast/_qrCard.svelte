@@ -3,6 +3,8 @@
 </script>
 
 <script>
+  import importScript from '@logic/importScript';
+
   export let foreground;
   export let background;
   export let roomIdPromise;

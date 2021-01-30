@@ -1,13 +1,4 @@
-type fn = (any: any) => any;
-
-declare interface Window {
-  pipe;
-  importScript;
-}
-
-window.pipe = (...fns) => args => fns.reduce((A, fn) => fn(A), args);
-
-window.importScript = function (url) {
+function importScript(url: string): Promise<Event> {
   const s = document.createElement('script');
   s.src = url;
   s.type = 'text/javascript';
@@ -22,4 +13,6 @@ window.importScript = function (url) {
       res(e);
     }
   });
-};
+}
+
+export default importScript;

@@ -1,4 +1,4 @@
-import '../dev/mods/preact/preactImplicitClassnames';
+import '@logic/preactImplicitClassnames';
 
 import { h, render } from 'preact';
 import { Suspense, lazy, StrictMode } from 'preact/compat';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
-import randomRoomId from '@logic/randomRoomId';
 import { useRoom } from './room';
+import importScript from '@logic/importScript';
 
 declare const chrome, cast;
 type CastSession = any;
