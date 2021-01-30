@@ -47,7 +47,7 @@ function Header() {
 const PageLink = ({ to, isActive = false, src, title }: any) => (
   <Link to={to} class={[styles.pageLink, { [styles.active]: isActive }]}>
     <div class={styles.iconContainer}>
-      <img src={src} alt={'room'} />
+      <img class={{ [styles.dulled]: !isActive }} src={src} alt={'room'} />
     </div>
     <p>{title}</p>
   </Link>
@@ -73,7 +73,7 @@ function ProfileButton({ isCollapsed }) {
     <div class={styles.profileMenu}>
       <button class={styles.pageLink} onKeyPress={e => e.key === 'Enter' && toggleIsOpen()} onMouseDown={toggleIsOpen}>
         <div class={styles.iconContainer}>
-          <img src={user?.photoURL || ''} alt={'user'} />
+          <img src={user.photoURL ?? ''} alt={'user'} />
           <div class={[styles.profileVisibility, { [styles.visible]: userVisible }]} />
         </div>
 
