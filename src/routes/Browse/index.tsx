@@ -1,6 +1,8 @@
 import { h } from 'preact';
 import styles from './Browse.module.scss';
 
+import filter from '@assets/icons/filter.svg';
+
 import Button from '@components/elements/button/Button';
 import Searchbar from '@components/elements/searchbar/Searchbar';
 import GameOverview from '@components/collections/gameOverview/GameOverview';
@@ -65,22 +67,22 @@ const Browse = () => {
             {/* TODO: Add Search function */}
             <Searchbar onChange={e => console.log(e.target.value)} placeholder={'Search for a game'} />
             {/* TODO: Add filter functions */}
-            <Button squared squaredIcon={'filter'} colour={'secondary'} />
+            <Button squared colour={'secondary'}>
+              <img src={filter} alt={'filter'} />
+            </Button>
           </div>
         </div>
-        <div class={styles.labelsContainer}>
-          <LabelOverview
-            labels={mockData.mockLabels}
-            activeLabels={activeLabels}
-            onLabelClick={(title: string) =>
-              setActiveLabel(
-                activeLabels.includes(title)
-                  ? activeLabels.filter(_title => title !== _title)
-                  : activeLabels.concat(title),
-              )
-            }
-          />
-        </div>
+        <LabelOverview
+          labels={mockData.mockLabels}
+          activeLabels={activeLabels}
+          onLabelClick={(title: string) =>
+            setActiveLabel(
+              activeLabels.includes(title)
+                ? activeLabels.filter(_title => title !== _title)
+                : activeLabels.concat(title),
+            )
+          }
+        />
       </div>
       <Hero typeOfContent={'new releases'} type={'carousel'} games={mockGameBanner} />
       <div class={styles.content}>

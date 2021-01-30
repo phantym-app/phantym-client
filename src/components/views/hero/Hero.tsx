@@ -3,6 +3,7 @@ import { useCallback, useRef } from 'preact/hooks';
 
 import styles from './Hero.module.scss';
 import { Link } from 'react-router-dom';
+import Button from '@components/elements/button/Button';
 
 import chevronLeft from '@assets/icons/chevron-left.svg';
 import chevronRight from '@assets/icons/chevron-right.svg';
@@ -139,8 +140,10 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
       <div class={styles.shade} />
       <div class={styles.overlay}>
         {type === 'carousel' && (
-          <div onClick={() => switchBanner('previous')} class={styles.previousBanner}>
-            {activeGame !== 0 && <img src={chevronLeft} alt={'chevronLeft'} />}
+          <div class={[styles.buttonContainer, { [styles.activeButton]: activeGame !== 0 }]}>
+            <Button onClick={() => switchBanner('previous')} rounded colour={'secondary'}>
+              <img src={chevronLeft} alt={'chevronLeft'} />
+            </Button>
           </div>
         )}
         <Link to={`/browse/game?selected=${title}`}>
@@ -163,8 +166,10 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
           </div>
         </Link>
         {type === 'carousel' && (
-          <div onClick={() => switchBanner('next')} class={styles.nextBanner}>
-            {activeGame + 1 !== games.length && <img src={chevronRight} alt={'chevronRight'} />}
+          <div class={[styles.buttonContainer, { [styles.activeButton]: activeGame + 1 !== games.length }]}>
+            <Button onClick={() => switchBanner('next')} rounded colour={'secondary'}>
+              <img src={chevronRight} alt={'chevronRight'} />
+            </Button>
           </div>
         )}
       </div>

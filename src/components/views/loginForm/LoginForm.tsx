@@ -17,20 +17,14 @@ function LoginForm({ signInWithGoogle }: { signInWithGoogle: () => any }) {
       <form onSubmit={handleSubmit} class={styles.form}>
         <h4>Sign in</h4>
         <Input icon={'close'} type={'email'} label={'Email address'} placeholder={'Example@example.com'} />
-        <Input
-          icon={'eye'}
-          type={'password'}
-          link={{ url: '/forgotPassword', message: 'Forgot your password?' }}
-          label={'Password'}
-          placeholder={'Enter your password'}
-        />
+        <Input icon={'eye'} type={'password'} label={'Password'} placeholder={'Enter your password'} />
         <Button>Sign in</Button>
       </form>
       <p>
         Not a member? <a href={''}>Sign up here!</a>
       </p>
       <div class={styles.alternativeLogin}>
-        <p>Or</p>
+        <p>or</p>
         <Button style={'google'} onClick={signInWithGoogle}>
           Sign in with Google
         </Button>

@@ -91,6 +91,19 @@
     },
     {
       "title": "MMORPG"
+    },
+    { "title": "Free to play" },
+    { "title": "Action" },
+    { "title": "RPG" },
+    { "title": "Multiplayer" },
+    { "title": "Kids" },
+    { "title": "Platformer" },
+    { "title": "Adventure" },
+    {
+      "title": "Horror"
+    },
+    {
+      "title": "MMORPG"
     }
   ]
 }

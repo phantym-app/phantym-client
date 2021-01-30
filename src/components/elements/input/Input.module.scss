@@ -2,6 +2,7 @@
 
 .root {
   margin-bottom: 25px;
+  position: relative;
 
   .labels {
     display: flex;
@@ -25,60 +26,135 @@
     }
   }
 
-  .input {
-    background-color: $backgroundLifted2;
-    border: none;
-    border-radius: 10px;
-    padding: 0 20px;
-    height: 50px;
-    width: 350px;
-    color: $white;
-    @include text('regularFont', 16px, $white);
+  .inputContainer {
+    position: relative;
 
-    &::placeholder {
-      @include text('regularFont', 16px, $grey);
+    .labelContainer {
+      background-color: $darkest;
+      padding: 0 5px;
+      position: absolute;
+      top: -7px;
+      left: 21px;
+
+      p {
+        text-transform: uppercase;
+        @include text('boldFont', 10px, $grey);
+      }
+    }
+    .input {
+      background-color: transparent;
+      border: 2px $backgroundLifted solid;
+      border-radius: 50px;
+      padding: 0 25px;
+      height: 50px;
+      width: 350px;
+      color: $white;
+      @include text('regularFont', 16px, $white);
+
+      &.success {
+        border: 2px $green solid;
+      }
+
+      &.warning {
+        border: 2px $orange solid;
+      }
+
+      &.error {
+        border: 2px $red solid;
+      }
+
+      &::placeholder {
+        @include text('regularFont', 16px, $grey);
+      }
     }
 
-    &:not(:placeholder-shown) {
-      border: 2px $purple solid;
+    .statusContainer {
+      display: flex;
+      margin: 15px 0 0 27px;
+
+      img {
+        margin-right: 10px;
+      }
+
+      &.success {
+        img {
+          filter: brightness(0) saturate(100%) invert(73%) sepia(85%) saturate(2470%) hue-rotate(113deg) brightness(93%)
+            contrast(95%);
+        }
+        p {
+          color: $green;
+        }
+      }
+
+      &.warning {
+        img {
+          filter: brightness(0) saturate(100%) invert(54%) sepia(93%) saturate(799%) hue-rotate(354deg) brightness(101%)
+            contrast(99%);
+        }
+        p {
+          color: $orange;
+        }
+      }
+
+      &.error {
+        img {
+          filter: brightness(0) saturate(100%) invert(41%) sepia(89%) saturate(6380%) hue-rotate(345deg)
+            brightness(101%) contrast(100%);
+        }
+        p {
+          color: $red;
+        }
+      }
     }
   }
 
   .iconContainer {
     position: absolute;
     height: 50px;
-    width: 50px;
+    width: 65px;
+    padding: 0 25px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    margin: -50px 0 0 300px;
-    border-radius: 0 10px 10px 0;
-    border: none;
-    background-color: $backgroundLifted2;
+    top: 0;
+    right: 0;
+    border-radius: 0 50px 50px 0;
+    border: 2px $backgroundLifted solid;
+    border-left: none;
+    background-color: transparent;
     cursor: pointer;
 
+    &.success {
+      border: 2px $green solid;
+      border-left: none;
+    }
+
+    &.warning {
+      border: 2px $orange solid;
+      border-left: none;
+    }
+
+    &.error {
+      border: 2px $red solid;
+      border-left: none;
+    }
+
     &:hover {
-      background-color: $backgroundLifted3;
+      background-color: $backgroundLifted;
+    }
+
+    &.invisible {
+      display: none;
+    }
+
+    &.largerIcon {
+      .icon {
+        width: 15px;
+      }
     }
 
     .icon {
       width: 10px;
-    }
-  }
-
-  .iconContainer.invisible {
-    display: none;
-  }
-
-  .iconContainer.bordered {
-    border-top: 2px $purple solid;
-    border-right: 2px $purple solid;
-    border-bottom: 2px $purple solid;
-  }
-
-  .iconContainer.largerIcon {
-    .icon {
-      width: 15px;
     }
   }
 }
