@@ -64,24 +64,27 @@
     z-index: 2;
     justify-content: space-between;
 
-    .previousBanner {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50px;
-      cursor: pointer;
+    .buttonContainer {
+      opacity: 0;
+      transition: $default-transition;
+      margin: auto 25px;
+      pointer-events: none;
 
-      > img {
-        transition: 0.2s ease-out;
+      &.activeButton {
+        opacity: 1;
+        pointer-events: auto;
       }
 
-      &:hover {
-        > img {
-          transform: translateX(-5px);
+      button {
+        background-color: rgba(28, 28, 30, 0.4);
+        transition: $fast-transition;
+
+        &:hover {
+          background-color: rgba(28, 28, 30, 0.6);
         }
       }
     }
+
     a {
       width: calc(100% - 200px);
       display: flex;

@@ -1,23 +1,23 @@
 import { h } from 'preact';
 import styles from './Button.module.scss';
-import filter from '@assets/icons/filter.svg';
 
 type Props = {
   children?: any;
   squared?: boolean;
-  squaredIcon?: string;
+  rounded?: boolean;
   style?: 'google' | 'facebook' | 'cast';
   onClick?: (...args: any) => void;
-  colour?: 'secondary' | 'error' | 'warning';
+  colour?: 'secondary' | 'error' | 'warning' | 'success';
 };
 
-const Button = ({ children, squared, squaredIcon, style, onClick = () => {}, colour }: Props) => (
+const Button = ({ children, squared, style, onClick = () => {}, colour, rounded }: Props) => (
   <button
     onClick={onClick}
     class={[
       styles.root,
       {
         [styles.squared]: squared,
+        [styles.rounded]: rounded,
         [styles.icon]: style,
         [styles.google]: style === 'google',
         [styles.facebook]: style === 'facebook',
@@ -25,10 +25,10 @@ const Button = ({ children, squared, squaredIcon, style, onClick = () => {}, col
         [styles.secondary]: colour === 'secondary',
         [styles.error]: colour === 'error',
         [styles.warning]: colour === 'warning',
+        [styles.success]: colour === 'success',
       },
     ]}>
     {children}
-    {squaredIcon && <img src={squaredIcon === 'filter' ? filter : ''} alt={'buttonIcon'} />}
   </button>
 );
 

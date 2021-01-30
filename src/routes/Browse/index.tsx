@@ -1,6 +1,8 @@
 import { h } from 'preact';
 import styles from './Browse.module.scss';
 
+import filter from '@assets/icons/filter.svg';
+
 import Button from '@components/elements/button/Button';
 import Searchbar from '@components/elements/searchbar/Searchbar';
 import GameOverview from '@components/collections/gameOverview/GameOverview';
@@ -65,7 +67,9 @@ const Browse = () => {
             {/* TODO: Add Search function */}
             <Searchbar onChange={e => console.log(e.target.value)} placeholder={'Search for a game'} />
             {/* TODO: Add filter functions */}
-            <Button squared squaredIcon={'filter'} colour={'secondary'} />
+            <Button squared colour={'secondary'}>
+              <img src={filter} alt={'filter'} />
+            </Button>
           </div>
         </div>
         <LabelOverview

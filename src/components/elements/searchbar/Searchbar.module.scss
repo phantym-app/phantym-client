@@ -17,6 +17,10 @@
     background-position: 20px;
     @include text('regularFont', 16px, $white);
 
+    &:focus {
+      border: 2px $backgroundLifted2 solid;
+    }
+
     &::placeholder {
       @include text('regularFont', 16px, $greyLifted);
     }
