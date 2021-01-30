@@ -4,7 +4,6 @@ module.exports = {
   mount: {
     src: '/_dist_',
     public: { url: '/', static: true, resolve: false },
-    'dev/mods': '/_dist_',
   },
 
   plugins: [
