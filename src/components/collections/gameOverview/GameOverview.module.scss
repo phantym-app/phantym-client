@@ -2,13 +2,14 @@
 
 .root {
   width: 100%;
+  position: relative;
   display: grid;
-  grid-template-columns:
-    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
-    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
-    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
-    calc(calc(100% / 5) - calc(25px - calc(25px / 5)))
-    calc(calc(100% / 5) - calc(25px - calc(25px / 5)));
-  column-gap: 25px;
-  row-gap: 50px;
+  gap: 50px 25px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}
+
+@media only screen and (min-width: 1200px) {
+  .root {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
 }

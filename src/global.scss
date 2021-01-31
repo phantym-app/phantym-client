@@ -19,12 +19,25 @@ body {
 
 html,
 body,
-#root,
-main {
-  min-height: 100vh;
+#root {
+  min-height: 100%;
   margin: 0;
-  display: flex;
   background-color: $darkest;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  overflow: hidden;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100%;
+  max-width: unset;
+  padding: 0 15px;
+  margin: 0 auto 0 105px;
 }
 
 /* width */
@@ -45,14 +58,6 @@ main {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: $backgroundLifted2;
-}
-
-#root {
-  width: 100%;
-}
-
-main {
-  width: 100%;
 }
 
 code {
@@ -94,4 +99,18 @@ h6 {
 }
 p {
   @include text('regularFont', $pSize, $white);
+}
+
+@media only screen and (min-width: 768px) {
+  main {
+    padding: 0 25px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  main {
+    max-width: 1320px;
+    padding: 0 25px;
+    margin: 0 auto;
+  }
 }

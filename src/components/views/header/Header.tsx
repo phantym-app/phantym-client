@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import styles from './Header.module.scss';
 
 import cog from '@assets/icons/cog.svg';
@@ -21,8 +21,23 @@ import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
 
 function Header() {
-  const [isCollapsed, setCollapsed] = useState<boolean>(false);
+  const matchesWidth = (width: string, maxMin: 'max' | 'min') => {
+    const maxMinValue = maxMin === 'max' ? 'max-width' : 'min-width';
+    if (window.matchMedia(`(${maxMinValue}: ${width}px)`).matches) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const [isCollapsed, setCollapsed] = useState<boolean>(matchesWidth('1200', 'max') ? true : false);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      matchesWidth('1200', 'max') ? setCollapsed(true) : setCollapsed(false);
+    });
+  }, []);
 
   return (
     <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>

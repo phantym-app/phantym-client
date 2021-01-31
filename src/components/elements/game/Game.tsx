@@ -39,7 +39,9 @@ function Game({ game }: Props) {
     <div class={styles.root}>
       <Link to={`/browse/game?selected=${title}`}>
         <div class={[styles.imageContainer, { [styles.noPicture]: !picture }]}>
-          <img src={picture ? picture : noPicture} alt={'game-art'} />
+          <div class={styles.imageContainerInner}>
+            <img src={picture ? picture : noPicture} alt={'game-art'} />
+          </div>
         </div>
       </Link>
 
@@ -49,7 +51,7 @@ function Game({ game }: Props) {
             <p>{title}</p>
           </Link>
           <img
-            class={styles.favourite}
+            class={[styles.favourite, { [styles.active]: favourite }]}
             src={favourite ? favouriteFull : favouriteEmpty}
             alt={favourite ? 'favourite' : 'no-favourite'}
           />

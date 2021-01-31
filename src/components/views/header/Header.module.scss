@@ -4,7 +4,7 @@
   background-color: $background;
   height: 100vh;
   width: fit-content;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
@@ -236,5 +236,11 @@
         }
       }
     }
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .root {
+    position: sticky;
   }
 }

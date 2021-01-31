@@ -3,33 +3,46 @@
 .root {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 100%;
 
   .imageContainer {
     width: 100%;
-    height: 250px;
+    padding-top: 100%;
     border-radius: 10px;
     background-color: $background;
     overflow: hidden;
     cursor: pointer;
     display: flex;
+    position: relative;
 
-    > img {
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
+    .imageContainerInner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      overflow: hidden;
+      border-radius: 10px;
+
+      > img {
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
   .imageContainer.noPicture {
-    justify-content: center;
-    align-items: center;
-
-    > img {
-      min-width: unset;
-      min-height: unset;
-      width: 60px;
-      height: auto;
+    .imageContainerInner {
+      justify-content: center;
+      align-items: center;
+      > img {
+        min-width: unset;
+        min-height: unset;
+        width: 60px;
+        height: auto;
+      }
     }
   }
 
@@ -63,6 +76,11 @@
 
       .favourite {
         cursor: pointer;
+
+        &.active {
+          filter: brightness(0) saturate(100%) invert(41%) sepia(89%) saturate(6380%) hue-rotate(345deg)
+            brightness(101%) contrast(100%);
+        }
       }
 
       > p {

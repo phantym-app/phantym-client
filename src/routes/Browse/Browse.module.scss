@@ -7,7 +7,7 @@
   padding-top: 50px;
 
   .actions {
-    width: 1320px;
+    width: 100%;
     margin: 0 auto;
     margin-bottom: 50px;
     display: flex;
@@ -19,6 +19,8 @@
       align-items: center;
       height: fit-content;
       margin-bottom: 25px;
+      white-space: nowrap;
+
       .search {
         display: flex;
         flex-direction: row;
@@ -38,7 +40,7 @@
   }
 
   .content {
-    width: 1320px;
+    width: 100%;
     margin: 50px auto 0;
     padding-bottom: 50px;
     position: relative;

@@ -14,6 +14,7 @@ import GameOverview from '@components/collections/gameOverview/GameOverview';
 function Index() {
   const [activeTab, setActiveTab] = useState<string>('allGames');
   const [activeLabels, setActiveLabel] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   return (
     <div class={styles.root}>
       <div class={styles.actions}>
@@ -21,7 +22,7 @@ function Index() {
           <h1>My games</h1>
           <div class={styles.search}>
             {/* TODO: Add Search function */}
-            <Searchbar onChange={e => console.log(e.target.value)} placeholder={'Search for a game'} />
+            <Searchbar onChange={e => setSearchQuery(e)} placeholder={'Search for a game'} />
             {/* TODO: Add filter functions */}
             <Button squared colour={'secondary'}>
               <img src={filter} alt={'filter'} />
@@ -58,7 +59,7 @@ function Index() {
           }
         />
       </div>
-      <GameOverview games={mockData.mockGames} />
+      <GameOverview games={mockData.mockGames} favourites={activeTab === 'favourites'} searchQuery={searchQuery} />
     </div>
   );
 }
