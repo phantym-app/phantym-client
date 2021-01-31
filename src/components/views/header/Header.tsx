@@ -19,17 +19,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
+import { matchesWidth } from '@logic/matchesWidth';
 
 function Header() {
-  const matchesWidth = (width: string, maxMin: 'max' | 'min') => {
-    const maxMinValue = maxMin === 'max' ? 'max-width' : 'min-width';
-    if (window.matchMedia(`(${maxMinValue}: ${width}px)`).matches) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const [isCollapsed, setCollapsed] = useState<boolean>(matchesWidth('1200', 'max') ? true : false);
   const { pathname } = useLocation();
 
