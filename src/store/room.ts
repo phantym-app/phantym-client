@@ -1,9 +1,9 @@
 import { createContainer } from 'unstated-next';
 import { useCallback, useState } from 'preact/hooks';
 import { useAuth } from '@store/auth';
-import { db } from '@logic/firebase/database';
 import randomRoomId from '@logic/randomRoomId';
 import randomGhost from '@logic/randomGhost';
+const firebase$database = import('@logic/firebase/database');
 
 import type firebase from 'firebase';
 type Reference = firebase.database.Reference;
@@ -14,7 +14,7 @@ async function refExists(__ref: Reference) {
   return (await __ref.once('value')).exists();
 }
 
-const room = id => db.ref('room').child(id);
+const room = async id => (await firebase$database).db.ref('room').child(id);
 
 function useRoom() {
   const { userPromise } = useAuth();
@@ -70,19 +70,19 @@ function useRoom() {
   async function tryJoinRoom(roomId: string) {
     if (!roomId?.length) throw new Error(`roomid too short`);
 
-    const roomExists = await refExists(room(roomId));
+    const roomExists = await refExists(await room(roomId));
     if (!roomExists) throw new Error(`room ${roomId} does not exist`);
 
-    return await setRoom(room(roomId));
+    return await setRoom(await room(roomId));
   }
 
   async function createRoom() {
     const roomId = randomRoomId();
 
-    const roomExists = await refExists(room(roomId));
+    const roomExists = await refExists(await room(roomId));
 
     if (roomExists) return await createRoom();
-    else await setRoom(room(roomId));
+    else await setRoom(await room(roomId));
 
     return roomId;
   }

@@ -7,12 +7,12 @@ import GameOverview from '@components/collections/gameOverview/GameOverview';
 import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 import Hero from '@components/views/hero/Hero';
 
-import { useBrowse } from './browseState';
+import { useState } from 'preact/hooks';
 import mockData from './mockData.json';
 import mockBanner from '@assets/banner.jpg';
 
 const Browse = () => {
-  const { activeLabels, setActiveLabel } = useBrowse();
+  const [activeLabels, setActiveLabel] = useState<string[]>([]);
   const mockGameBanner = [
     {
       bannerImage: mockBanner,
