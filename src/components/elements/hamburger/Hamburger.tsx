@@ -15,6 +15,7 @@ function Hamburger({ isActive, onClick }: Props) {
       type={'button'}>
       <span class={styles.hamburgerBox}>
         <span class={styles.hamburgerInner}></span>
+        <span class={styles.hiddenLabel}>menu</span>
       </span>
     </button>
   );

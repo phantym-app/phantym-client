@@ -52,6 +52,11 @@ $hamburger-hover-filter: opacity(50%) !default;
     display: inline-block;
     position: relative;
 
+    .hiddenLabel {
+      position: absolute;
+      font-size: 0;
+    }
+
     .hamburgerInner {
       display: block;
       top: 50%;
