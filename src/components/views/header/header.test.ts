@@ -17,16 +17,4 @@ describe('header', function () {
     );
     unmount();
   });
-
-  it('collapses on hamburger click', async function () {
-    const { baseElement, findByTestId, unmount, findByText, debug } = render(
-      <StateProvider>
-        <Router history={createMemoryHistory()}>
-          <Header />
-        </Router>
-      </StateProvider>,
-    );
-    const hamburger = await findByTestId('hamburger');
-    hamburger.click();
-  });
 });

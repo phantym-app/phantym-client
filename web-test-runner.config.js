@@ -4,15 +4,6 @@ const { chromeLauncher } = require('@web/test-runner-chrome');
 
 module.exports = {
   nodeResolve: true,
-  browsers: [
-    chromeLauncher({
-      launchOptions: {
-        headless: false,
-        // TODO not sure if works with github ci
-        args: [],
-      },
-      concurrency: 1,
-    }),
-  ],
+  browsers: [chromeLauncher()],
   plugins: [require('@snowpack/web-test-runner-plugin')()],
 };
