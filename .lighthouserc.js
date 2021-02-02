@@ -11,6 +11,7 @@ module.exports = {
         'unminified-javascript': 'warn',
         'unused-css-rules': 'warn',
         'unminified-css': 'warn',
+        'errors-in-console': 'warn',
 
         // not needed
         'no-unload-listeners': 'off',
