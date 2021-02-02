@@ -1,0 +1,27 @@
+name: ci - testing & lighthouse
+
+on: push
+
+jobs:
+  test-ci:
+    name: testing & lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setting up node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15
+
+      - name: installing dependencies
+        run: npm ci
+
+      - name: building project
+        run: npm run build
+
+      - name: running tests
+        run: npm run test
+
+      - name: running lighthouse ci
+        run: npm run lhci

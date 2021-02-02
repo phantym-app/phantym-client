@@ -21,21 +21,25 @@ $facebookBlue: #3b5998;
 @font-face {
   font-family: 'boldFont';
   src: url('/assets/fonts/bold.otf');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'regularFont';
   src: url('/assets/fonts/regular.otf');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'lightFont';
   src: url('/assets/fonts/light.otf');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'thinFont';
   src: url('/assets/fonts/thin.otf');
+  font-display: swap;
 }
 
 // Typography -----------------------------------------------------------------------------------------------------

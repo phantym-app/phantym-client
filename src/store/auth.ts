@@ -1,24 +1,31 @@
-import { useCallback, useEffect, useState } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
-import { providerGoogle, auth, fs } from '@logic/firebase/auth';
 import usePromisedState from '@logic/usePromisedState';
 import type firebase from 'firebase';
+const firebase$auth = import('@logic/firebase/auth');
 
 // the store's hook
 function useAuth() {
   const [user, userPromise, setUser] = usePromisedState<firebase.User>(undefined);
 
-  function handleAuthChange(u: firebase.User | null) {
-    // signs in user as anonymous if signed out
-    if (u === null) auth.signInAnonymously();
-    else setUser(u);
-  }
+  useEffect(async function () {
+    // remove async from useEffect()
+    const { auth } = await firebase$auth;
 
-  useEffect(() => auth.onAuthStateChanged(handleAuthChange), []);
+    function handleAuthChange(u: firebase.User | null) {
+      // signs in user as anonymous if signed out
+      if (u === null) auth.signInAnonymously();
+      else setUser(u);
+    }
+
+    auth.onAuthStateChanged(handleAuthChange);
+  }, []);
 
   // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
   async function signInWithGoogle() {
+    const { providerGoogle, fs, auth } = await firebase$auth;
+
     const user = await userPromise;
 
     try {
@@ -44,6 +51,7 @@ function useAuth() {
 
   async function signInWithEmailAndPassword(email: string, password: string) {
     const user = await userPromise;
+    const { fs, auth } = await firebase$auth;
 
     try {
       const userCred = await auth.signInWithEmailAndPassword(email, password);
@@ -57,15 +65,18 @@ function useAuth() {
     }
   }
 
+  async function signOut() {
+    const { auth } = await firebase$auth;
+    auth.signOut();
+  }
+
   return {
     user,
     userPromise,
 
     signInWithGoogle,
     signInWithEmailAndPassword,
-    signOut() {
-      auth.signOut();
-    },
+    signOut,
   };
 }
 

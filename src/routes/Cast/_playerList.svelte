@@ -2,7 +2,7 @@
   export let roomId;
 
   import { readable } from 'svelte/store';
-  import { db } from '@logic/firebase/database';
+  const firebase$database = import('@logic/firebase/database');
   import type firebase from 'firebase';
 
   function dbReadable(ref: firebase.database.Reference) {
@@ -12,23 +12,22 @@
       flag.onDisconnect().remove();
 
       const query = ref.orderByChild('index').startAt(0);
-      const sync = snap => set(snap.val());
+      const sync = snap => set(snap.val() ?? {});
       query.on('value', sync);
       return () => query.off('value', sync);
     });
 
-    return { subscribe, ref };
+    return { subscribe };
   }
 
-  const room = dbReadable(db.ref('room').child(roomId));
-
-  $: players = Object.values($room ?? {});
-  $: playerCount = players.length;
+  let room = readable({}, function () {});
+  firebase$database.then(({ db }) => (room = dbReadable(db.ref('room').child(roomId))));
+  $: players = Object.values($room);
 </script>
 
 <div class="playerList">
   <h2 class="title">
-    {playerCount} player{playerCount === 1 ? '' : 's'} in room
+    {players.length} player{players.length === 1 ? '' : 's'} in room
   </h2>
 
   {#each players as { displayName }, i}
