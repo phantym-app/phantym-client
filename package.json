@@ -1,14 +1,14 @@
 {
   "scripts": {
     "start": "npx snowpack dev",
-    "format": "npx prettier --write \"src/**/*.{ts,tsx,scss}\"",
     "build": "npx snowpack build && npx rollup -c && rm -r build/_dist_ build/_snowpack && mv build/chunks build/_dist_",
     "serve": "npx serve -s ./build",
-    "bds": "npx snowpack build && firebase deploy && npx snowpack dev",
+    "lhci": "npx lhci autorun",
     "test": "npx web-test-runner \"src/**/*.test.{ts,tsx}\"",
     "tdd": "npx web-test-runner \"src/**/*.test.{ts,tsx}\" --watch"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "firebase": "^8.2.5",
     "hashids": "^2.2.8",
     "preact": "^10.5.12",
@@ -17,6 +17,7 @@
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.6.1",
     "@prefresh/snowpack": "^3.1.0",
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-sass": "^1.3.0",
@@ -30,7 +31,6 @@
     "@types/snowpack-env": "^2.3.3",
     "@web/test-runner": "^0.12.0",
     "chai": "^4.2.0",
-    "classnames": "^2.2.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "rollup": "^2.38.3",

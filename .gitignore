@@ -14,3 +14,5 @@ debug.log
 /src/node_modules/@sapper/
 yarn-error.log
 .firebase/
+
+.lighthouseci/
