@@ -1,7 +1,7 @@
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: ['build/_dist_/index.js', 'build/_dist_/index-cast-receiver.js'],
+  input: ['build/_dist_/main.js', 'build/_dist_/cast-receiver.js'],
   preserveEntrySignatures: false,
 
   plugins: [terser()],
