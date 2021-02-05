@@ -17,7 +17,7 @@
     a {
       text-decoration: none;
       p {
-        @include text('regularFont', 16px, $orange);
+        @include text('lightFont', 16px, $orange);
 
         &:hover {
           filter: brightness(120%);
@@ -49,7 +49,7 @@
       height: 50px;
       width: 350px;
       color: $white;
-      @include text('regularFont', 16px, $white);
+      @include text('lightFont', 16px, $white);
 
       &.success {
         border: 2px $green solid;
@@ -64,7 +64,7 @@
       }
 
       &::placeholder {
-        @include text('regularFont', 16px, $grey);
+        @include text('lightFont', 16px, $grey);
       }
     }
 

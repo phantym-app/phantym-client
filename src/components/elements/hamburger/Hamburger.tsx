@@ -1,17 +1,18 @@
-import { useHeader } from '@components/views/header/HeaderState';
 import { h } from 'preact';
 import styles from './Hamburger.module.scss';
-
-import { useHamburger } from './HamburgerState';
 
 type Props = {
   isActive: boolean;
   onClick: () => void;
+  floating?: boolean;
 };
 
-function Hamburger({ isActive, onClick }: Props) {
+function Hamburger({ isActive, onClick, floating }: Props) {
   return (
-    <button onClick={onClick} class={[styles.hamburger, { [styles.isActive]: isActive }]} type={'button'}>
+    <button
+      onClick={onClick}
+      class={[styles.hamburger, { [styles.isActive]: isActive, [styles.floating]: floating }]}
+      type={'button'}>
       <span class={styles.hamburgerBox}>
         <span class={styles.hamburgerInner}></span>
       </span>

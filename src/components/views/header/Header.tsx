@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import styles from './Header.module.scss';
 
@@ -23,31 +23,51 @@ import { matchesWidth } from '@logic/matchesWidth';
 
 function Header() {
   const [isCollapsed, setCollapsed] = useState<boolean>(matchesWidth('1200', 'max') ? true : false);
+  const [hasFloatingHamburger, setFloatingHamburger] = useState<boolean>(matchesWidth('450', 'max'));
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.addEventListener('resize', () => {
       matchesWidth('1200', 'max') ? setCollapsed(true) : setCollapsed(false);
+      matchesWidth('450', 'max') ? setFloatingHamburger(true) : setFloatingHamburger(false);
     });
   }, []);
 
   return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
-      <div class={styles.links}>
-        <div class={styles.title}>
-          <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
+    <>
+      <header
+        class={[
+          styles.root,
+          {
+            [styles.hidden]: pathname === '/login',
+            [styles.collapsed]: isCollapsed,
+            [styles.mobile]: hasFloatingHamburger,
+          },
+        ]}>
+        <div class={styles.links}>
+          <div class={styles.title}>
+            <Hamburger
+              isActive={hasFloatingHamburger ? isCollapsed : !isCollapsed}
+              onClick={() => setCollapsed(!isCollapsed)}
+            />
+          </div>
+          <ProfileButton isCollapsed={isCollapsed} />
+          <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />
+          <PageLink to={'/'} isActive={pathname === '/'} src={gamepad} title={'My games'} />
+          <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} src={cart} title={'Cart'} />
+          <PageLink
+            to={'/social?page=friends'}
+            isActive={pathname.startsWith('/social')}
+            src={social}
+            title={'Social'}
+          />
+          <PageLink to={'/room'} isActive={pathname.startsWith('/room')} src={room} title={'Room'} />
+          <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} src={cog} title={'Settings'} />
         </div>
-        <ProfileButton isCollapsed={isCollapsed} />
-        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />
-        <PageLink to={'/'} isActive={pathname === '/'} src={gamepad} title={'My games'} />
-        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} src={cart} title={'Cart'} />
-        <PageLink to={'/social?page=friends'} isActive={pathname.startsWith('/social')} src={social} title={'Social'} />
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} src={room} title={'Room'} />
-        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} src={cog} title={'Settings'} />
-      </div>
 
-      <CastButton />
-    </header>
+        <CastButton />
+      </header>
+    </>
   );
 }
 

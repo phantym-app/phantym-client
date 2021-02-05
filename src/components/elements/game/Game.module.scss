@@ -61,9 +61,11 @@
         }
       }
 
-      > p {
-        @include text('boldFont', 16px, $white);
-        cursor: pointer;
+      > a {
+        p {
+          @include text('boldFont', 16px, $white);
+          cursor: pointer;
+        }
       }
     }
 
@@ -84,7 +86,7 @@
       }
 
       > p {
-        @include text('boldFont', 16px, $white);
+        @include text('lightFont', 16px, $white);
       }
 
       .availability {
@@ -115,7 +117,7 @@
             position: absolute;
             z-index: 1;
             margin-bottom: 30px;
-            @include text('regularFont', 14px, $white);
+            @include text('lightFont', 14px, $white);
 
             &:after {
               content: '';
