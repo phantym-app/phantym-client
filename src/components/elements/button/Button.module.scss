@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   cursor: pointer;
   @include text('boldFont', 16px, $white);
 
@@ -17,51 +18,31 @@
   &:focus {
     filter: brightness(120%);
   }
-}
 
-.root.squared {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  padding: 0;
-}
+  &.squared {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    padding: 0;
+  }
 
-.root.icon::before {
-  @extend %buttonIcon;
-}
+  &.secondary {
+    background-color: $background;
+  }
 
-.root.google {
-  background-color: $googleBlue;
-}
+  &.error {
+    background-color: $red;
+  }
 
-.root.facebook {
-  background-color: $facebookBlue;
-}
+  &.warning {
+    background-color: $orange;
+  }
 
-.root.google::before {
-  content: url('/assets/icons/google.svg');
-}
+  &.google {
+    background-color: $googleBlue;
+  }
 
-.root.facebook::before {
-  content: url('/assets/icons/facebook.svg');
-}
-
-.root.cast::before {
-  content: url('/assets/icons/cast.svg');
-}
-
-.root.primary {
-  background-color: $purple;
-}
-
-.root.secondary {
-  background-color: $background;
-}
-
-.root.error {
-  background-color: $red;
-}
-
-.root.warning {
-  background-color: $orange;
+  &.facebook {
+    background-color: $facebookBlue;
+  }
 }

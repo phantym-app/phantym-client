@@ -1,20 +1,10 @@
 import { h } from 'preact';
-import { useCallback, useRef } from 'preact/hooks';
+import { useCallback, useRef, useState } from 'preact/hooks';
 
 import styles from './Hero.module.scss';
 import { Link } from 'react-router-dom';
 
-import chevronLeft from '@assets/icons/chevron-left.svg';
-import chevronRight from '@assets/icons/chevron-right.svg';
-import desktopIcon from '@assets/icons/computer.svg';
-import noDesktop from '@assets/icons/no-computer.svg';
-import mobileIcon from '@assets/icons/phone.svg';
-import noMobile from '@assets/icons/no-phone.svg';
-import castable from '@assets/icons/cast.svg';
-import notCastable from '@assets/icons/not-castable.svg';
-import picture from '@assets/icons/picture.svg';
-
-import { useHero } from './heroState';
+import Icon from '@components/elements/icon';
 
 type Game = {
   bannerImage: string;
@@ -34,7 +24,7 @@ type Props = {
 };
 
 const Hero = ({ type, typeOfContent, games }: Props) => {
-  const { activeGame, setActiveGame } = useHero();
+  const [activeGame, setActiveGame] = useState(0);
   const bannerRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
   const { title, price, availability } = games[activeGame];
@@ -131,7 +121,11 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
             <div
               key={index}
               class={[styles.bannerContainer, { [styles.noImage]: game.bannerImage === undefined || null }]}>
-              <img class={styles.banner} src={game.bannerImage ? game.bannerImage : picture} alt={game.title} />
+              {game.bannerImage ? (
+                <img class={styles.banner} src={game.bannerImage} alt={game.title} />
+              ) : (
+                <Icon class={styles.banner} variant={'picture'} alt={game.title} />
+              )}
             </div>
           );
         })}
@@ -140,7 +134,7 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
       <div class={styles.overlay}>
         {type === 'carousel' && (
           <div onClick={() => switchBanner('previous')} class={styles.previousBanner}>
-            {activeGame !== 0 && <img src={chevronLeft} alt={'chevronLeft'} />}
+            {activeGame !== 0 && <Icon variant={'chevron-left'} alt={'chevronLeft'} />}
           </div>
         )}
         <Link to={`/browse/game?selected=${title}`}>
@@ -151,12 +145,21 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
             </div>
             <div class={styles.gameInfo}>
               <div class={styles.availability}>
-                <img
-                  src={desktop ? desktopIcon : noDesktop}
+                <Icon
+                  class={{ [styles.isActive]: desktop }}
+                  variant={'computer'}
                   alt={desktop ? 'available-desktop' : 'unavailable-desktop'}
                 />
-                <img src={mobile ? mobileIcon : noMobile} alt={mobile ? 'available-mobile' : 'unavailable-mobile'} />
-                <img src={casting ? castable : notCastable} alt={casting ? 'castable' : 'not-castable'} />
+                <Icon
+                  class={{ [styles.isActive]: mobile }}
+                  variant={'phone'}
+                  alt={mobile ? 'available-mobile' : 'unavailable-mobile'}
+                />
+                <Icon
+                  class={{ [styles.isActive]: casting }}
+                  variant={'cast'}
+                  alt={casting ? 'castable' : 'not-castable'}
+                />
               </div>
               <h4>£{price}</h4>
             </div>
@@ -164,7 +167,7 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
         </Link>
         {type === 'carousel' && (
           <div onClick={() => switchBanner('next')} class={styles.nextBanner}>
-            {activeGame + 1 !== games.length && <img src={chevronRight} alt={'chevronRight'} />}
+            {activeGame + 1 !== games.length && <Icon variant={'chevron-right'} alt={'chevronRight'} />}
           </div>
         )}
       </div>

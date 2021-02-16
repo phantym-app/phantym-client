@@ -2,8 +2,8 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import styles from './Select.module.scss';
 import { useSelect } from './selectState';
-import chevron from '@assets/icons/chevron-down.svg';
 import { useOnClickOutside } from '@logic/useOnClickOutside';
+import Icon from '@components/elements/icon';
 
 type Props = {
   options: Array<string>;
@@ -27,7 +27,7 @@ const Select = ({ options }: Props) => {
         readOnly
       />
       <div onClick={() => setOpen(!isOpen)} class={styles.chevronContainer}>
-        <img src={chevron} alt={'chevron'} />
+        <Icon variant={'chevron-down'} alt={'chevron'} />
       </div>
       <hr onClick={() => setOpen(!isOpen)} />
       <div class={styles.optionsMenu}>

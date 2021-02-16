@@ -3,18 +3,18 @@
 .root {
   display: flex;
   flex-direction: row;
+  background-color: $background;
+  border-radius: 50px 50px 50px 50px;
+  height: 50px;
+  width: 350px;
 
   .input {
-    background-color: $background;
     border: none;
-    border-radius: 50px;
-    padding: 0 20px 0 53px;
-    height: 50px;
-    width: 350px;
+    border-radius: 0px 50px 50px 0px;
+    background-color: $background;
+    padding: 0 20px 0 5px;
     color: $white;
-    background-image: url('/assets/icons/search.svg');
-    background-repeat: no-repeat;
-    background-position: 20px;
+
     @include text('regularFont', 16px, $white);
 
     &::placeholder {
@@ -22,27 +22,17 @@
     }
   }
 
-  .imageContainer {
-    display: flex;
+  .icon {
     height: 50px;
     width: 50px;
-    margin-left: 300px;
-    background-color: $purple;
-    border-radius: 0 10px 10px 0;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    z-index: 0;
-    cursor: pointer;
-    border: none;
+    padding: 10px 5px 10px 15px;
+    border-radius: 50px 0px 0px 50px;
+    filter: $grey_filter;
 
-    &:hover {
-      filter: brightness(110%);
-    }
+    // cursor: pointer;
 
-    img {
-      height: 18px;
-      z-index: 0;
-    }
+    // &:hover {
+    //   filter: $grey_filter brightness(110%);
+    // }
   }
 }

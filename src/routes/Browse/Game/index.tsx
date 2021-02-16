@@ -3,17 +3,9 @@ import { useState, useRef } from 'preact/hooks';
 import styles from './Game.module.scss';
 import { Link } from 'react-router-dom';
 
-import desktop from '@assets/icons/computer.svg';
-import noDesktop from '@assets/icons/no-computer.svg';
-import mobile from '@assets/icons/phone.svg';
-import noMobile from '@assets/icons/no-phone.svg';
-import castable from '@assets/icons/cast.svg';
-import notCastable from '@assets/icons/not-castable.svg';
-
+import Icon from '@components/elements/icon';
 import Button from '@components/elements/button/Button';
 import Mediaplayer from '@components/views/mediaplayer/Mediaplayer';
-
-import arrowLeft from '@assets/icons/arrow-left.svg';
 
 import mockGame from './mockGame.json';
 
@@ -31,7 +23,7 @@ const Game = () => {
         <div class={styles.headerContent}>
           <Link to={'/browse'}>
             <div class={styles.backContainer}>
-              <img src={arrowLeft} alt={'backArrow'} />
+              <Icon variant={'arrow-left'} alt={'backArrow'} />
               <p>Browse</p>
             </div>
           </Link>
@@ -50,17 +42,20 @@ const Game = () => {
             <h1>{gameInfo.title}</h1>
             <div class={styles.secondaryInfo}>
               <div>
-                <img
-                  src={gameInfo.availability.desktop ? desktop : noDesktop}
+                <Icon
+                  class={{ [styles.isActive]: gameInfo.availability.desktop }}
+                  variant={'computer'}
                   alt={gameInfo.availability.desktop ? 'available for desktop' : 'not available for desktop'}
                 />
-                <img
-                  src={gameInfo.availability.mobile ? mobile : noMobile}
-                  alt={gameInfo.availability.desktop ? 'available for mobile' : 'not available for mobile'}
+                <Icon
+                  class={{ [styles.isActive]: gameInfo.availability.mobile }}
+                  variant={'phone'}
+                  alt={gameInfo.availability.mobile ? 'available for mobile' : 'not available for mobile'}
                 />
-                <img
-                  src={gameInfo.availability.castable ? castable : notCastable}
-                  alt={gameInfo.availability.desktop ? 'available for casting' : 'not available for casting'}
+                <Icon
+                  class={{ [styles.isActive]: gameInfo.availability.castable }}
+                  variant={'cast'}
+                  alt={gameInfo.availability.castable ? 'available for casting' : 'not available for casting'}
                 />
               </div>
               <h4>£{gameInfo.price}</h4>

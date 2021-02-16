@@ -61,24 +61,25 @@
       background-color: $backgroundLifted3;
     }
 
-    .icon {
-      width: 10px;
+    > img {
+      width: 20px;
+      filter: $white_filter;
     }
-  }
 
-  .iconContainer.invisible {
-    display: none;
-  }
+    &.invisible {
+      display: none;
+    }
 
-  .iconContainer.bordered {
-    border-top: 2px $purple solid;
-    border-right: 2px $purple solid;
-    border-bottom: 2px $purple solid;
-  }
+    &.bordered {
+      border-top: 2px $purple solid;
+      border-right: 2px $purple solid;
+      border-bottom: 2px $purple solid;
+    }
 
-  .iconContainer.largerIcon {
-    .icon {
-      width: 15px;
+    &.largerIcon {
+      > img {
+        width: 25px;
+      }
     }
   }
 }

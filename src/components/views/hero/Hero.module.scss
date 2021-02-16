@@ -74,6 +74,7 @@
 
       > img {
         transition: 0.2s ease-out;
+        filter: $white_filter;
       }
 
       &:hover {
@@ -126,6 +127,11 @@
               margin-left: 10px;
               max-width: 20px;
               max-height: 20px;
+              filter: $backgroundLifted3_filter;
+
+              &.isActive {
+                filter: $white_filter;
+              }
             }
           }
 
@@ -145,6 +151,7 @@
       cursor: pointer;
 
       > img {
+        filter: $white_filter;
         transition: 0.2s ease-out;
       }
 

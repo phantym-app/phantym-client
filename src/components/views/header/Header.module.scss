@@ -97,6 +97,10 @@
         p {
           @include text('boldFont', 16px, $white);
         }
+
+        .iconContainer > img {
+          filter: $white_filter;
+        }
       }
 
       .iconContainer {
@@ -109,13 +113,8 @@
         justify-content: center;
         margin-right: 25px;
 
-        img {
+        > img {
           align-self: center;
-
-          &.dulled {
-            filter: brightness(0) saturate(100%) invert(62%) sepia(10%) saturate(124%) hue-rotate(202deg)
-              brightness(90%) contrast(81%);
-          }
         }
 
         .profileVisibility {
@@ -143,6 +142,10 @@
         transition: $fast-transition;
         @include text('boldFont', 16px, $greyLifted);
       }
+    }
+
+    > .pageLink .iconContainer > img {
+      filter: $greyLifted_filter;
     }
   }
 

@@ -52,6 +52,10 @@
       margin-left: 10px;
       @include text('boldFont', 16px, $white);
     }
+
+    > img {
+      filter: $white_filter;
+    }
   }
 
   .option.visible {
