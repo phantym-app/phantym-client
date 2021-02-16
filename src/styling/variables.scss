@@ -17,6 +17,24 @@ $white: #f2f2f2;
 $googleBlue: #4285f4;
 $facebookBlue: #3b5998;
 
+// Filter Colours ----------------------------------------------------------------------------------------------------------
+$_0: brightness(0) saturate(100%);
+$darkPurple_filter: $_0 invert(8%) sepia(55%) saturate(6819%) hue-rotate(277deg) brightness(95%) contrast(95%);
+$purple_filter: $_0 invert(19%) sepia(98%) saturate(7053%) hue-rotate(276deg) brightness(107%) contrast(97%);
+$green_filter: $_0 invert(70%) sepia(51%) saturate(4289%) hue-rotate(120deg) brightness(100%) contrast(95%);
+$orange_filter: $_0 invert(57%) sepia(98%) saturate(1099%) hue-rotate(351deg) brightness(98%) contrast(104%);
+$red_filter: $_0 invert(24%) sepia(82%) saturate(3475%) hue-rotate(346deg) brightness(118%) contrast(104%);
+$blue_filter: $_0 invert(53%) sepia(15%) saturate(5182%) hue-rotate(176deg) brightness(97%) contrast(95%);
+$darkest_filter: $_0 invert(0%) sepia(7%) saturate(1156%) hue-rotate(347deg) brightness(95%) contrast(87%);
+$background_filter: $_0 invert(9%) sepia(8%) saturate(371%) hue-rotate(201deg) brightness(93%) contrast(93%);
+$backgroundLifted_filter: $_0 invert(12%) sepia(7%) saturate(309%) hue-rotate(202deg) brightness(93%) contrast(85%);
+$backgroundLifted2_filter: $_0 invert(20%) sepia(21%) saturate(79%) hue-rotate(202deg) brightness(93%) contrast(90%);
+$backgroundLifted3_filter: $_0 invert(28%) sepia(7%) saturate(132%) hue-rotate(202deg) brightness(91%) contrast(89%);
+$grey_filter: $_0 invert(40%) sepia(6%) saturate(161%) hue-rotate(202deg) brightness(94%) contrast(92%);
+$greyLifted_filter: $_0 invert(66%) sepia(3%) saturate(359%) hue-rotate(202deg) brightness(86%) contrast(87%);
+$greyLifted2_filter: $_0 invert(100%) sepia(0%) saturate(5863%) hue-rotate(278deg) brightness(124%) contrast(80%);
+$white_filter: $_0 invert(100%) sepia(2%) saturate(131%) hue-rotate(242deg) brightness(111%) contrast(90%);
+
 // Fonts -------------------------------------------------------------------------------------------------------------
 @font-face {
   font-family: 'boldFont';

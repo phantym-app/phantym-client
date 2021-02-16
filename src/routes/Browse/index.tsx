@@ -10,6 +10,7 @@ import Hero from '@components/views/hero/Hero';
 import { useState } from 'preact/hooks';
 import mockData from './mockData.json';
 import mockBanner from '@assets/banner.jpg';
+import Icon from '@components/elements/icon';
 
 const Browse = () => {
   const [activeLabels, setActiveLabel] = useState<string[]>([]);
@@ -65,7 +66,9 @@ const Browse = () => {
             {/* TODO: Add Search function */}
             <Searchbar onChange={e => console.log(e.target.value)} placeholder={'Search for a game'} />
             {/* TODO: Add filter functions */}
-            <Button squared squaredIcon={'filter'} colour={'secondary'} />
+            <Button squared colour={'secondary'}>
+              <Icon variant={'filter'} alt={'filter'} />
+            </Button>
           </div>
         </div>
         <div class={styles.labelsContainer}>

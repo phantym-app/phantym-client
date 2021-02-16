@@ -26,6 +26,10 @@
         > :first-child {
           margin-right: 25px;
         }
+
+        > button > img {
+          filter: $grey_filter;
+        }
       }
     }
 

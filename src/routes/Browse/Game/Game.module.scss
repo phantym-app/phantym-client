@@ -99,6 +99,11 @@
 
             > img {
               margin-left: 10px;
+              filter: $backgroundLifted3_filter;
+
+              &.isActive {
+                filter: $white_filter;
+              }
             }
           }
         }

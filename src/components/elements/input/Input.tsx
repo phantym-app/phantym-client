@@ -1,12 +1,9 @@
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
 import { Link } from 'react-router-dom';
+import Icon from '@components/elements/icon';
 
 import styles from './Input.module.scss';
-
-import closedEye from '@assets/icons/eye-close.svg';
-import eye from '@assets/icons/eye.svg';
-import close from '@assets/icons/close.svg';
 
 type Props = {
   placeholder: string;
@@ -34,11 +31,9 @@ function Input({ label, placeholder, icon, type, link }: Props) {
     else setValue('');
   }
 
-  const iconInvisible = useMemo(() => icon === 'close' && value === '', [value]);
-  const iconBordered = useMemo(() => value !== '', [value]);
-  const iconLarger = useMemo(() => icon === 'eye', []);
-  const inputType = useMemo(() => (type === 'password' && isValueVisible ? 'text' : type), [isValueVisible]);
-  const imageSrc = useMemo(() => (icon === 'eye' ? (isValueVisible ? eye : closedEye) : close), [isValueVisible]);
+  const iconInvisible = icon === 'close' && value === '';
+  const iconBordered = value !== '';
+  const inputType = type === 'password' && isValueVisible ? 'text' : type;
 
   return (
     <div class={styles.root}>
@@ -62,10 +57,10 @@ function Input({ label, placeholder, icon, type, link }: Props) {
             {
               [styles.invisible]: iconInvisible,
               [styles.bordered]: iconBordered,
-              [styles.largerIcon]: iconLarger,
+              [styles.largerIcon]: icon === 'close',
             },
           ]}>
-          <img class={styles.icon} src={imageSrc} alt={icon} />
+          <Icon variant={icon !== 'eye' ? 'close' : isValueVisible ? 'eye' : 'eye-close'} alt={icon} />
         </button>
       )}
     </div>

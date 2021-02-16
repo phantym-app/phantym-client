@@ -1,15 +1,7 @@
 import { h } from 'preact';
 import { useRef, useEffect, useCallback } from 'preact/hooks';
 import styles from './VideoPlayer.module.scss';
-
-import pause from '@assets/icons/pause.svg';
-import play from '@assets/icons/play.svg';
-import repeat from '@assets/icons/repeat.svg';
-import muted from '@assets/icons/volume-mute.svg';
-import volumeLow from '@assets/icons/volume.svg';
-import volumeMedium from '@assets/icons/volume-down.svg';
-import volumeHigh from '@assets/icons/volume-up.svg';
-import maximize from '@assets/icons/arrows-fullscreen.svg';
+import Icon from '@components/elements/icon';
 
 import { useVideoPlayer } from './VideoPlayerState';
 
@@ -88,8 +80,8 @@ const VideoPlayer = (props: Props) => {
           video.paused || currentTime === duration ? video.play() : video.pause(),
           handleMediaUIVisibility(e, video.paused)
         )}>
-        <img
-          src={currentTime === duration ? repeat : video.paused ? play : pause}
+        <Icon
+          variant={currentTime === duration ? 'repeat' : video.paused ? 'play' : 'pause'}
           alt={currentTime === duration ? 'repeat' : video.paused ? 'play' : 'pause'}
         />
       </button>
@@ -98,25 +90,18 @@ const VideoPlayer = (props: Props) => {
 
   const Volume = () => {
     const video = videoRef.current;
-    const noVolume = volume === 0;
-    const lowVolume = volume < 35;
-    const mediumVolume = volume < 75;
     return (
       <div class={styles.volumeButton}>
         <button onMouseDown={() => (video.muted ? (video.muted = false) : (video.muted = true))}>
-          <img
-            src={
-              video
-                ? video.muted
-                  ? muted
-                  : noVolume
-                  ? muted
-                  : lowVolume
-                  ? volumeLow
-                  : mediumVolume
-                  ? volumeMedium
-                  : volumeHigh
-                : noVolume
+          <Icon
+            variant={
+              video?.muted || volume === 0
+                ? 'volume-mute'
+                : volume < 35
+                ? 'volume'
+                : volume < 75
+                ? 'volume-down'
+                : 'volume-up'
             }
             alt={'volume'}
           />
@@ -148,7 +133,7 @@ const VideoPlayer = (props: Props) => {
         onMouseDown={() =>
           isFullscreen ? (document.exitFullscreen(), setFullScreen(false)) : (openFullscreen(), setFullScreen(true))
         }>
-        <img src={maximize} alt={'volume'} />
+        <Icon variant={'arrows-fullscreen'} alt={'volume'} />
       </button>
     );
   };

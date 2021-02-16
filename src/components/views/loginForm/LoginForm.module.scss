@@ -33,5 +33,9 @@
     > * {
       margin-bottom: 25px;
     }
+
+    img {
+      filter: $white_filter;
+    }
   }
 }

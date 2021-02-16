@@ -2,15 +2,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import styles from './Header.module.scss';
 
-import cog from '@assets/icons/cog.svg';
-import social from '@assets/icons/users.svg';
-import room from '@assets/icons/grid.svg';
-import logIn from '@assets/icons/log-in.svg';
-import gamepad from '@assets/icons/gamepad.svg';
-import compass from '@assets/icons/compass.svg';
-import cart from '@assets/icons/shopping-cart.svg';
-import cast from '@assets/icons/cast.svg';
-
+import Icon from '@components/elements/icon';
 import Button from '@components/elements/button/Button';
 import ProfileMenu from './menus/ProfileMenu/ProfileMenu';
 import Hamburger from '@components/elements/hamburger/Hamburger';
@@ -31,12 +23,17 @@ function Header() {
           <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
         </div>
         <ProfileButton isCollapsed={isCollapsed} />
-        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />
-        <PageLink to={'/'} isActive={pathname === '/'} src={gamepad} title={'My games'} />
-        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} src={cart} title={'Cart'} />
-        <PageLink to={'/social?page=friends'} isActive={pathname.startsWith('/social')} src={social} title={'Social'} />
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} src={room} title={'Room'} />
-        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} src={cog} title={'Settings'} />
+        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} variant={'compass'} title={'Browse'} />
+        <PageLink to={'/'} isActive={pathname === '/'} variant={'gamepad'} title={'My games'} />
+        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} variant={'shopping-cart'} title={'Cart'} />
+        <PageLink
+          to={'/social?page=friends'}
+          isActive={pathname.startsWith('/social')}
+          variant={'users'}
+          title={'Social'}
+        />
+        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} variant={'grid'} title={'Room'} />
+        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} variant={'cog'} title={'Settings'} />
       </div>
 
       <CastButton />
@@ -44,10 +41,10 @@ function Header() {
   );
 }
 
-const PageLink = ({ to, isActive = false, src, title }: any) => (
+const PageLink = ({ to, isActive = false, variant, title }: any) => (
   <Link to={to} class={[styles.pageLink, { [styles.active]: isActive }]}>
     <div class={styles.iconContainer}>
-      <img class={{ [styles.dulled]: !isActive }} src={src} alt={'room'} />
+      <Icon class={{ [styles.isActive]: isActive }} variant={variant} alt={variant} />
     </div>
     <p>{title}</p>
   </Link>
@@ -56,7 +53,7 @@ const PageLink = ({ to, isActive = false, src, title }: any) => (
 function ProfileButton({ isCollapsed }) {
   const { user } = useAuth();
 
-  if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} src={logIn} title={'Sign in'} />;
+  if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} variant={'log-in'} title={'Sign in'} />;
 
   // TODO this should be based on user's settings
   const [userVisible, setUserVisible] = useState<boolean>(true);
@@ -100,7 +97,7 @@ function CastButton() {
       <Button onClick={stopCast}>
         <div class={styles.buttonInner}>
           <div class={styles.iconContainer}>
-            <img src={cast} alt={'cast'} />
+            <Icon variant={'cast'} alt={'cast'} />
           </div>
           <p>Stop casting</p>
         </div>
@@ -112,7 +109,7 @@ function CastButton() {
       <Button onClick={startCast}>
         <div class={styles.buttonInner}>
           <div class={styles.iconContainer}>
-            <img src={cast} alt={'cast'} />
+            <Icon variant={'cast'} alt={'cast'} />
           </div>
           <p>Start casting</p>
         </div>
