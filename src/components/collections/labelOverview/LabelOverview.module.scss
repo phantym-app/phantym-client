@@ -7,4 +7,10 @@
   > * {
     margin-right: 10px;
   }
+
+  &.skeleton {
+    p {
+      opacity: 0;
+    }
+  }
 }

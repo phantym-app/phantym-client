@@ -31,7 +31,10 @@ function usePaginatedFetch<T>(baseQuery$: Promise<firebase.firestore.Query<T>>) 
   // TODO use ai reccomendations
   async function fetchNextPage(count: number) {
     const query = await query$;
+
     const { docs } = await query.limit(count).get();
+
+    if (docs.length === 0) throw new Error('No more data to fetch');
 
     setDataArray(dataArray => [...dataArray, ...docs.map(snap => ({ ...snap.data(), id: snap.id }))]);
     setQuery$(baseQuery$.then(q => q.startAfter(docs[docs.length - 1])));

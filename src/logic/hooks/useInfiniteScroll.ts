@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 
+type Status = 'pending' | 'success' | 'error';
+
 function useInfiniteScroll(handler: () => any) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [status, setStatus] = useState<Status>('success');
 
   useEffect(
     function () {
@@ -11,17 +13,22 @@ function useInfiniteScroll(handler: () => any) {
         removeEventListener('scroll', handleScroll);
       };
     },
-    [handler, isLoading],
+    [handler, status],
   );
 
   async function handleScroll() {
     const scolledToBottom =
       window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight;
 
-    if (!isLoading && scolledToBottom) {
-      setIsLoading(true);
-      await handler();
-      setIsLoading(false);
+    if (status === 'success' && scolledToBottom) {
+      setStatus('pending');
+
+      try {
+        await handler();
+        setStatus('success');
+      } catch {
+        setStatus('error');
+      }
     }
   }
 
@@ -29,7 +36,7 @@ function useInfiniteScroll(handler: () => any) {
     handleScroll();
   }, []);
 
-  return isLoading;
+  return status;
 }
 
 export default useInfiniteScroll;

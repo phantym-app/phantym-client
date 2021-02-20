@@ -20,7 +20,7 @@ type Props = {
 };
 
 const Hero = ({ type, typeOfContent, games }: Props) => {
-  if (!games.length) return <Loader />;
+  if (!games.length) return <div class={styles.root} />;
 
   const [activeGame, setActiveGame] = useState(0);
   const bannerRef = useRef<HTMLDivElement>(null);
@@ -117,17 +117,15 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
   return (
     <div class={styles.root}>
       <div ref={bannerRef} class={styles.banners}>
-        {games.map((game, index) => {
-          return (
-            <div key={index} class={[styles.bannerContainer, { [styles.noImage]: !mockBanner }]}>
-              {mockBanner ? (
-                <img class={styles.banner} src={mockBanner} alt={game.title} />
-              ) : (
-                <Icon class={styles.banner} variant={'picture'} alt={game.title} />
-              )}
-            </div>
-          );
-        })}
+        {games.map((game, index) => (
+          <div key={index} class={[styles.bannerContainer, { [styles.noImage]: !mockBanner }]}>
+            {mockBanner ? (
+              <img class={styles.banner} src={mockBanner} alt={game.title} />
+            ) : (
+              <Icon class={styles.banner} variant={'picture'} alt={game.title} />
+            )}
+          </div>
+        ))}
       </div>
       <div class={styles.shade} />
       <div class={styles.overlay}>

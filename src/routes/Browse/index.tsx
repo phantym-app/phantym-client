@@ -12,14 +12,21 @@ import Icon from '@components/elements/icon';
 
 import { useGameLibrary } from '@store/gameLibrary';
 import useInfiniteScroll from '@logic/hooks/useInfiniteScroll';
+import Loader from '@components/elements/loader/Loader';
 
 const Browse = () => {
-  const [activeLabels, setActiveLabel] = useState<string[]>([]);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
 
   const { gameStubs, fetchGameStubs, gameTags, fetchGameTags } = useGameLibrary();
-  const isFetchingGamePreviews = useInfiniteScroll(() => fetchGameStubs(6));
+  const gamePreviewFetchStatus = useInfiniteScroll(() => fetchGameStubs(6));
 
-  useEffect(() => gameTags.length === 0 && fetchGameTags(12), []);
+  useEffect(() => console.log(gamePreviewFetchStatus), [gamePreviewFetchStatus]);
+
+  useEffect(() => gameTags.length === 0 && fetchGameTags(8), []);
+
+  function toggleTagActive(title: string) {
+    setActiveTags(activeTags.includes(title) ? activeTags.filter(_title => title !== _title) : [...activeTags, title]);
+  }
 
   return (
     <div class={styles.root}>
@@ -36,22 +43,13 @@ const Browse = () => {
           </div>
         </div>
         <div class={styles.labelsContainer}>
-          <LabelOverview
-            labels={gameTags}
-            activeLabels={activeLabels}
-            onLabelClick={(title: string) =>
-              setActiveLabel(
-                activeLabels.includes(title)
-                  ? activeLabels.filter(_title => title !== _title)
-                  : activeLabels.concat(title),
-              )
-            }
-          />
+          <LabelOverview labels={gameTags} activeLabels={activeTags} onLabelClick={toggleTagActive} />
         </div>
       </div>
       <Hero typeOfContent={'new releases'} type={'carousel'} games={gameStubs.slice(0, 3)} />
       <div class={styles.content}>
         <GameOverview games={gameStubs} />
+        {gamePreviewFetchStatus === 'pending' && <Loader />}
       </div>
     </div>
   );
