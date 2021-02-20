@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useRef } from 'preact/hooks';
 import styles from './Select.module.scss';
 import { useSelect } from './selectState';
-import { useOnClickOutside } from '@logic/useOnClickOutside';
+import { useOnClickOutside } from '@logic/hooks/useOnClickOutside';
 import Icon from '@components/elements/icon';
 
 type Props = {

@@ -7,55 +7,19 @@ import GameOverview from '@components/collections/gameOverview/GameOverview';
 import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 import Hero from '@components/views/hero/Hero';
 
-import { useState } from 'preact/hooks';
-import mockData from './mockData.json';
-import mockBanner from '@assets/banner.jpg';
+import { useEffect, useState } from 'preact/hooks';
 import Icon from '@components/elements/icon';
+
+import { useGameLibrary } from '@store/gameLibrary';
+import useInfiniteScroll from '@logic/hooks/useInfiniteScroll';
 
 const Browse = () => {
   const [activeLabels, setActiveLabel] = useState<string[]>([]);
-  const mockGameBanner = [
-    {
-      bannerImage: mockBanner,
-      title: 'Cyberpunk 2077',
-      price: 59.99,
-      availability: {
-        desktop: true,
-        mobile: true,
-        casting: true,
-      },
-    },
-    {
-      bannerImage: mockBanner,
-      title: 'Bloodborne',
-      price: 59.99,
-      availability: {
-        desktop: true,
-        mobile: false,
-        casting: true,
-      },
-    },
-    {
-      bannerImage: mockBanner,
-      title: 'Cyberpunk 2077',
-      price: 59.99,
-      availability: {
-        desktop: true,
-        mobile: true,
-        casting: true,
-      },
-    },
-    {
-      bannerImage: mockBanner,
-      title: 'Bloodborne',
-      price: 59.99,
-      availability: {
-        desktop: true,
-        mobile: false,
-        casting: true,
-      },
-    },
-  ];
+
+  const { gameStubs, fetchGameStubs, gameTags, fetchGameTags } = useGameLibrary();
+  const isFetchingGamePreviews = useInfiniteScroll(() => fetchGameStubs(6));
+
+  useEffect(() => gameTags.length === 0 && fetchGameTags(12), []);
 
   return (
     <div class={styles.root}>
@@ -73,7 +37,7 @@ const Browse = () => {
         </div>
         <div class={styles.labelsContainer}>
           <LabelOverview
-            labels={mockData.mockLabels}
+            labels={gameTags}
             activeLabels={activeLabels}
             onLabelClick={(title: string) =>
               setActiveLabel(
@@ -85,9 +49,9 @@ const Browse = () => {
           />
         </div>
       </div>
-      <Hero typeOfContent={'new releases'} type={'carousel'} games={mockGameBanner} />
+      <Hero typeOfContent={'new releases'} type={'carousel'} games={gameStubs.slice(0, 3)} />
       <div class={styles.content}>
-        <GameOverview games={mockData.mockGames} />
+        <GameOverview games={gameStubs} />
       </div>
     </div>
   );

@@ -12,5 +12,5 @@ declare module 'preact' {
 }
 
 declare module 'preact/hooks' {
-  function useEffect(effect: EffectCallback | (() => Promise<void>), inputs?: Inputs): void;
+  function useEffect(effect: EffectCallback | ((...any: any) => Promise<void>), inputs?: Inputs): void;
 }

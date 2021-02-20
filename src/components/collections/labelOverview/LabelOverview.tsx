@@ -4,9 +4,10 @@ import Label from '@components/elements/label/Label';
 
 type Props = {
   labels: {
-    title: string;
+    text: string;
+    popularity: number;
   }[];
-  activeLabels?: Array<string>;
+  activeLabels?: string[];
   onLabelClick?: (title: string) => void;
 };
 
@@ -15,10 +16,10 @@ const LabelOverview = ({ labels, onLabelClick, activeLabels }: Props) => {
     <div class={styles.root}>
       {labels.map((label, index) => (
         <Label
-          onClick={onLabelClick && onLabelClick}
+          onClick={onLabelClick ?? function () {}}
           key={index}
-          title={label.title}
-          active={(title: string) => (activeLabels && activeLabels.includes(title) ? true : false)}
+          title={label.text}
+          active={(title: string) => activeLabels?.includes(title)}
         />
       ))}
     </div>

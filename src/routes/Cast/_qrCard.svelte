@@ -7,7 +7,7 @@
 
   export let foreground;
   export let background;
-  export let roomIdPromise;
+  export let roomId$;
 
   const qriousLoaded = importScript('https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js');
 
@@ -25,7 +25,7 @@
 
 <div>
   {#await qriousLoaded then _}
-    {#await roomIdPromise then roomId}
+    {#await roomId$ then roomId}
       <canvas use:qr={`https://un-sole.web.app/room?join=${roomId}`} />
     {/await}
   {/await}

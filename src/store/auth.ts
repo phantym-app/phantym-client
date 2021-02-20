@@ -1,16 +1,18 @@
 import { useEffect } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
 
-import usePromisedState from '@logic/usePromisedState';
+import useAsyncState from '@logic/hooks/useAsyncState';
 import type firebase from 'firebase';
 const firebase$auth = import('@logic/firebase/auth');
+const firebase$firestore = import('@logic/firebase/firestore');
 
 // the store's hook
 function useAuth() {
-  const [user, userPromise, setUser] = usePromisedState<firebase.User>(undefined);
+  const [user, user$, setUser] = useAsyncState<firebase.User>(undefined);
+  const [dataRef, dataRef$, setDataRef] = useAsyncState<firebase.firestore.DocumentReference>(undefined);
+  const [userData, userData$, setUserData] = useAsyncState<firebase.firestore.DocumentData>(undefined);
 
-  useEffect(async function () {
-    // remove async from useEffect()
+  useEffect(async function authSubscribe() {
     const { auth } = await firebase$auth;
 
     function handleAuthChange(u: firebase.User | null) {
@@ -22,11 +24,34 @@ function useAuth() {
     auth.onAuthStateChanged(handleAuthChange);
   }, []);
 
-  // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
-  async function signInWithGoogle() {
-    const { providerGoogle, fs, auth } = await firebase$auth;
+  useEffect(
+    async function getDataRef() {
+      if (user !== undefined && !user.isAnonymous) {
+        const { fs } = await firebase$firestore;
 
-    const user = await userPromise;
+        setDataRef(fs.doc(`users/${user.uid}`));
+      }
+    },
+    [user],
+  );
+
+  useEffect(
+    function dataSubscribe() {
+      if (dataRef !== undefined)
+        return dataRef.onSnapshot(function (snap) {
+          if (snap.exists) setUserData(snap.data());
+          else dataRef.set({ joined: new Date() });
+        });
+    },
+    [dataRef],
+  );
+
+  // TODO all sign in methods must handle error "auth/account-exists-with-different-credential"
+  // TODO account recovery
+  async function signInWithGoogle() {
+    const { providerGoogle, auth } = await firebase$auth;
+
+    const user = await user$;
 
     try {
       const userCred = await user.linkWithPopup(providerGoogle);
@@ -44,14 +69,13 @@ function useAuth() {
       } else if (code === 'auth/account-exists-with-different-credential') {
       }
     } finally {
-      fs.doc(`users/${user.uid}`).set({ joined: new Date() });
       window.location.pathname = '/';
     }
   }
 
   async function signInWithEmailAndPassword(email: string, password: string) {
-    const user = await userPromise;
-    const { fs, auth } = await firebase$auth;
+    const { auth } = await firebase$auth;
+    const user = await user$;
 
     try {
       const userCred = await auth.signInWithEmailAndPassword(email, password);
@@ -60,7 +84,6 @@ function useAuth() {
       if (code === 'auth/account-exists-with-different-credential') {
       }
     } finally {
-      fs.doc(`users/${user.uid}`).set({ joined: new Date() });
       window.location.pathname = '/';
     }
   }
@@ -70,13 +93,33 @@ function useAuth() {
     auth.signOut();
   }
 
+  async function toggleFavoriteGame(gameId: string) {
+    if ((await user$).isAnonymous) throw new Error('You must sign in to add a game to favourites');
+
+    const dataRef = await dataRef$;
+    const { favoriteGames } = userData;
+
+    await dataRef.update({
+      favoriteGames: favoriteGames.includes(gameId)
+        ? favoriteGames.filter(id => id !== gameId)
+        : [...favoriteGames, gameId],
+    });
+  }
+
   return {
+    // auth
     user,
-    userPromise,
+    user$,
 
     signInWithGoogle,
     signInWithEmailAndPassword,
     signOut,
+
+    // userData
+    userData,
+    userData$,
+
+    toggleFavoriteGame,
   };
 }
 

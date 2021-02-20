@@ -3,7 +3,7 @@ import { useRef } from 'preact/hooks';
 import styles from './ProfileMenu.module.scss';
 
 import Icon from '@components/elements/icon';
-import { useOnClickOutside } from '@logic/useOnClickOutside';
+import { useOnClickOutside } from '@logic/hooks/useOnClickOutside';
 import Toggle from '@components/elements/toggle/Toggle';
 import { useAuth } from '@store/auth';
 

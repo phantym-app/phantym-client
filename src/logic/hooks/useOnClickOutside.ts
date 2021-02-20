@@ -1,12 +1,10 @@
 import { useEffect } from 'preact/hooks';
 
-export function useOnClickOutside(ref: any, handler: (event: any) => void) {
+export function useOnClickOutside(ref: any, handler: (event: any) => any) {
   useEffect(() => {
     const listener = (event: any) => {
       // Do nothing if clicking ref's element or descendent elements
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
+      if (!ref.current || ref.current.contains(event.target)) return;
 
       handler(event);
     };

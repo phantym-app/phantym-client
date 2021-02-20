@@ -23,17 +23,17 @@
     > .picMissing {
       filter: $backgroundLifted3_filter;
     }
-  }
 
-  .imageContainer.noPicture {
-    justify-content: center;
-    align-items: center;
+    &.noPicture {
+      justify-content: center;
+      align-items: center;
 
-    > img {
-      min-width: unset;
-      min-height: unset;
-      width: 60px;
-      height: auto;
+      > img {
+        min-width: unset;
+        min-height: unset;
+        width: 60px;
+        height: auto;
+      }
     }
   }
 
@@ -93,6 +93,10 @@
           img {
             max-width: 20px;
             max-height: 20px;
+
+            &:hover {
+              cursor: help;
+            }
           }
 
           .tooltiptext {

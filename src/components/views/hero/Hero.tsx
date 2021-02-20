@@ -1,3 +1,5 @@
+import type { GameStub } from '@store/gameLibrary';
+
 import { h } from 'preact';
 import { useCallback, useRef, useState } from 'preact/hooks';
 
@@ -6,29 +8,28 @@ import { Link } from 'react-router-dom';
 
 import Icon from '@components/elements/icon';
 
-type Game = {
-  bannerImage: string;
-  title: string;
-  price: number;
-  availability: {
-    desktop: boolean;
-    mobile: boolean;
-    casting: boolean;
-  };
-};
+import calculatePrice from '@logic/calculatePrice';
+import Loader from '@components/elements/loader/Loader';
+
+const mockBanner = '/assets/banner.jpg';
 
 type Props = {
   type: 'banner' | 'carousel';
   typeOfContent: 'new releases' | 'recommended';
-  games: Game[];
+  games: GameStub[];
 };
 
 const Hero = ({ type, typeOfContent, games }: Props) => {
+  if (!games.length) return <Loader />;
+
   const [activeGame, setActiveGame] = useState(0);
   const bannerRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
-  const { title, price, availability } = games[activeGame];
-  const { desktop, mobile, casting } = availability;
+  const { title, euroCents, compatibility } = games[activeGame];
+
+  const desktop = compatibility.includes('desktop');
+  const mobile = compatibility.includes('mobile');
+  const cast = compatibility.includes('cast');
 
   const setNewActiveGame = (direction: 'next' | 'previous') => {
     if (direction === 'next' && activeGame + 1 !== games.length) {
@@ -118,11 +119,9 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
       <div ref={bannerRef} class={styles.banners}>
         {games.map((game, index) => {
           return (
-            <div
-              key={index}
-              class={[styles.bannerContainer, { [styles.noImage]: game.bannerImage === undefined || null }]}>
-              {game.bannerImage ? (
-                <img class={styles.banner} src={game.bannerImage} alt={game.title} />
+            <div key={index} class={[styles.bannerContainer, { [styles.noImage]: !mockBanner }]}>
+              {mockBanner ? (
+                <img class={styles.banner} src={mockBanner} alt={game.title} />
               ) : (
                 <Icon class={styles.banner} variant={'picture'} alt={game.title} />
               )}
@@ -155,13 +154,9 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
                   variant={'phone'}
                   alt={mobile ? 'available-mobile' : 'unavailable-mobile'}
                 />
-                <Icon
-                  class={{ [styles.isActive]: casting }}
-                  variant={'cast'}
-                  alt={casting ? 'castable' : 'not-castable'}
-                />
+                <Icon class={{ [styles.isActive]: cast }} variant={'cast'} alt={cast ? 'castable' : 'not-castable'} />
               </div>
-              <h4>£{price}</h4>
+              <h4>{euroCents === 0 ? 'FREE' : calculatePrice(euroCents)}</h4>
             </div>
           </div>
         </Link>

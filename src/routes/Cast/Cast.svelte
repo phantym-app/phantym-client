@@ -11,7 +11,7 @@
   const castContext = cast.framework.CastReceiverContext.getInstance();
   const { READY, SENDER_DISCONNECTED } = cast.framework.system.EventType;
 
-  const roomIdPromise = new Promise<string>(function (res) {
+  const roomId$ = new Promise<string>(function (res) {
     function onRoomCode({ data }) {
       if (data?.type === 'SET_ROOM') {
         castContext.removeCustomMessageListener(NAMESPACE, onRoomCode);
@@ -43,9 +43,9 @@
 </script>
 
 <main>
-  <QrCard foreground="#101010" background="#f2f2f2" {roomIdPromise} />
+  <QrCard foreground="#101010" background="#f2f2f2" {roomId$} />
 
-  {#await roomIdPromise}
+  {#await roomId$}
     <div class="roomCode">
       <h5>creating room...</h5>
     </div>
@@ -56,7 +56,7 @@
     </div>
   {/await}
 
-  {#await roomIdPromise}
+  {#await roomId$}
     <div class="playerList">
       <h2 class="title">Waiting for players</h2>
     </div>

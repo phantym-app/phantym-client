@@ -1,6 +1,6 @@
 import { createContainer } from 'unstated-next';
 import { useCallback, useState } from 'preact/hooks';
-import { useAuth } from '@store/auth';
+import { useAuth } from './auth';
 import randomRoomId from '@logic/randomRoomId';
 import randomGhost from '@logic/randomGhost';
 const firebase$database = import('@logic/firebase/database');
@@ -17,7 +17,7 @@ async function refExists(__ref: Reference) {
 const room = async id => (await firebase$database).db.ref('room').child(id);
 
 function useRoom() {
-  const { userPromise } = useAuth();
+  const { user$ } = useAuth();
   const [roomRef, setRoomRef] = useState<null | Reference>(null);
   const [roomData, setRoomData] = useState<RoomData>({});
   const [playerRef, setPlayerRef] = useState<null | Reference>(null);
@@ -40,7 +40,7 @@ function useRoom() {
         return;
 
       default:
-        let { uid, displayName } = await userPromise;
+        let { uid, displayName } = await user$;
         displayName = displayName ?? randomGhost();
 
         const __playerRef = __roomRef.child(uid);
