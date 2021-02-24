@@ -12,6 +12,7 @@ module.exports = {
         'unused-css-rules': 'warn',
         'unminified-css': 'warn',
         'errors-in-console': 'warn',
+        'uses-rel-preconnect': 'warn',
 
         // not needed
         'no-unload-listeners': 'off',
