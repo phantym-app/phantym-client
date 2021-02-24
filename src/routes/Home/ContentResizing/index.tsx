@@ -81,7 +81,7 @@ export const MinTablet = ({ searchButton, setSearchQuery, activeTab, setActiveTa
       <div class={styles.tabs}>
         <div>
           <h6
-            class={[styles.tab, { [styles.active]: activeTab === 'allGames' }]}
+            class={[styles.tab, { [styles.active]: activeTab === 'all games' }]}
             onClick={() => setActiveTab('all games')}>
             All games
           </h6>

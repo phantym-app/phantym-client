@@ -10,7 +10,7 @@ import { MinTablet, Mobile } from './ContentResizing';
 import { maxMobile, maxTablet, matchesWidth } from '@logic/matchesWidth';
 
 function Index() {
-  const [activeTab, setActiveTab] = useState<string>('allGames');
+  const [activeTab, setActiveTab] = useState<string>('all games');
   const [activeLabels, setActiveLabel] = useState<string[]>([]);
   const [searchButton, setSearchbutton] = useState<boolean>(maxTablet);
   const [searchQuery, setSearchQuery] = useState<string>('');
