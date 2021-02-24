@@ -9,7 +9,7 @@
   border-radius: 10px;
   align-items: flex-start;
   cursor: pointer;
-  @include text('regularFont', 16px, $white);
+  @include text('lightFont', 16px, $white);
 
   .select {
     padding: 10px 15px;
@@ -18,7 +18,7 @@
     background-color: $backgroundLifted;
     border: none;
     cursor: pointer;
-    @include text('regularFont', 16px, $white);
+    @include text('lightFont', 16px, $white);
     z-index: 1;
     user-select: none;
     border-radius: 10px;
@@ -74,7 +74,7 @@
       padding: 10px 15px;
       text-align: start;
       cursor: pointer;
-      @include text('regularFont', 16px, $white);
+      @include text('lightFont', 16px, $white);
 
       &:hover {
         background-color: $backgroundLifted2;

@@ -3,37 +3,57 @@
 .root {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 100%;
 
   .imageContainer {
     width: 100%;
-    height: 250px;
+    padding-top: 100%;
     border-radius: 10px;
     background-color: $background;
     overflow: hidden;
     cursor: pointer;
     display: flex;
+    position: relative;
 
-    > img {
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
+    .imageContainerInner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      overflow: hidden;
+      border-radius: 10px;
+
+      > img {
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+      }
     }
 
     > .picMissing {
       filter: $backgroundLifted3_filter;
+      width: 55px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      margin: auto;
     }
   }
 
   .imageContainer.noPicture {
-    justify-content: center;
-    align-items: center;
-
-    > img {
-      min-width: unset;
-      min-height: unset;
-      width: 60px;
-      height: auto;
+    .imageContainerInner {
+      justify-content: center;
+      align-items: center;
+      > img {
+        min-width: unset;
+        min-height: unset;
+        width: 60px;
+        height: auto;
+      }
     }
   }
 
@@ -52,9 +72,11 @@
         }
       }
 
-      > p {
-        @include text('boldFont', 16px, $white);
-        cursor: pointer;
+      > a {
+        p {
+          @include text('boldFont', 16px, $white);
+          cursor: pointer;
+        }
       }
     }
 
@@ -74,58 +96,61 @@
         }
       }
 
-      > p {
-        @include text('boldFont', 16px, $white);
+      &.active {
+        filter: brightness(0) saturate(100%) invert(41%) sepia(89%) saturate(6380%) hue-rotate(345deg) brightness(101%)
+          contrast(100%);
       }
+    }
 
-      .availability {
-        width: fit-content;
+    .availability {
+      width: fit-content;
+      align-items: center;
+
+      > div {
+        margin-left: 10px;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
         align-items: center;
 
-        > div {
-          margin-left: 10px;
-          width: 20px;
-          height: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        img {
+          max-width: 20px;
+          max-height: 20px;
+        }
 
-          img {
-            max-width: 20px;
-            max-height: 20px;
-          }
+        .tooltiptext {
+          align-self: flex-end;
+          visibility: hidden;
+          width: 150px;
+          padding: 10px 10px;
+          background-color: $backgroundLifted;
+          box-shadow: $default-box-shadow;
+          text-align: center;
+          border-radius: 5px;
+          position: absolute;
+          z-index: 1;
+          margin-bottom: 30px;
+          @include text('regularFont', 14px, $white);
+          font-weight: $font-weight-normal;
 
-          .tooltiptext {
-            align-self: flex-end;
-            visibility: hidden;
-            width: 150px;
-            padding: 10px 10px;
-            background-color: $backgroundLifted;
-            text-align: center;
-            border-radius: 5px;
+          &:after {
+            content: '';
             position: absolute;
-            z-index: 1;
-            margin-bottom: 30px;
-            @include text('regularFont', 14px, $white);
-
-            &:after {
-              content: '';
-              position: absolute;
-              top: 100%;
-              left: 50%;
-              margin-left: -5px;
-              border-width: 5px;
-              border-style: solid;
-              border-color: $backgroundLifted transparent transparent transparent;
-            }
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: $backgroundLifted transparent transparent transparent;
           }
+        }
 
-          > .icon {
-            filter: $backgroundLifted3_filter;
+        > .icon {
+          filter: $backgroundLifted3_filter;
 
-            &.isActive {
-              filter: $white_filter;
-            }
+          &.isActive {
+            filter: $white_filter;
           }
         }
       }

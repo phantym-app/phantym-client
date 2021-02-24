@@ -12,8 +12,13 @@
   background-color: $background;
   cursor: pointer;
 
+  &:focus {
+    background-color: $backgroundLifted;
+  }
+
   > p {
-    color: $white;
+    white-space: nowrap;
+    @include text('boldFont', 16px, $white);
   }
 }
 

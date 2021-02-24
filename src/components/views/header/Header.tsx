@@ -11,17 +11,27 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
+import { maxDesktop, maxMobile } from '@logic/matchesWidth';
 
 function Header() {
-  const [isCollapsed, setCollapsed] = useState<boolean>(false);
+  const [isCollapsed, setCollapsed] = useState<boolean>(maxDesktop);
   const { pathname } = useLocation();
 
   return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
+    <header
+      class={[
+        styles.root,
+        {
+          [styles.hidden]: pathname === '/login',
+          [styles.collapsed]: isCollapsed,
+          [styles.mobile]: maxMobile,
+        },
+      ]}>
       <div class={styles.links}>
         <div class={styles.title}>
           <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
         </div>
+
         <ProfileButton isCollapsed={isCollapsed} />
         <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} variant={'compass'} title={'Browse'} />
         <PageLink to={'/'} isActive={pathname === '/'} variant={'gamepad'} title={'My games'} />

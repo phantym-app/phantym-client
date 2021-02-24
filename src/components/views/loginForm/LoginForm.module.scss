@@ -23,6 +23,20 @@
     }
   }
 
+  p {
+    font-weight: $font-weight-normal;
+    @include text('regularFont', 16px, $white);
+
+    a {
+      font-weight: $font-weight-normal;
+      @include text('boldFont', 16px, $purple);
+
+      &:hover {
+        filter: brightness(120%);
+      }
+    }
+  }
+
   .alternativeLogin {
     margin-top: 25px;
     display: flex;

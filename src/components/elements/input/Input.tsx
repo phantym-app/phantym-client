@@ -1,22 +1,24 @@
 import { h } from 'preact';
-import { useMemo, useState } from 'preact/hooks';
-import { Link } from 'react-router-dom';
+import { useState } from 'preact/hooks';
 import Icon from '@components/elements/icon';
 
 import styles from './Input.module.scss';
+import success from '@assets/icons/check.svg';
+import warning from '@assets/icons/triangle-danger.svg';
+import error from '@assets/icons/alert.svg';
 
 type Props = {
   placeholder: string;
   label: string;
   type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
   icon?: 'close' | 'eye';
-  link?: {
-    url: string;
-    message: string;
-  };
+  status?:
+    | { type: 'success'; message: string }
+    | { type: 'warning'; message: string }
+    | { type: 'error'; message: string };
 };
 
-function Input({ label, placeholder, icon, type, link }: Props) {
+function Input({ label, placeholder, icon, type, status }: Props) {
   const [value, setValue] = useState('');
   const [isValueVisible, setValueVisible] = useState(icon === 'eye' ? false : true);
 
@@ -37,17 +39,51 @@ function Input({ label, placeholder, icon, type, link }: Props) {
 
   return (
     <div class={styles.root}>
-      {/* Labels for inputfield */}
-      <div class={styles.labels}>
-        <p>{label}</p>
-        {link && (
-          <Link to={link.url}>
-            <p>{link.message}</p>
-          </Link>
+      {/* Inputfield */}
+      <div class={styles.inputContainer}>
+        <div class={styles.labelContainer}>
+          <p>{label}</p>
+        </div>
+        <input
+          class={[
+            styles.input,
+            {
+              [styles.success]: status?.type === 'success',
+              [styles.warning]: status?.type === 'warning',
+              [styles.error]: status?.type === 'error',
+            },
+          ]}
+          placeholder={placeholder}
+          value={value}
+          onChange={handleTyping}
+          type={inputType}
+        />
+        {status && (
+          <div
+            class={[
+              styles.statusContainer,
+              {
+                [styles.success]: status.type === 'success',
+                [styles.warning]: status.type === 'warning',
+                [styles.error]: status.type === 'error',
+              },
+            ]}>
+            <img
+              src={
+                status.type === 'success'
+                  ? success
+                  : status.type === 'warning'
+                  ? warning
+                  : status.type === 'error'
+                  ? error
+                  : ''
+              }
+              alt={status.type}
+            />
+            <p>{status.message}</p>
+          </div>
         )}
       </div>
-      {/* Inputfield */}
-      <input class={styles.input} placeholder={placeholder} value={value} onChange={handleTyping} type={inputType} />
       {/* Icon at end of inputfield */}
       {icon && (
         <button
@@ -57,6 +93,9 @@ function Input({ label, placeholder, icon, type, link }: Props) {
             {
               [styles.invisible]: iconInvisible,
               [styles.bordered]: iconBordered,
+              [styles.success]: status?.type === 'success',
+              [styles.warning]: status?.type === 'warning',
+              [styles.error]: status?.type === 'error',
               [styles.largerIcon]: icon === 'close',
             },
           ]}>

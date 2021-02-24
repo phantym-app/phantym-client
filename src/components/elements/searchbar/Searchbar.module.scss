@@ -3,36 +3,61 @@
 .root {
   display: flex;
   flex-direction: row;
-  background-color: $background;
-  border-radius: 50px 50px 50px 50px;
+  border-radius: 50px;
   height: 50px;
   width: 350px;
+  border: 2px $backgroundLifted solid;
 
   .input {
+    background-color: transparent;
     border: none;
     border-radius: 0px 50px 50px 0px;
-    background-color: $background;
     padding: 0 20px 0 5px;
+    height: 46px;
+    width: 350px;
     color: $white;
 
     @include text('regularFont', 16px, $white);
 
     &::placeholder {
       @include text('regularFont', 16px, $greyLifted);
+      font-weight: $font-weight-normal;
     }
   }
 
   .icon {
-    height: 50px;
-    width: 50px;
+    height: 45px;
+    width: 45px;
     padding: 10px 5px 10px 15px;
     border-radius: 50px 0px 0px 50px;
     filter: $grey_filter;
+  }
 
-    // cursor: pointer;
+  .iconContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    border: 2px transparent solid;
+    border-left: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: $fast-transition;
+    opacity: 0;
+    pointer-events: none;
 
-    // &:hover {
-    //   filter: $grey_filter brightness(110%);
-    // }
+    &.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &:hover {
+      background-color: $backgroundLifted;
+      border: 2px transparent solid;
+      border-left: none;
+    }
   }
 }
