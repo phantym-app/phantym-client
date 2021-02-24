@@ -9,9 +9,11 @@ interface Props {
   coloured?: boolean;
   bigText?: boolean;
   alignLeft?: boolean;
+  itemOnClick?: (e: string) => void;
 }
 
-function Dropdown({ items, coloured, bigText, alignLeft }) {
+function Dropdown(props: Props) {
+  const { items, coloured, bigText, alignLeft, itemOnClick } = props;
   const [selectedItem, setSelectedItem] = useState<string>(items[0]);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
@@ -28,7 +30,10 @@ function Dropdown({ items, coloured, bigText, alignLeft }) {
           {items.map((item: string) => {
             return (
               <div
-                onClick={() => setSelectedItem(item)}
+                onClick={() => {
+                  setSelectedItem(item);
+                  itemOnClick && itemOnClick(item);
+                }}
                 class={[styles.menuItem, { [styles.selected]: item === selectedItem }]}>
                 {<p>{item}</p>}
               </div>

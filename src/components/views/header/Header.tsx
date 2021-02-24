@@ -19,19 +19,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
-import { matchesWidth } from '@logic/matchesWidth';
+import { maxDesktop, maxMobile } from '@logic/matchesWidth';
 
 function Header() {
-  const [isCollapsed, setCollapsed] = useState<boolean>(matchesWidth('1200', 'max') ? true : false);
-  const [hasFloatingHamburger, setFloatingHamburger] = useState<boolean>(matchesWidth('450', 'max'));
+  const [isCollapsed, setCollapsed] = useState<boolean>(maxDesktop);
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      matchesWidth('1200', 'max') ? setCollapsed(true) : setCollapsed(false);
-      matchesWidth('450', 'max') ? setFloatingHamburger(true) : setFloatingHamburger(false);
-    });
-  }, []);
 
   return (
     <>
@@ -41,15 +33,12 @@ function Header() {
           {
             [styles.hidden]: pathname === '/login',
             [styles.collapsed]: isCollapsed,
-            [styles.mobile]: hasFloatingHamburger,
+            [styles.mobile]: maxMobile,
           },
         ]}>
         <div class={styles.links}>
           <div class={styles.title}>
-            <Hamburger
-              isActive={hasFloatingHamburger ? isCollapsed : !isCollapsed}
-              onClick={() => setCollapsed(!isCollapsed)}
-            />
+            <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
           </div>
           <ProfileButton isCollapsed={isCollapsed} />
           <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} src={compass} title={'Browse'} />

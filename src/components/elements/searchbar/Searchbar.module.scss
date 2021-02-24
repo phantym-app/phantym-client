@@ -16,10 +16,11 @@
     background-image: url('/assets/icons/search.svg');
     background-repeat: no-repeat;
     background-position: 20px;
-    @include text('lightFont', 16px, $white);
+    @include text('regularFont', 16px, $white);
 
     &::placeholder {
-      @include text('lightFont', 16px, $greyLifted);
+      @include text('regularFont', 16px, $greyLifted);
+      font-weight: $font-weight-normal;
     }
   }
 

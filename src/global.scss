@@ -81,24 +81,31 @@ p {
 
 h1 {
   @include text('boldFont', $h1Size, $white);
+  font-weight: $font-weight-normal;
 }
 h2 {
   @include text('boldFont', $h2Size, $white);
+  font-weight: $font-weight-normal;
 }
 h3 {
   @include text('boldFont', $h3Size, $white);
+  font-weight: $font-weight-normal;
 }
 h4 {
   @include text('boldFont', $h4Size, $white);
+  font-weight: $font-weight-normal;
 }
 h5 {
   @include text('boldFont', $h5Size, $white);
+  font-weight: $font-weight-normal;
 }
 h6 {
   @include text('boldFont', $h6Size, $white);
+  font-weight: $font-weight-normal;
 }
 p {
-  @include text('lightFont', $pSize, $white);
+  @include text('regularFont', $pSize, $white);
+  font-weight: $font-weight-normal;
 }
 
 @media only screen and (min-width: 768px) {

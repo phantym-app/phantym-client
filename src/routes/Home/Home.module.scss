@@ -5,11 +5,10 @@
   height: 100%;
   min-height: 100%;
   margin: 0 auto;
-  padding: 50px 0;
 
   .actions {
     width: 100%;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 
     .title {
       width: 100%;
@@ -17,6 +16,11 @@
       align-items: center;
       justify-content: space-between;
       white-space: nowrap;
+      min-height: 50px;
+
+      h6 {
+        margin: auto;
+      }
 
       .search {
         align-items: center;
@@ -30,7 +34,7 @@
 
     .tabs {
       display: flex;
-      margin: 50px 0;
+      margin: 25px 0;
       padding-bottom: 25px;
       border-bottom: 2px $background solid;
       justify-content: space-between;
@@ -58,13 +62,45 @@
         }
       }
 
+      .search {
+        display: flex;
+
+        > :first-child {
+          margin-right: 25px;
+        }
+      }
+
       .dropdown {
         display: flex;
         align-items: center;
+        margin-top: 0;
 
         > :first-child {
           margin-right: 15px;
         }
+      }
+    }
+    .dropdown {
+      display: flex;
+      align-items: center;
+      margin-top: 25px;
+
+      > :first-child {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .root {
+    padding: 50px 0;
+
+    .actions {
+      margin-bottom: 50px;
+
+      .tabs {
+        margin: 50px 0;
       }
     }
   }

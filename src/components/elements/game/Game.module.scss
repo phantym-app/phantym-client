@@ -85,10 +85,6 @@
         }
       }
 
-      > p {
-        @include text('lightFont', 16px, $white);
-      }
-
       .availability {
         width: fit-content;
         align-items: center;
@@ -112,12 +108,14 @@
             width: 150px;
             padding: 10px 10px;
             background-color: $backgroundLifted;
+            box-shadow: $default-box-shadow;
             text-align: center;
             border-radius: 5px;
             position: absolute;
             z-index: 1;
             margin-bottom: 30px;
-            @include text('lightFont', 14px, $white);
+            @include text('regularFont', 14px, $white);
+            font-weight: $font-weight-normal;
 
             &:after {
               content: '';
