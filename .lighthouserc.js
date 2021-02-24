@@ -12,7 +12,6 @@ module.exports = {
         'unused-css-rules': 'warn',
         'unminified-css': 'warn',
         'errors-in-console': 'warn',
-        'uses-rel-preconnect': 'warn',
 
         // not needed
         'no-unload-listeners': 'off',
@@ -22,6 +21,9 @@ module.exports = {
         'valid-source-maps': 'off',
         'redirects-http': 'off',
         'is-on-https': 'off',
+        
+        // doesnt work
+        'uses-rel-preconnect': 'off',
       },
     },
   },
