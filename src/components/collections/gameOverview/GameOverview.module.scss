@@ -8,14 +8,14 @@
   grid-template-columns: repeat(auto-fill, minmax(calc(50% - 15px), 1fr));
 }
 
-@media only screen and (min-width: 500px) {
+@include deviceWidth('minMobileLandscape') {
   .root {
     gap: 50px 25px;
     grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@include deviceWidth('minDesktop') {
   .root {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }

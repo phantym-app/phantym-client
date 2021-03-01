@@ -30,7 +30,6 @@ body {
 
 main {
   overflow: hidden;
-  margin: 0 auto;
   width: 100%;
   min-height: 100%;
   max-width: unset;
@@ -102,17 +101,16 @@ p {
   font-weight: $font-weight-normal;
 }
 
-@media only screen and (min-width: 768px) {
+@include deviceWidth('minTablet') {
   main {
     padding: 0 25px;
     margin: 0 auto 0 105px;
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@include deviceWidth('minDesktop') {
   main {
     max-width: 1320px;
-    padding: 0 25px;
     margin: 0 auto;
   }
 }

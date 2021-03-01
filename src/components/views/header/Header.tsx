@@ -11,39 +11,32 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
-import { maxDesktop, maxMobile } from '@logic/matchesWidth';
+import { useDeviceWidth } from '@store/deviceWidth';
 
 function Header() {
-  const [isCollapsed, setCollapsed] = useState<boolean>(maxDesktop);
+  const { maxTablet } = useDeviceWidth();
+  const [isCollapsed, setCollapsed] = useState<boolean>(maxTablet);
   const { pathname } = useLocation();
 
   return (
-    <header
-      class={[
-        styles.root,
-        {
-          [styles.hidden]: pathname === '/login',
-          [styles.collapsed]: isCollapsed,
-          [styles.mobile]: maxMobile,
-        },
-      ]}>
+    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
       <div class={styles.links}>
         <div class={styles.title}>
           <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
         </div>
 
         <ProfileButton isCollapsed={isCollapsed} />
-        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} variant={'compass'} title={'Browse'} />
-        <PageLink to={'/'} isActive={pathname === '/'} variant={'gamepad'} title={'My games'} />
-        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} variant={'shopping-cart'} title={'Cart'} />
+        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} icon={'compass'} title={'Browse'} />
+        <PageLink to={'/'} isActive={pathname === '/'} icon={'gamepad'} title={'My games'} />
+        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} icon={'shopping-cart'} title={'Cart'} />
         <PageLink
           to={'/social?page=friends'}
           isActive={pathname.startsWith('/social')}
-          variant={'users'}
+          icon={'users'}
           title={'Social'}
         />
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} variant={'grid'} title={'Room'} />
-        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} variant={'cog'} title={'Settings'} />
+        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} icon={'grid'} title={'Room'} />
+        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} icon={'cog'} title={'Settings'} />
       </div>
 
       <CastButton />
@@ -51,10 +44,10 @@ function Header() {
   );
 }
 
-const PageLink = ({ to, isActive = false, variant, title }: any) => (
+const PageLink = ({ to, isActive = false, icon, title }: any) => (
   <Link to={to} class={[styles.pageLink, { [styles.active]: isActive }]}>
     <div class={styles.iconContainer}>
-      <Icon class={{ [styles.isActive]: isActive }} variant={variant} alt={variant} />
+      <Icon class={{ [styles.isActive]: isActive }} variant={icon} alt={icon} />
     </div>
     <p>{title}</p>
   </Link>
@@ -63,7 +56,7 @@ const PageLink = ({ to, isActive = false, variant, title }: any) => (
 function ProfileButton({ isCollapsed }) {
   const { user } = useAuth();
 
-  if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} variant={'log-in'} title={'Sign in'} />;
+  if (user === undefined || user.isAnonymous) return <PageLink to={'/login'} icon={'log-in'} title={'Sign in'} />;
 
   // TODO this should be based on user's settings
   const [userVisible, setUserVisible] = useState<boolean>(true);

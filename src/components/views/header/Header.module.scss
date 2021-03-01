@@ -12,21 +12,6 @@
   z-index: 10;
   transition: $default-transition;
 
-  &.mobile {
-    left: 0;
-
-    .links {
-      .title {
-        button {
-          position: fixed;
-          top: 15px;
-          left: 15px;
-          background-color: $backgroundLifted;
-        }
-      }
-    }
-  }
-
   .links {
     margin-top: 50px;
     width: fit-content;
@@ -207,7 +192,24 @@
   }
 }
 
-@media only screen and (min-width: 500px) {
+@include deviceWidth('maxMobile') {
+  .root {
+    left: 0;
+
+    .links {
+      .title {
+        button {
+          position: fixed;
+          top: 15px;
+          left: 15px;
+          background-color: $backgroundLifted;
+        }
+      }
+    }
+  }
+}
+
+@include deviceWidth('minTablet') {
   // normal collapsing behaviour
   .root {
     .links {
@@ -218,6 +220,7 @@
         padding: 0 35px;
       }
     }
+
     &.collapsed {
       left: 0px;
       .links {
@@ -275,7 +278,7 @@
   }
 }
 
-@media only screen and (min-width: 1200px) {
+@include deviceWidth('minDesktop') {
   .root {
     position: sticky;
   }

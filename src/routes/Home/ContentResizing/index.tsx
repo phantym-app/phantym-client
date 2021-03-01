@@ -10,13 +10,11 @@ import Searchbar from '@components/elements/searchbar/Searchbar';
 import Dropdown from '@components/elements/dropdown/Dropdown';
 import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 
-import { maxMobile } from '@logic/matchesWidth';
-
 export const Mobile = ({ searchButton, setSearchQuery, activeTab, setActiveTab, activeLabels, setActiveLabel }) => {
   return (
     <div class={styles.actions}>
       <div class={styles.title}>
-        <h6>My games</h6>
+        <h5>My games</h5>
       </div>
       <div class={styles.tabs}>
         <div>
