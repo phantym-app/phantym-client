@@ -1,3 +1,4 @@
+// @use "sass:map";
 @import './variables.scss';
 
 // Mixins -------------------------------------------------------------------------------------------------------------
@@ -5,6 +6,35 @@
   font-family: $fontFamily;
   font-size: $fontSize;
   color: $colour;
+}
+
+$breakpoints: (
+  'maxMobilePortrait': '(max-width: 419px)',
+  'minMobileLandscape': '(min-width: 420px)',
+  'maxMobile': '(max-width: 767px)',
+  'minTablet': '(min-width: 768px)',
+  'maxTabletPortrait': '(max-width: 1023px)',
+  'minTabletLandscape': '(min-width: 1024px)',
+  'maxTablet': '(max-width: 1365px)',
+  'minDesktop': '(min-width: 1366px)',
+);
+
+@mixin deviceWidth($args...) {
+  $query: '';
+
+  @each $arg in $args {
+    $op: '';
+
+    @if ($query != '') {
+      $op: ' and ';
+    }
+
+    $query: $query + $op + map-get($breakpoints, $arg);
+  }
+
+  @media only screen and #{$query} {
+    @content;
+  }
 }
 
 // Extends ------------------------------------------------------------------------------------------------------------

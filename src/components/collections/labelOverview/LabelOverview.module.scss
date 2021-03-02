@@ -1,11 +1,30 @@
 @import '../../../styling/sass.scss';
 
-.root {
-  display: flex;
-  flex-direction: row;
+.labelsContainer {
+  position: relative;
+  .root {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    position: relative;
 
-  > * {
-    margin-right: 10px;
+    /* width */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    > * {
+      margin-right: 10px;
+    }
+  }
+
+  .fade {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-image: linear-gradient(to right, rgba(10, 10, 10, 0), $darkest);
+    left: calc(100% - 38px);
+    top: 0;
   }
 
   &.skeleton {

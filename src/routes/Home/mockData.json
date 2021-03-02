@@ -1,0 +1,109 @@
+{
+  "mockGames": [
+    {
+      "picture": "",
+      "title": "League of Legends",
+      "favourite": false,
+      "price": "FREE",
+      "availability": {
+        "desktop": true,
+        "mobile": true,
+        "casting": true
+      }
+    },
+    {
+      "picture": "",
+      "title": "World of Warcraft",
+      "favourite": false,
+      "price": 10.0,
+      "availability": {
+        "desktop": true,
+        "mobile": false,
+        "casting": false
+      }
+    },
+    {
+      "picture": "",
+      "title": "Awesomenauts",
+      "favourite": false,
+      "price": 15.99,
+      "availability": {
+        "desktop": true,
+        "mobile": true,
+        "casting": false
+      }
+    },
+    {
+      "picture": "",
+      "title": "Among Us",
+      "favourite": true,
+      "price": 41.25,
+      "availability": {
+        "desktop": false,
+        "mobile": true,
+        "casting": true
+      }
+    },
+    {
+      "picture": "",
+      "title": "League of Legends",
+      "favourite": false,
+      "price": "FREE",
+      "availability": {
+        "desktop": true,
+        "mobile": true,
+        "casting": true
+      }
+    },
+    {
+      "picture": "",
+      "title": "World of Warcraft",
+      "favourite": false,
+      "price": 10.0,
+      "availability": {
+        "desktop": true,
+        "mobile": false,
+        "casting": false
+      }
+    },
+    {
+      "picture": "",
+      "title": "Awesomenauts",
+      "favourite": false,
+      "price": 15.99,
+      "availability": {
+        "desktop": true,
+        "mobile": true,
+        "casting": false
+      }
+    }
+  ],
+  "mockLabels": [
+    { "title": "Free to play" },
+    { "title": "Action" },
+    { "title": "RPG" },
+    { "title": "Multiplayer" },
+    { "title": "Kids" },
+    { "title": "Platformer" },
+    { "title": "Adventure" },
+    {
+      "title": "Horror"
+    },
+    {
+      "title": "MMORPG"
+    },
+    { "title": "Free to play" },
+    { "title": "Action" },
+    { "title": "RPG" },
+    { "title": "Multiplayer" },
+    { "title": "Kids" },
+    { "title": "Platformer" },
+    { "title": "Adventure" },
+    {
+      "title": "Horror"
+    },
+    {
+      "title": "MMORPG"
+    }
+  ]
+}

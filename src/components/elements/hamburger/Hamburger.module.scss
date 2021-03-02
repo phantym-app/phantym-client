@@ -29,6 +29,12 @@ $hamburger-hover-filter: opacity(50%) !default;
   transition: $fast-transition;
   border-radius: 10px;
 
+  &.floating {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+  }
+
   &:hover,
   &:focus {
     background-color: $backgroundLifted2;

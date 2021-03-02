@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import styles from './Searchbar.module.scss';
+
 import debounce from '@logic/debounce';
 import Icon from '@components/elements/icon';
 

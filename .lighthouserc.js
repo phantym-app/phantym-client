@@ -21,6 +21,9 @@ module.exports = {
         'valid-source-maps': 'off',
         'redirects-http': 'off',
         'is-on-https': 'off',
+        
+        // doesnt work
+        'uses-rel-preconnect': 'off',
       },
     },
   },

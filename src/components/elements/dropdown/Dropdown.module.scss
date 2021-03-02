@@ -1,0 +1,83 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  p {
+    @include text('boldFont', 16px, $white);
+
+    &.coloured {
+      color: $purple;
+    }
+  }
+
+  img {
+    margin-left: 15px;
+    filter: $white_filter;
+    transition: $fast-transition;
+
+    &.menuOpen {
+      transform: rotate(180deg);
+    }
+  }
+
+  .menu {
+    width: fit-content;
+    min-width: 200px;
+    height: auto;
+    padding: 10px 0;
+    border-radius: 10px;
+    background-color: $background;
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 15px);
+    right: 0;
+    z-index: 10;
+    box-shadow: $default-box-shadow;
+
+    &.active {
+      display: flex;
+    }
+
+    &.alignLeft {
+      left: 0;
+      right: unset;
+    }
+
+    .menuItem {
+      width: 100%;
+      height: auto;
+      padding: 7px 15px;
+      cursor: pointer;
+
+      &.selected {
+        p {
+          @include text('boldFont', 16px, $white);
+        }
+
+        &:hover {
+          p {
+            @include text('boldFont', 16px, $white);
+          }
+        }
+      }
+
+      p {
+        white-space: nowrap;
+        @include text('boldFont', 16px, $grey);
+      }
+
+      &:hover {
+        background-color: $backgroundLifted;
+
+        p {
+          color: $greyLifted;
+        }
+      }
+    }
+  }
+}

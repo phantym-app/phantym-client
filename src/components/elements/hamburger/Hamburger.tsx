@@ -4,14 +4,15 @@ import styles from './Hamburger.module.scss';
 type Props = {
   isActive: boolean;
   onClick: () => void;
+  floating?: boolean;
 };
 
-function Hamburger({ isActive, onClick }: Props) {
+function Hamburger({ isActive, onClick, floating }: Props) {
   return (
     <button
       data-testid='hamburger'
       onClick={onClick}
-      class={[styles.hamburger, { [styles.isActive]: isActive }]}
+      class={[styles.hamburger, { [styles.isActive]: isActive, [styles.floating]: floating }]}
       type={'button'}>
       <span class={styles.hamburgerBox}>
         <span class={styles.hamburgerInner}></span>

@@ -4,6 +4,7 @@
   padding: 12px 35px;
   height: 50px;
   width: fit-content;
+  min-width: 200px;
   border: none;
   border-radius: 25px;
   background-color: $purple;
@@ -14,6 +15,10 @@
   cursor: pointer;
   @include text('boldFont', 16px, $white);
 
+  img {
+    filter: $white_filter;
+  }
+
   &:hover,
   &:focus {
     filter: brightness(120%);
@@ -21,13 +26,26 @@
 
   &.squared {
     width: 50px;
+    min-width: 50px;
     height: 50px;
     border-radius: 10px;
     padding: 0;
   }
 
+  &.rounded {
+    width: 35px;
+    min-width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    padding: 0;
+  }
+
   &.secondary {
     background-color: $background;
+  }
+
+  &.success {
+    background-color: $green;
   }
 
   &.error {
@@ -44,5 +62,9 @@
 
   &.facebook {
     background-color: $facebookBlue;
+  }
+
+  &.icon::before {
+    @extend %buttonIcon;
   }
 }

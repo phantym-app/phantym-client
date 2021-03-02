@@ -15,19 +15,27 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-///////////////////
-// THIS IS IN .html
-///////////////////
-// html,
-// body,
-// main {
-//   width: 100%;
-//   min-height: 100vh;
-//   margin: 0;
-//   display: flex;
-//   background-color: $darkest;
-// }
-///////////////////
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background-color: $darkest;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+main {
+  overflow: hidden;
+  width: 100%;
+  min-height: 100%;
+  max-width: unset;
+  padding: 15px;
+  margin: 0 auto;
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -66,22 +74,43 @@ p {
 
 h1 {
   @include text('boldFont', $h1Size, $white);
+  font-weight: $font-weight-normal;
 }
 h2 {
   @include text('boldFont', $h2Size, $white);
+  font-weight: $font-weight-normal;
 }
 h3 {
   @include text('boldFont', $h3Size, $white);
+  font-weight: $font-weight-normal;
 }
 h4 {
   @include text('boldFont', $h4Size, $white);
+  font-weight: $font-weight-normal;
 }
 h5 {
   @include text('boldFont', $h5Size, $white);
+  font-weight: $font-weight-normal;
 }
 h6 {
   @include text('boldFont', $h6Size, $white);
+  font-weight: $font-weight-normal;
 }
 p {
   @include text('regularFont', $pSize, $white);
+  font-weight: $font-weight-normal;
+}
+
+@include deviceWidth('minTablet') {
+  main {
+    padding: 0 25px;
+    margin: 0 auto 0 105px;
+  }
+}
+
+@include deviceWidth('minDesktop') {
+  main {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
 }

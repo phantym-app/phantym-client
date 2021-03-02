@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import styles from './LabelOverview.module.scss';
 import Label from '@components/elements/label/Label';
 
@@ -25,16 +25,18 @@ const skeletonLabels = [
 
 const LabelOverview = ({ labels, onLabelClick, activeLabels }: Props) => {
   return (
-    <div class={[styles.root, { [styles.skeleton]: labels.length === 0 }]}>
-      {console.log(labels.length === 0)}
-      {(labels.length === 0 ? skeletonLabels : labels).map((label, index) => (
-        <Label
-          key={index}
-          title={label.text}
-          active={activeLabels?.includes(label.text)}
-          onClick={() => onLabelClick(label.text)}
-        />
-      ))}
+    <div class={styles.labelsContainer}>
+      <div class={[styles.root, { [styles.skeleton]: labels.length === 0 }]}>
+        {(labels.length === 0 ? skeletonLabels : labels).map((label, index) => (
+          <Label
+            key={index}
+            title={label.text}
+            active={activeLabels?.includes(label.text)}
+            onClick={() => onLabelClick(label.text)}
+          />
+        ))}
+      </div>
+      <div class={styles.fade} />
     </div>
   );
 };
