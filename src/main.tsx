@@ -28,8 +28,8 @@ async function _render() {
   render(
     <StrictMode>
       <div style='color: white'>test</div>
-      {/* <StoreProvider>
-        <BrowserRouter>
+      <StoreProvider>
+        {/* <BrowserRouter>
           <Header />
           <main>
             <Switch>
@@ -45,8 +45,8 @@ async function _render() {
               </Suspense>
             </Switch>
           </main>
-        </BrowserRouter>
-      </StoreProvider> */}
+        </BrowserRouter> */}
+      </StoreProvider>
     </StrictMode>,
     document.getElementById('root') as Element,
   );
