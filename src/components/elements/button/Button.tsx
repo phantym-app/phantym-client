@@ -6,7 +6,7 @@ type Props = {
   squared?: boolean;
   rounded?: boolean;
   onClick?: (...args: any) => any;
-  colour?: 'secondary' | 'error' | 'warning' | 'google' | 'facebook' | 'success';
+  colour?: 'secondary' | 'error' | 'warning' | 'google' | 'facebook' | 'success' | 'ghost';
 };
 
 const Button = ({ children, squared, onClick, colour, rounded }: Props) => (

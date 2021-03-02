@@ -12,7 +12,38 @@ import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 
 import { maxMobile } from '@logic/matchesWidth';
 
-export const Mobile = ({ searchButton, setSearchQuery, activeTab, setActiveTab, activeLabels, setActiveLabel }) => {
+export const ContentResizing = ({
+  searchButton,
+  setSearchQuery,
+  activeTab,
+  setActiveTab,
+  activeLabels,
+  setActiveLabel,
+  setFiltersActive,
+}) => {
+  return maxMobile ? (
+    <Mobile
+      searchButton={searchButton}
+      setSearchQuery={setSearchQuery}
+      setActiveTab={setActiveTab}
+      activeLabels={activeLabels}
+      setActiveLabel={setActiveLabel}
+      setFiltersActive={setFiltersActive}
+    />
+  ) : (
+    <MinTablet
+      searchButton={searchButton}
+      setSearchQuery={setSearchQuery}
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
+      activeLabels={activeLabels}
+      setActiveLabel={setActiveLabel}
+      setFiltersActive={setFiltersActive}
+    />
+  );
+};
+
+const Mobile = ({ searchButton, setSearchQuery, setActiveTab, activeLabels, setActiveLabel, setFiltersActive }) => {
   return (
     <div class={styles.actions}>
       <div class={styles.title}>
@@ -37,7 +68,7 @@ export const Mobile = ({ searchButton, setSearchQuery, activeTab, setActiveTab, 
             <Searchbar onChange={e => setSearchQuery(e.target.value)} placeholder={'Search for a game'} />
           )}
           {/* TODO: Add filter functions */}
-          <Button squared colour={'secondary'}>
+          <Button squared colour={'secondary'} onClick={() => setFiltersActive((prevState: boolean) => !prevState)}>
             <img src={filter} alt={'filter'} />
           </Button>
         </div>
@@ -59,7 +90,15 @@ export const Mobile = ({ searchButton, setSearchQuery, activeTab, setActiveTab, 
   );
 };
 
-export const MinTablet = ({ searchButton, setSearchQuery, activeTab, setActiveTab, activeLabels, setActiveLabel }) => {
+const MinTablet = ({
+  searchButton,
+  setSearchQuery,
+  activeTab,
+  setActiveTab,
+  activeLabels,
+  setActiveLabel,
+  setFiltersActive,
+}) => {
   return (
     <div class={styles.actions}>
       <div class={styles.title}>
@@ -73,7 +112,7 @@ export const MinTablet = ({ searchButton, setSearchQuery, activeTab, setActiveTa
             <Searchbar onChange={e => setSearchQuery(e.target.value)} placeholder={'Search for a game'} />
           )}
           {/* TODO: Add filter functions */}
-          <Button squared colour={'secondary'}>
+          <Button squared colour={'secondary'} onClick={() => setFiltersActive((prevState: boolean) => !prevState)}>
             <img src={filter} alt={'filter'} />
           </Button>
         </div>

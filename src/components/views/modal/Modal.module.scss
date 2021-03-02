@@ -1,0 +1,163 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  z-index: 16;
+  padding: 50px;
+  position: fixed;
+  width: fit-content;
+  height: fit-content;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 25px;
+  background-color: $background;
+  transition: $default-transition;
+  box-sizing: unset;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 50px;
+
+    > img {
+      margin-left: 15px;
+      cursor: pointer;
+    }
+
+    > :first-child {
+      display: flex;
+      align-items: center;
+      > img {
+        margin-right: 15px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    margin-top: 25px;
+    justify-content: flex-end;
+
+    > :last-child {
+      margin-left: 25px;
+    }
+  }
+
+  img {
+    filter: $white_filter;
+  }
+
+  &.center {
+    margin: auto;
+  }
+
+  &.right {
+    right: 50px;
+    margin: auto 0 auto auto;
+  }
+
+  &.left {
+    left: 50px;
+    margin: auto auto auto 0;
+  }
+
+  &.top {
+    top: 50px;
+    margin: 0 auto auto auto;
+  }
+
+  &.bottom {
+    bottom: 50px;
+    margin: auto auto 0 auto;
+  }
+
+  &.rightOrigin {
+    animation: slideFromRight $default-transition-time 1;
+  }
+
+  &.leftOrigin {
+    animation: slideFromLeft $default-transition-time 1;
+  }
+
+  &.topOrigin {
+    animation: slideFromTop $default-transition-time 1;
+  }
+
+  &.bottomOrigin {
+    animation: slideFromBottom $default-transition-time 1;
+  }
+}
+
+.dimmer {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  background-color: rgba(0, 0, 0, 0.75);
+  transition: $default-transition;
+  animation: fadeIn $default-transition-time 1;
+}
+
+@keyframes slideFromRight {
+  0% {
+    right: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromLeft {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromTop {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromBottom {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

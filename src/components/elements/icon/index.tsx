@@ -6,14 +6,22 @@ type Props = {
   width?: number;
   height?: number;
   alt: string;
+  onClick?: () => void;
 };
 
 export default (p: Props) => (
-  <img src={'/assets/icons/' + p.variant + '.svg'} class={p.class} width={p.width} height={p.height} alt={p.alt} />
+  <img
+    src={'/assets/icons/' + p.variant + '.svg'}
+    class={p.class}
+    width={p.width}
+    height={p.height}
+    alt={p.alt}
+    onClick={p.onClick && p.onClick}
+  />
 );
 
 //#region JamIcons
-type JamIcon =
+export type JamIcon =
   | '500px'
   | 'accessibility'
   | 'activity'

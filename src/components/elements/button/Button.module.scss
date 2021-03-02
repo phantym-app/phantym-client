@@ -12,11 +12,13 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
+  white-space: nowrap;
   cursor: pointer;
   @include text('boldFont', 16px, $white);
 
   img {
     filter: $white_filter;
+    margin-right: 10px;
   }
 
   &:hover,
@@ -42,6 +44,11 @@
 
   &.secondary {
     background-color: $background;
+  }
+
+  &.ghost {
+    background-color: transparent;
+    border: 2px $backgroundLifted2 solid;
   }
 
   &.success {

@@ -77,6 +77,10 @@ $pSize: 16px;
 $default-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.3);
 
 // Animation -------------------------------------------------------------------------------------------------------
-$slow-transition: 0.5s ease-in-out;
-$default-transition: 0.25s ease-in-out;
-$fast-transition: 0.1s ease-in-out;
+$slow-transition-time: 0.5;
+$default-transition-time: 0.25s;
+$fast-transition-time: 0.1s;
+
+$slow-transition: $slow-transition-time ease-in-out;
+$default-transition: $default-transition-time ease-in-out;
+$fast-transition: $fast-transition-time ease-in-out;
