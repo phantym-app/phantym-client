@@ -26,11 +26,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
     <div class={styles.root}>
       <Link to={`/browse/game?selected=${title}`}>
         <div class={[styles.imageContainer, { [styles.noPicture]: !thumbnail }]}>
-          {thumbnail ? (
-            <img src={thumbnail} alt='game-art' />
-          ) : (
-            <Icon class={styles.picMissing} variant={'picture'} alt={'game-art'} />
-          )}
+          {thumbnail ? <img src={thumbnail} alt='game art' /> : <Icon variant='picture' alt='game art missing' />}
         </div>
       </Link>
 

@@ -8,14 +8,12 @@ type Props = {
   games: GameStub[];
 };
 
-function GameOverview({ games }: Props) {
-  return (
-    <div class={styles.root}>
-      {games.map((game, i) => (
-        <Game {...game} key={i} />
-      ))}
-    </div>
-  );
-}
+const GameOverview = ({ games }: Props) => (
+  <div class={styles.root}>
+    {games.map((game, i) => (
+      <Game {...game} key={i} />
+    ))}
+  </div>
+);
 
 export default GameOverview;

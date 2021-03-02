@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'preact/hooks';
 
-type Status = 'pending' | 'success' | 'error';
-
 function useInfiniteScroll(handler: () => any) {
-  const [status, setStatus] = useState<Status>('success');
+  const [status, setStatus] = useState<'pending' | 'success' | 'error'>('success');
 
   useEffect(
     function () {
@@ -26,6 +24,7 @@ function useInfiniteScroll(handler: () => any) {
       try {
         await handler();
         setStatus('success');
+        handleScroll();
       } catch {
         setStatus('error');
       }

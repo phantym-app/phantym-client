@@ -1,20 +1,22 @@
 @import '../../../styling/sass.scss';
 
-.labelsContainer {
+.root {
+  grid-area: __labels;
   position: relative;
-  .root {
+
+  .labelsContainer {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
     position: relative;
+    column-gap: 10px;
 
-    /* width */
     &::-webkit-scrollbar {
       display: none;
     }
 
-    > * {
-      margin-right: 10px;
+    &.skeleton p {
+      opacity: 0;
     }
   }
 
@@ -25,11 +27,5 @@
     background-image: linear-gradient(to right, rgba(10, 10, 10, 0), $darkest);
     left: calc(100% - 38px);
     top: 0;
-  }
-
-  &.skeleton {
-    p {
-      opacity: 0;
-    }
   }
 }

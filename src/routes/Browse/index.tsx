@@ -12,16 +12,12 @@ import Icon from '@components/elements/icon';
 
 import { useGameLibrary } from '@store/gameLibrary';
 import useInfiniteScroll from '@logic/hooks/useInfiniteScroll';
-import Loader from '@components/elements/loader/Loader';
 
 const Browse = () => {
   const [activeTags, setActiveTags] = useState<string[]>([]);
 
   const { gameStubs, fetchGameStubs, gameTags, fetchGameTags } = useGameLibrary();
-  const gamePreviewFetchStatus = useInfiniteScroll(() => fetchGameStubs(6));
-
-  useEffect(() => console.log(gamePreviewFetchStatus), [gamePreviewFetchStatus]);
-
+  const gameStubsFetchStatus = useInfiniteScroll(() => fetchGameStubs(6));
   useEffect(() => gameTags.length === 0 && fetchGameTags(8), []);
 
   function toggleTagActive(title: string) {
@@ -35,21 +31,20 @@ const Browse = () => {
           <h1>Browse</h1>
           <div class={styles.search}>
             {/* TODO: Add Search function */}
-            <Searchbar onChange={e => console.log(e.target.value)} placeholder={'Search for a game'} />
+            <Searchbar onChange={e => console.log(e.target.value)} placeholder='Search for a game' />
             {/* TODO: Add filter functions */}
-            <Button squared colour={'secondary'}>
-              <Icon variant={'filter'} alt={'filter'} />
+            <Button squared colour='secondary'>
+              <Icon variant='filter' alt='filter' />
             </Button>
           </div>
         </div>
-        <div class={styles.labelsContainer}>
-          <LabelOverview labels={gameTags} activeLabels={activeTags} onLabelClick={toggleTagActive} />
-        </div>
+        <LabelOverview labels={gameTags} activeLabels={activeTags} onLabelClick={toggleTagActive} />
       </div>
-      <Hero typeOfContent={'new releases'} type={'carousel'} games={gameStubs.slice(0, 3)} />
+
+      <Hero typeOfContent='new releases' type='carousel' games={gameStubs.slice(0, 3)} />
+
       <div class={styles.content}>
         <GameOverview games={gameStubs} />
-        {gamePreviewFetchStatus === 'pending' && <Loader />}
       </div>
     </div>
   );
