@@ -1,6 +1,8 @@
-import { matchesWidth } from '@logic/matchesWidth';
+// import { matchesWidth } from '@logic/matchesWidth';
 import { useEffect, useState } from 'preact/hooks';
 import { createContainer } from 'unstated-next';
+
+const matchesWidth = (...args) => true;
 
 function getWidth() {
   // 420px maximum width: cover all smartphones in portrait mode
