@@ -31,7 +31,7 @@ async function _render() {
         <BrowserRouter>
           <Header />
           <main>
-            <Switch>
+            {/* <Switch>
               <Suspense fallback={<Loader />}>
                 <Route path={'/room'} render={() => <Room />} exact />
                 <Route path={'/cart'} render={() => <Cart />} exact />
@@ -40,10 +40,9 @@ async function _render() {
                 <Route path={'/browse/game'} render={() => <BrowseGame />} exact />
                 <Route path={'/browse'} render={() => <Browse />} exact />
                 <Route path={'/login'} render={() => <Login />} exact />
-                {/* <Route path={'/'} render={() => <Home />} exact /> */}
-                <Route path={'/'} render={() => <div style='color: white'>test</div>} exact />
+                <Route path={'/'} render={() => <Home />} exact />
               </Suspense>
-            </Switch>
+            </Switch> */}
           </main>
         </BrowserRouter>
       </StoreProvider>
