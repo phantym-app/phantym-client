@@ -1,10 +1,10 @@
 import '@logic/preactImplicitClassnames';
 
 import { h, render } from 'preact';
-// import { Suspense, lazy, StrictMode } from 'preact/compat';
+import { Suspense, lazy, StrictMode } from 'preact/compat';
 // import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-// import StoreProvider from '@store';
+import StoreProvider from '@store';
 
 import './global.scss';
 
@@ -26,28 +26,28 @@ async function _render() {
   }
 
   render(
-    //   <StrictMode>
-    //   <StoreProvider>
-    //     <BrowserRouter>
-    //       <Header />
-    //       <main>
-    //         <Switch>
-    //           <Suspense fallback={<Loader />}>
-    //             <Route path={'/room'} render={() => <Room />} exact />
-    //             <Route path={'/cart'} render={() => <Cart />} exact />
-    //             <Route path={'/social'} render={() => <Friends />} exact />
-    //             <Route path={'/settings'} render={() => <Settings />} exact />
-    //             <Route path={'/browse/game'} render={() => <BrowseGame />} exact />
-    //             <Route path={'/browse'} render={() => <Browse />} exact />
-    //             <Route path={'/login'} render={() => <Login />} exact />
-    //             <Route path={'/'} render={() => <Home />} exact />
-    //           </Suspense>
-    //         </Switch>
-    //       </main>
-    //     </BrowserRouter>
-    //   </StoreProvider>
-    // </StrictMode>
-    <div>test</div>,
+    <StrictMode>
+      <div style='color: white'>test</div>
+      {/* <StoreProvider>
+        <BrowserRouter>
+          <Header />
+          <main>
+            <Switch>
+              <Suspense fallback={<Loader />}>
+                <Route path={'/room'} render={() => <Room />} exact />
+                <Route path={'/cart'} render={() => <Cart />} exact />
+                <Route path={'/social'} render={() => <Friends />} exact />
+                <Route path={'/settings'} render={() => <Settings />} exact />
+                <Route path={'/browse/game'} render={() => <BrowseGame />} exact />
+                <Route path={'/browse'} render={() => <Browse />} exact />
+                <Route path={'/login'} render={() => <Login />} exact />
+                <Route path={'/'} render={() => <Home />} exact />
+              </Suspense>
+            </Switch>
+          </main>
+        </BrowserRouter>
+      </StoreProvider> */}
+    </StrictMode>,
     document.getElementById('root') as Element,
   );
 }
