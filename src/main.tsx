@@ -31,6 +31,7 @@ async function _render() {
         <BrowserRouter>
           <Header />
           <main>
+            <div style='color: white'>test</div>
             {/* <Switch>
               <Suspense fallback={<Loader />}>
                 <Route path={'/room'} render={() => <Room />} exact />
