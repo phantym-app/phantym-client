@@ -81,7 +81,7 @@ function Index() {
             />
           </div>
 
-          <RangeSelect title={'Release date'} range={{ val1: '1982', val2: 'Present' }} />
+          <RangeSelect title={'Release date'} minMax={{ min: 1995, max: 2021 }} />
         </div>
       </Modal>
     </div>

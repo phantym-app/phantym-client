@@ -1,4 +1,5 @@
 import { h, Fragment } from 'preact';
+import { useState } from 'preact/hooks';
 import styles from './Modal.module.scss';
 
 import Icon, { JamIcon } from '@components/elements/icon';
@@ -26,6 +27,16 @@ interface Props {
 }
 
 const Modal = ({ hasDimmer, title, origin, active, dismissModal, location, actions, children }: Props) => {
+  const [willDismiss, setWillDismiss] = useState<boolean>(false);
+
+  const handleClose = () => {
+    setWillDismiss(true);
+    setTimeout(() => {
+      dismissModal();
+      setWillDismiss(false);
+    }, 250);
+  };
+
   return (
     <>
       {active && (
@@ -39,15 +50,16 @@ const Modal = ({ hasDimmer, title, origin, active, dismissModal, location, actio
                 [styles.leftOrigin]: origin === 'left',
                 [styles.topOrigin]: origin === 'top',
                 [styles.bottomOrigin]: origin === 'bottom',
+                [styles.exit]: willDismiss,
               },
             ]}>
             <div class={styles.header}>
               <div>
-                {origin === 'left' && <Icon variant={'arrow-left'} alt={'dismiss'} onClick={dismissModal} />}
+                {origin === 'left' && <Icon variant={'arrow-left'} alt={'dismiss'} onClick={handleClose} />}
                 <h6>{title}</h6>
               </div>
               {origin !== 'left' && (
-                <Icon variant={origin === 'right' ? 'arrow-right' : 'close'} alt={'dismiss'} onClick={dismissModal} />
+                <Icon variant={origin === 'right' ? 'arrow-right' : 'close'} alt={'dismiss'} onClick={handleClose} />
               )}
             </div>
             {children}
@@ -66,7 +78,9 @@ const Modal = ({ hasDimmer, title, origin, active, dismissModal, location, actio
               </div>
             )}
           </div>
-          {hasDimmer && <div id={'dimmer'} class={styles.dimmer} onClick={dismissModal} />}
+          {hasDimmer && (
+            <div id={'dimmer'} class={[styles.dimmer, { [styles.fadeOut]: willDismiss }]} onClick={handleClose} />
+          )}
         </>
       )}
     </>

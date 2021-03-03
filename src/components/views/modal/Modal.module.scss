@@ -78,18 +78,34 @@
 
   &.rightOrigin {
     animation: slideFromRight $default-transition-time 1;
+
+    &.exit {
+      animation: slideToRight $default-transition-time 1;
+    }
   }
 
   &.leftOrigin {
     animation: slideFromLeft $default-transition-time 1;
+
+    &.exit {
+      animation: slideToLeft $default-transition-time 1;
+    }
   }
 
   &.topOrigin {
     animation: slideFromTop $default-transition-time 1;
+
+    &.exit {
+      animation: slideToTop $default-transition-time 1;
+    }
   }
 
   &.bottomOrigin {
     animation: slideFromBottom $default-transition-time 1;
+
+    &.exit {
+      animation: slideToBottom $default-transition-time 1;
+    }
   }
 }
 
@@ -103,6 +119,10 @@
   background-color: rgba(0, 0, 0, 0.75);
   transition: $default-transition;
   animation: fadeIn $default-transition-time 1;
+
+  &.fadeOut {
+    animation: fadeOut $default-transition-time 1;
+  }
 }
 
 @keyframes slideFromRight {
@@ -112,6 +132,16 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes slideToRight {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    right: 0;
+    opacity: 0;
   }
 }
 
@@ -125,6 +155,16 @@
   }
 }
 
+@keyframes slideToLeft {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    left: 0;
+    opacity: 0;
+  }
+}
+
 @keyframes slideFromTop {
   0% {
     top: 0;
@@ -135,12 +175,33 @@
   }
 }
 
+@keyframes slideToTop {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    opacity: 0;
+  }
+}
+
 @keyframes slideFromBottom {
   0% {
+    bottom: 0;
     opacity: 0;
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes slideToBottom {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 0;
+    opacity: 0;
   }
 }
 
