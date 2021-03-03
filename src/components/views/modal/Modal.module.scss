@@ -23,7 +23,7 @@
     height: fit-content;
     margin-bottom: 50px;
 
-    > img {
+    > button {
       margin-left: 15px;
       cursor: pointer;
     }
@@ -31,7 +31,8 @@
     > :first-child {
       display: flex;
       align-items: center;
-      > img {
+
+      > button {
         margin-right: 15px;
         cursor: pointer;
       }
@@ -52,31 +53,9 @@
     filter: $white_filter;
   }
 
-  &.center {
-    margin: auto;
-  }
-
   &.right {
     right: 50px;
     margin: auto 0 auto auto;
-  }
-
-  &.left {
-    left: 50px;
-    margin: auto auto auto 0;
-  }
-
-  &.top {
-    top: 50px;
-    margin: 0 auto auto auto;
-  }
-
-  &.bottom {
-    bottom: 50px;
-    margin: auto auto 0 auto;
-  }
-
-  &.rightOrigin {
     animation: slideFromRight $default-transition-time 1;
 
     &.exit {
@@ -84,7 +63,9 @@
     }
   }
 
-  &.leftOrigin {
+  &.left {
+    left: 50px;
+    margin: auto auto auto 0;
     animation: slideFromLeft $default-transition-time 1;
 
     &.exit {
@@ -92,7 +73,9 @@
     }
   }
 
-  &.topOrigin {
+  &.top {
+    top: 50px;
+    margin: 0 auto auto auto;
     animation: slideFromTop $default-transition-time 1;
 
     &.exit {
@@ -100,7 +83,9 @@
     }
   }
 
-  &.bottomOrigin {
+  &.bottom {
+    bottom: 50px;
+    margin: auto auto 0 auto;
     animation: slideFromBottom $default-transition-time 1;
 
     &.exit {

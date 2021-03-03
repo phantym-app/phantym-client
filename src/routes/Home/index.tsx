@@ -11,6 +11,8 @@ import RangeSelect from '@components/elements/rangeSelect/RangeSelect';
 import { ContentResizing } from './ContentResizing';
 
 import { maxTablet, matchesWidth } from '@logic/matchesWidth';
+import Button from '@components/elements/button/Button';
+import Icon from '@components/elements/icon';
 
 function Index() {
   const [activeTab, setActiveTab] = useState<string>('all games');
@@ -18,6 +20,7 @@ function Index() {
   const [searchButton, setSearchbutton] = useState<boolean>(maxTablet);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filtersActive, setFiltersActive] = useState<boolean>(false);
+  const [releaseDateFilter, setReleaseDateFilter] = useState<{ min: number; max: number }>({ min: 1995, max: 2021 });
 
   useEffect(() => {
     window.addEventListener('resize', () => {
@@ -42,26 +45,12 @@ function Index() {
       />
       <GameOverview games={mockData.mockGames} favourites={activeTab === 'favourites'} searchQuery={searchQuery} />
       <Modal
-        title={'Filters'}
-        actions={{
-          primary: {
-            butonText: 'Apply filters',
-            buttonIcon: 'settings-alt',
-            onClick: () => console.warn('test'),
-          },
-          secondary: {
-            buttonType: 'ghost',
-            butonText: 'Clear all filters',
-            buttonIcon: 'trash',
-            onClick: () => console.warn('test'),
-          },
-        }}
-        location={'right'}
         origin={'right'}
         active={filtersActive}
         dismissModal={() => setFiltersActive(prevState => !prevState)}
         hasDimmer>
-        <div class={styles.filterContent}>
+        <Modal.Header title={'Filters'} />
+        <Modal.Body classNames={[styles.modalBody]}>
           <div>
             <Select
               label={'compatibility'}
@@ -80,9 +69,24 @@ function Index() {
               options={['All games', 'Available for Desktop', 'Available for Mobile', 'Available for Casting']}
             />
           </div>
-
-          <RangeSelect title={'Release date'} minMax={{ min: 1995, max: 2021 }} />
-        </div>
+          <RangeSelect
+            values={releaseDateFilter}
+            setValues={setReleaseDateFilter}
+            title={'Release date'}
+            min={1995}
+            max={2021}
+          />
+        </Modal.Body>
+        <Modal.Actions>
+          <Button colour={'ghost'} onClick={() => console.warn('Clear all filters')}>
+            <Icon variant={'trash'} alt={'trash'} />
+            Clear all filters
+          </Button>
+          <Button onClick={() => console.warn('Apply filters')}>
+            <Icon variant={'settings-alt'} alt={'filters'} />
+            Apply filters
+          </Button>
+        </Modal.Actions>
       </Modal>
     </div>
   );
