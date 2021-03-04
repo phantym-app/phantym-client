@@ -24,15 +24,5 @@ export default function IntersectionTrigger({ onVisible }: { onVisible: () => an
     [ref, ref.current, onVisible],
   );
 
-  return (
-    <div
-      ref={ref}
-      style='
-        width: inherit;
-        height: inherit;
-        min-width: 1px;
-        min-height: 1px;
-      '
-    />
-  );
+  return <div ref={ref} style='width: inherit; height: inherit; min-width: 1px; min-height: 1px' />;
 }
