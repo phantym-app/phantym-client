@@ -6,14 +6,17 @@ import Searchbar from '@components/elements/searchbar/Searchbar';
 import GameOverview from '@components/collections/gameOverview/GameOverview';
 import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 import Hero from '@components/views/hero/Hero';
+import Icon from '@components/elements/icon';
+import FilterModal from '@components/modular/modal/filter/Filter';
 
 import { useEffect, useState } from 'preact/hooks';
-import Icon from '@components/elements/icon';
 
 import { useGameLibrary } from '@store/gameLibrary';
 
 const Browse = () => {
   const [activeLabels, setActiveLabels] = useState<string[]>([]);
+  const [releaseDateFilter, setReleaseDateFilter] = useState<{ min: number; max: number }>({ min: 1995, max: 2021 });
+  const [filtersActive, setFiltersActive] = useState<boolean>(false);
 
   const { gameStubs, fetchGameStubs, gameLabels, fetchGameLabels } = useGameLibrary();
 
@@ -32,9 +35,17 @@ const Browse = () => {
             {/* TODO: Add Search function */}
             <Searchbar onChange={e => console.log(e.target.value)} placeholder='Search for a game' />
             {/* TODO: Add filter functions */}
-            <Button squared colour='secondary'>
+            <Button squared colour='secondary' onClick={() => setFiltersActive(true)}>
               <Icon variant='filter' alt='filter' />
             </Button>
+            <FilterModal
+              origin={'right'}
+              active={filtersActive}
+              dismissModal={() => setFiltersActive(prevState => !prevState)}
+              hasDimmer
+              releaseDateFilter={releaseDateFilter}
+              setReleaseDateFilter={setReleaseDateFilter}
+            />
           </div>
         </div>
         <LabelOverview

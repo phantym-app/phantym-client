@@ -4,7 +4,7 @@ import styles from './Modal.module.scss';
 
 import Icon from '@components/elements/icon';
 import Button from '@components/elements/button/Button';
-interface Props {
+export interface Props {
   active: boolean;
   dismissModal: () => void;
   origin: 'right' | 'left' | 'top' | 'bottom';

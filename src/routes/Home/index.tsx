@@ -11,16 +11,13 @@ import Searchbar from '@components/elements/searchbar/Searchbar';
 import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 import Dropdown from '@components/elements/dropdown/Dropdown';
 import GameOverview from '@components/collections/gameOverview/GameOverview';
-import Modal from '@components/views/modal/Modal';
-import Select from '@components/elements/select/Select';
-import RangeSelect from '@components/elements/rangeSelect/RangeSelect';
+import FilterModal from '@components/modular/modal/filter/Filter';
 
 function Index() {
   const { minTablet, minTabletLandscape } = useDeviceWidth();
 
   const [activeTab, setActiveTab] = useState<'all games' | 'favourites'>('all games');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [filtersActive, setFiltersActive] = useState<boolean>(false);
   const [releaseDateFilter, setReleaseDateFilter] = useState<{ min: number; max: number }>({ min: 1995, max: 2021 });
 
   const [activeLabels, setActiveLabels] = useState<string[]>([]);
@@ -41,7 +38,8 @@ function Index() {
         <Search
           large={minTabletLandscape}
           onSearch={e => setSearchQuery(e.target.value)}
-          setFiltersActive={setFiltersActive}
+          releaseDateFilter={releaseDateFilter}
+          setReleaseDateFilter={setReleaseDateFilter}
         />
         <hr />
         <LabelOverview
@@ -52,52 +50,7 @@ function Index() {
         />
         <SortBy />
       </div>
-
       <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
-      <Modal
-        origin={'right'}
-        active={filtersActive}
-        dismissModal={() => setFiltersActive(prevState => !prevState)}
-        hasDimmer>
-        <Modal.Header title={'Filters'} />
-        <Modal.Body classNames={[styles.modalBody]}>
-          <div>
-            <Select
-              label={'compatibility'}
-              options={['All games', 'Available for Desktop', 'Available for Mobile', 'Available for Casting']}
-            />
-            <Select
-              label={'compatibility'}
-              options={['All games', 'Available for Desktop', 'Available for Mobile', 'Available for Casting']}
-            />
-            <Select
-              label={'compatibility'}
-              options={['All games', 'Available for Desktop', 'Available for Mobile', 'Available for Casting']}
-            />
-            <Select
-              label={'compatibility'}
-              options={['All games', 'Available for Desktop', 'Available for Mobile', 'Available for Casting']}
-            />
-          </div>
-          <RangeSelect
-            values={releaseDateFilter}
-            setValues={setReleaseDateFilter}
-            title={'Release date'}
-            min={1995}
-            max={2021}
-          />
-        </Modal.Body>
-        <Modal.Actions>
-          <Button colour={'ghost'} onClick={() => console.warn('Clear all filters')}>
-            <Icon variant={'trash'} alt={'trash'} />
-            Clear all filters
-          </Button>
-          <Button onClick={() => console.warn('Apply filters')}>
-            <Icon variant={'settings-alt'} alt={'filters'} />
-            Apply filters
-          </Button>
-        </Modal.Actions>
-      </Modal>
     </div>
   );
 }
@@ -125,22 +78,34 @@ const Tabs = ({ large, activeTab, setActiveTab }) =>
     </div>
   );
 
-const Search = ({ onSearch, large, setFiltersActive }) => (
-  <div class={styles.search}>
-    {large ? (
-      <Searchbar onChange={onSearch} placeholder='Search for a game' />
-    ) : (
-      <Button squared colour='secondary'>
-        <Icon variant='search' alt='search' />
-      </Button>
-    )}
+const Search = ({ onSearch, large, releaseDateFilter, setReleaseDateFilter }) => {
+  const [filtersActive, setFiltersActive] = useState<boolean>(false);
 
-    {/* TODO: Add filter functions */}
-    <Button squared colour='secondary' onClick={() => setFiltersActive(true)}>
-      <Icon variant='filter' alt='filter' />
-    </Button>
-  </div>
-);
+  return (
+    <div class={styles.search}>
+      {large ? (
+        <Searchbar onChange={onSearch} placeholder='Search for a game' />
+      ) : (
+        <Button squared colour='secondary'>
+          <Icon variant='search' alt='search' />
+        </Button>
+      )}
+
+      {/* TODO: Add filter functions */}
+      <Button squared colour='secondary' onClick={() => setFiltersActive(true)}>
+        <Icon variant='filter' alt='filter' />
+      </Button>
+      <FilterModal
+        origin={'right'}
+        active={filtersActive}
+        dismissModal={() => setFiltersActive(prevState => !prevState)}
+        hasDimmer
+        releaseDateFilter={releaseDateFilter}
+        setReleaseDateFilter={setReleaseDateFilter}
+      />
+    </div>
+  );
+};
 
 const SortBy = () => (
   <div class={styles.dropdown}>

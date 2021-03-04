@@ -57,6 +57,10 @@
       grid-area: __search;
       display: flex;
       column-gap: 25px;
+
+      > button {
+        margin: auto;
+      }
     }
 
     hr {
@@ -74,21 +78,6 @@
       display: flex;
       column-gap: 15px;
       align-items: center;
-    }
-  }
-
-  .modalBody {
-    position: relative;
-    width: 525px;
-
-    > :first-child {
-      display: grid;
-      gap: 25px;
-      grid-template-columns: repeat(auto-fill, minmax(calc(50% - 25px), 1fr));
-    }
-
-    > * {
-      margin-bottom: 25px;
     }
   }
 }
