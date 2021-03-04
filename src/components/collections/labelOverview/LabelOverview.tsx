@@ -43,16 +43,27 @@ function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, act
   return (
     <div class={styles.root}>
       <div class={[styles.labelsContainer, { [styles.skeleton]: labels.length === 0 }]}>
-        {(labels.length === 0 ? skeletonLabels : labels).map((label, i) => (
-          <Label
-            key={i}
-            title={label.text}
-            active={activeLabels?.includes(label.text)}
-            onClick={() => onLabelClick(label.text)}
-          />
-        ))}
+        {labels.length !== 0 &&
+          labels.map((label, i) => (
+            <Label
+              key={i}
+              title={label.text}
+              active={activeLabels?.includes(label.text)}
+              onClick={() => onLabelClick(label.text)}
+            />
+          ))}
 
         <IntersectionTrigger onVisible={handleScrollEnd} />
+
+        {labels.length === 0 &&
+          skeletonLabels.map((label, i) => (
+            <Label
+              key={i}
+              title={label.text}
+              active={activeLabels?.includes(label.text)}
+              onClick={() => onLabelClick(label.text)}
+            />
+          ))}
       </div>
       <div class={styles.fade} />
     </div>
