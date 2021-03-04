@@ -35,7 +35,7 @@ function Header() {
           icon={'users'}
           title={'Social'}
         />
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} icon={'grid'} title={'Room'} />
+        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} icon={'door'} title={'Room'} />
         <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} icon={'cog'} title={'Settings'} />
       </div>
 

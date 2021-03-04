@@ -2,18 +2,24 @@
 
 .root {
   z-index: 16;
-  padding: 50px;
   position: fixed;
-  width: fit-content;
-  height: fit-content;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
   border-radius: 25px;
+  margin: auto;
   background-color: $background;
   transition: $default-transition;
-  box-sizing: unset;
+  padding: 25px;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 
   .header {
     display: flex;
@@ -41,11 +47,14 @@
 
   .actions {
     display: flex;
-    margin-top: 25px;
-    justify-content: flex-end;
+    margin-top: auto;
+    justify-content: center;
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
 
     > :last-child {
-      margin-left: 25px;
+      margin-bottom: 25px;
     }
   }
 
@@ -54,7 +63,7 @@
   }
 
   &.right {
-    right: 50px;
+    right: 15px;
     margin: auto 0 auto auto;
     animation: slideFromRight $default-transition-time 1;
 
@@ -64,7 +73,7 @@
   }
 
   &.left {
-    left: 50px;
+    left: 15px;
     margin: auto auto auto 0;
     animation: slideFromLeft $default-transition-time 1;
 
@@ -74,7 +83,7 @@
   }
 
   &.top {
-    top: 50px;
+    top: 15px;
     margin: 0 auto auto auto;
     animation: slideFromTop $default-transition-time 1;
 
@@ -84,7 +93,7 @@
   }
 
   &.bottom {
-    bottom: 50px;
+    bottom: 15px;
     margin: auto auto 0 auto;
     animation: slideFromBottom $default-transition-time 1;
 
@@ -107,6 +116,67 @@
 
   &.fadeOut {
     animation: fadeOut $default-transition-time 1;
+  }
+}
+
+@include deviceWidth('minTablet') {
+  .root {
+    width: calc(100% - 50px);
+    padding: 50px;
+    height: fit-content;
+
+    .actions {
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-top: 25px;
+
+      > :last-child {
+        margin-left: 25px;
+        margin-bottom: 0;
+      }
+    }
+
+    &.right {
+      right: 25px;
+    }
+
+    &.left {
+      left: 25px;
+    }
+
+    &.top {
+      top: 25px;
+    }
+
+    &.bottom {
+      bottom: 25px;
+    }
+  }
+}
+
+@include deviceWidth('minTabletLandscape') {
+  .root {
+    width: 718px;
+  }
+}
+
+@include deviceWidth('minDesktop') {
+  .root {
+    &.right {
+      right: 50px;
+    }
+
+    &.left {
+      left: 50px;
+    }
+
+    &.top {
+      top: 50px;
+    }
+
+    &.bottom {
+      bottom: 50px;
+    }
   }
 }
 
