@@ -1,7 +1,8 @@
-import 'react-router-dom';
+import 'preact-router/match';
 
-declare module 'react-router-dom' {
+declare module 'preact-router/match' {
   export interface LinkProps {
-    class?: any;
+    href?: string;
+    class?;
   }
 }

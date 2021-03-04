@@ -12,6 +12,8 @@
     "firebase": "^8.2.5",
     "hashids": "^2.2.8",
     "preact": "^10.5.12",
+    "preact-async-route": "^2.2.1",
+    "preact-router": "^3.2.1",
     "react-router-dom": "^5.1.2",
     "svelte": "^3.32.1",
     "unstated-next": "^1.1.0"

@@ -82,7 +82,7 @@
       cursor: pointer;
       overflow: hidden;
 
-      &.active {
+      &:global(.active) {
         background-color: rgba(162, 27, 251, 0.1);
         border-right: 4px $purple solid;
 

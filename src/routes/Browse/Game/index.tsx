@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState, useRef } from 'preact/hooks';
 import styles from './Game.module.scss';
-import { Link } from 'react-router-dom';
+import { Link } from 'preact-router/match';
 
 import Icon from '@components/elements/icon';
 import Button from '@components/elements/button/Button';
@@ -21,7 +21,7 @@ const Game = () => {
     <div class={styles.root}>
       <div class={styles.header}>
         <div class={styles.headerContent}>
-          <Link to={'/browse'}>
+          <Link href={'/browse'}>
             <div class={styles.backContainer}>
               <Icon variant={'arrow-left'} alt={'backArrow'} />
               <p>Browse</p>

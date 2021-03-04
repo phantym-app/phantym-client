@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import styles from './Game.module.scss';
-import { Link } from 'react-router-dom';
+import { Link } from 'preact-router/match';
 import Icon from '@components/elements/icon';
 import calculatePrice from '@logic/calculatePrice';
 import { useAuth } from '@store/auth';
@@ -24,7 +24,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
   return (
     <div class={styles.root}>
-      <Link to={`/browse/game?selected=${title}`}>
+      <Link href={`/browse/game?selected=${title}`}>
         <div class={[styles.imageContainer, { [styles.noPicture]: !thumbnail }]}>
           {thumbnail ? <img src={thumbnail} alt='game art' /> : <Icon variant='picture' alt='game art missing' />}
         </div>
@@ -32,7 +32,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
       <div class={styles.details}>
         <div>
-          <Link to={`/browse/game?selected=${title}`}>
+          <Link href={`/browse/game?selected=${title}`}>
             <p>{title}</p>
           </Link>
           <Icon
@@ -48,7 +48,9 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
             <div>
               <Icon class={[styles.icon, { [styles.isActive]: desktopCompatible }]} variant={'computer'} alt={''} />
               <span class={styles.tooltiptext}>
-                {desktopCompatible ? 'This game is playable on a computer' : 'This game is not playable on a computer'}
+                {desktopCompatible
+                  ? 'This game is playable on Link computer'
+                  : 'This game is not playable on Link computer'}
               </span>
             </div>
             <div>
@@ -60,7 +62,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
             <div>
               <Icon class={[styles.icon, { [styles.isActive]: castCompatible }]} variant={'cast'} alt={''} />
               <span class={styles.tooltiptext}>
-                {castCompatible ? 'This game is castable to Chromecast' : 'This game is not castable to Chromecast'}
+                {castCompatible ? 'This game is castable href Chromecast' : 'This game is not castable href Chromecast'}
               </span>
             </div>
           </div>
