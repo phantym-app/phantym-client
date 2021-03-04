@@ -40,7 +40,7 @@ function useAuth() {
       if (dataRef !== undefined)
         return dataRef.onSnapshot(function (snap) {
           if (snap.exists) setUserData(snap.data());
-          else dataRef.set({ joined: new Date() });
+          else dataRef.set({ joined: new Date(), favoriteGames: [] });
         });
     },
     [dataRef],
