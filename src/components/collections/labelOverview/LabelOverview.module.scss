@@ -9,7 +9,10 @@
     flex-direction: row;
     overflow-x: scroll;
     position: relative;
-    column-gap: 10px;
+
+    > * {
+      margin-right: 10px;
+    }
 
     &::-webkit-scrollbar {
       display: none;

@@ -14,7 +14,7 @@ export type GameStub = {
   popularity: number;
 };
 
-export type GameTag = {
+export type GameLabel = {
   text: string;
   popularity: number;
 };
@@ -22,7 +22,7 @@ export type GameTag = {
 type Query<T> = firebase.firestore.Query<T>;
 
 const gameStubQuery$ = fs$.then(m => m.fs.collection('gamePreviews').orderBy('popularity', 'desc') as Query<GameStub>);
-const gameTagQuery$ = fs$.then(m => m.fs.collection('gameTags').orderBy('popularity', 'desc') as Query<GameTag>);
+const gameLabelQuery$ = fs$.then(m => m.fs.collection('gameTags').orderBy('popularity', 'desc') as Query<GameLabel>);
 
 function usePaginatedFetch<T>(baseQuery$: Promise<firebase.firestore.Query<T>>) {
   const [query$, setQuery$] = useState<Promise<firebase.firestore.Query<T>>>(baseQuery$);
@@ -45,14 +45,14 @@ function usePaginatedFetch<T>(baseQuery$: Promise<firebase.firestore.Query<T>>) 
 
 function useGameLibrary() {
   const [gameStubs, fetchGameStubs] = usePaginatedFetch(gameStubQuery$);
-  const [gameTags, fetchGameTags] = usePaginatedFetch(gameTagQuery$);
+  const [gameLabels, fetchGameLabels] = usePaginatedFetch(gameLabelQuery$);
 
   return {
     gameStubs,
     fetchGameStubs,
 
-    gameTags,
-    fetchGameTags,
+    gameLabels,
+    fetchGameLabels,
   };
 }
 

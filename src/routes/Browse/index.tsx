@@ -11,17 +11,16 @@ import { useEffect, useState } from 'preact/hooks';
 import Icon from '@components/elements/icon';
 
 import { useGameLibrary } from '@store/gameLibrary';
-import useInfiniteScroll from '@logic/hooks/useInfiniteScroll';
 
 const Browse = () => {
-  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [activeLabels, setActiveLabels] = useState<string[]>([]);
 
-  const { gameStubs, fetchGameStubs, gameTags, fetchGameTags } = useGameLibrary();
-  const gameStubsFetchStatus = useInfiniteScroll(() => fetchGameStubs(6));
-  useEffect(() => gameTags.length === 0 && fetchGameTags(8), []);
+  const { gameStubs, fetchGameStubs, gameLabels, fetchGameLabels } = useGameLibrary();
 
-  function toggleTagActive(title: string) {
-    setActiveTags(activeTags.includes(title) ? activeTags.filter(_title => title !== _title) : [...activeTags, title]);
+  function toggleLabelActive(title: string) {
+    setActiveLabels(
+      activeLabels.includes(title) ? activeLabels.filter(_title => title !== _title) : [...activeLabels, title],
+    );
   }
 
   return (
@@ -38,13 +37,18 @@ const Browse = () => {
             </Button>
           </div>
         </div>
-        <LabelOverview labels={gameTags} activeLabels={activeTags} onLabelClick={toggleTagActive} />
+        <LabelOverview
+          onScrollEnd={() => fetchGameLabels(6)}
+          labels={gameLabels}
+          activeLabels={activeLabels}
+          onLabelClick={toggleLabelActive}
+        />
       </div>
 
       <Hero typeOfContent='new releases' type='carousel' games={gameStubs.slice(0, 3)} />
 
       <div class={styles.content}>
-        <GameOverview games={gameStubs} />
+        <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
       </div>
     </div>
   );

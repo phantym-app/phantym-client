@@ -4,7 +4,6 @@ import styles from './Home.module.scss';
 import { useEffect, useState } from 'preact/hooks';
 import { useGameLibrary } from '@store/gameLibrary';
 import { useDeviceWidth } from '@store/deviceWidth';
-import useInfiniteScroll from '@logic/hooks/useInfiniteScroll';
 
 import Icon from '@components/elements/icon';
 import Button from '@components/elements/button/Button';
@@ -19,14 +18,14 @@ function Index() {
   const [activeTab, setActiveTab] = useState<'all games' | 'favourites'>('all games');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [activeLabels, setActiveLabels] = useState<string[]>([]);
 
-  const { gameStubs, fetchGameStubs, gameTags, fetchGameTags } = useGameLibrary();
-  const gameStubsFetchStatus = useInfiniteScroll(() => fetchGameStubs(6));
-  useEffect(() => gameTags.length === 0 && fetchGameTags(8), []);
+  const { gameStubs, fetchGameStubs, gameLabels, fetchGameLabels } = useGameLibrary();
 
-  function toggleTagActive(title: string) {
-    setActiveTags(activeTags.includes(title) ? activeTags.filter(_title => title !== _title) : [...activeTags, title]);
+  function toggleLabelActive(title: string) {
+    setActiveLabels(
+      activeLabels.includes(title) ? activeLabels.filter(_title => title !== _title) : [...activeLabels, title],
+    );
   }
 
   return (
@@ -36,11 +35,16 @@ function Index() {
         <Tabs large={minTablet} activeTab={activeTab} setActiveTab={setActiveTab} />
         <Search large={minTabletLandscape} onSearch={e => setSearchQuery(e.target.value)} />
         <hr />
-        <LabelOverview labels={gameTags} activeLabels={activeTags} onLabelClick={toggleTagActive} />
+        <LabelOverview
+          onScrollEnd={() => fetchGameLabels(6)}
+          labels={gameLabels}
+          activeLabels={activeLabels}
+          onLabelClick={toggleLabelActive}
+        />
         <SortBy />
       </div>
 
-      <GameOverview games={gameStubs} />
+      <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
     </div>
   );
 }
