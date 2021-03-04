@@ -6,7 +6,7 @@ type Props = {
   width?: number;
   height?: number;
   alt: string;
-  onClick?;
+  onClick?: () => any;
 };
 
 export default (p: Props) => (
@@ -21,7 +21,7 @@ export default (p: Props) => (
 );
 
 //#region JamIcons
-type JamIcon =
+export type JamIcon =
   | '500px'
   | 'accessibility'
   | 'activity'

@@ -1,106 +1,138 @@
 @import '../../../styling/sass.scss';
 
-.root {
-  background-color: $backgroundLifted;
-  border: 2px $backgroundLifted solid;
-  width: fit-content;
+.shadowSelect {
   width: 250px;
-  height: fit-content;
-  border-radius: 10px;
-  align-items: flex-start;
-  cursor: pointer;
-  @include text('lightFont', 16px, $white);
+  height: 50px;
 
-  .select {
-    padding: 10px 15px;
-    width: 100%;
-    height: 100%;
-    background-color: $backgroundLifted;
-    border: none;
+  .root {
+    border: 2px $backgroundLifted2 solid;
+    width: 250px;
+    min-width: 250px;
+    min-height: 45px;
+    border-radius: 25px;
+    align-items: flex-start;
+    position: absolute;
+    background-color: $background;
     cursor: pointer;
     @include text('lightFont', 16px, $white);
-    z-index: 1;
-    user-select: none;
-    border-radius: 10px;
-  }
 
-  .select.initialValue {
-    color: $grey;
-  }
+    .labelContainer {
+      background-color: $background;
+      padding: 0 5px;
+      position: absolute;
+      top: -7px;
+      left: 20px;
 
-  .chevronContainer {
-    position: absolute;
-    height: 46px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    margin: -44px 0 0 198px;
-
-    img {
-      max-width: 20px;
-      max-height: 20px;
-      transition: 0.2s ease-out;
-    }
-  }
-
-  hr {
-    margin: 0 auto;
-    border: none;
-    width: calc(100% - 20px);
-  }
-
-  .optionsMenu {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
-    max-height: calc(6.5 * 42px);
-    background-color: $backgroundLifted;
-    border-top: none;
-    z-index: 0;
-    user-select: none;
-    overflow-y: scroll;
-
-    > :first-child {
-      color: $grey !important;
-    }
-
-    .option {
-      background-color: $backgroundLifted;
-      border: none;
-      padding: 10px 15px;
-      text-align: start;
-      cursor: pointer;
-      @include text('lightFont', 16px, $white);
-
-      &:hover {
-        background-color: $backgroundLifted2;
+      p {
+        text-transform: uppercase;
+        font-weight: $font-weight-normal;
+        @include text('boldFont', 10px, $grey);
       }
     }
-  }
-}
 
-.root.pickedValue {
-  border: 2px $purple solid;
-}
+    .select {
+      padding: 10px 25px;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: $font-weight-normal;
+      @include text('regularFont', 16px, $white);
+      z-index: 1;
+      user-select: none;
+      border-radius: 25px;
 
-.root.active {
-  .chevronContainer {
-    img {
-      transform: rotate(180deg);
+      &::placeholder {
+        @include text('regularFont', 16px, $white);
+      }
     }
-  }
 
-  hr {
-    border: 1px $backgroundLifted2 solid;
-    border-right: none;
-    border-left: none;
-  }
+    .chevronContainer {
+      position: absolute;
+      height: 46px;
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      outline: none;
+      margin: -44px 0 0 198px;
 
-  .optionsMenu {
-    display: flex;
+      img {
+        max-width: 20px;
+        max-height: 20px;
+        transition: 0.2s ease-out;
+      }
+    }
+
+    hr {
+      margin: 0 auto;
+      border: none;
+      width: calc(100% - 20px);
+    }
+
+    .optionsMenu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      height: fit-content;
+      max-height: calc(6.5 * 42px);
+      background-color: transparent;
+      border-top: none;
+      z-index: 0;
+      user-select: none;
+      overflow-y: scroll;
+      margin: 15px 0;
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+
+      > :first-child {
+        color: $grey;
+      }
+
+      .option {
+        background-color: transparent;
+        border: none;
+        padding: 10px 25px;
+        text-align: start;
+        cursor: pointer;
+        font-weight: $font-weight-normal;
+        @include text('regularFont', 16px, $white);
+        width: calc(100% - 30px);
+        margin: 0 auto;
+        border-radius: 10px;
+
+        &:hover {
+          background-color: $backgroundLifted2;
+        }
+
+        &.pickedValue {
+          background-color: $purple;
+          @include text('boldFont', 16px, $white);
+        }
+      }
+    }
+
+    &.active {
+      z-index: 1;
+      .chevronContainer {
+        img {
+          transform: rotate(180deg);
+        }
+      }
+
+      hr {
+        border: 1px $backgroundLifted2 solid;
+        border-right: none;
+        border-left: none;
+      }
+
+      .optionsMenu {
+        display: flex;
+      }
+    }
   }
 }

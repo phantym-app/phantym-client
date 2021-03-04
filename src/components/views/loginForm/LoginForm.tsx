@@ -19,7 +19,10 @@ function LoginForm({ signInWithGoogle }: { signInWithGoogle: () => any }) {
         <h4>Sign in</h4>
         <Input icon={'close'} type={'email'} label={'Email address'} placeholder={'Example@example.com'} />
         <Input icon={'eye'} type={'password'} label={'Password'} placeholder={'Enter your password'} />
-        <Button>Sign in</Button>
+        <Button>
+          <Icon variant={'log-in'} alt={'Log in'} />
+          Sign in
+        </Button>
       </form>
       <p>
         Not a member? <a href={''}>Sign up here!</a>
@@ -27,11 +30,11 @@ function LoginForm({ signInWithGoogle }: { signInWithGoogle: () => any }) {
       <div class={styles.alternativeLogin}>
         <p>or</p>
         <Button colour={'google'} onClick={signInWithGoogle}>
-          <Icon variant={'google'} alt={''} />
+          <Icon variant={'google'} alt={'Google'} />
           Sign in with Google
         </Button>
         <Button colour={'facebook'}>
-          <Icon variant={'facebook'} alt={''} />
+          <Icon variant={'facebook'} alt={'Facebook'} />
           Sign in with Facebook
         </Button>
       </div>
