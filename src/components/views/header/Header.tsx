@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
 import styles from './Header.module.scss';
 
@@ -19,28 +19,37 @@ function Header() {
   const { pathname } = useLocation();
 
   return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
-      <div class={styles.links}>
-        <div class={styles.title}>
-          <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
+    <>
+      <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
+        <div class={styles.links}>
+          <div class={styles.title}>
+            <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
+          </div>
+
+          <ProfileButton isCollapsed={isCollapsed} />
+          <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} icon={'compass'} title={'Browse'} />
+          <PageLink to={'/'} isActive={pathname === '/'} icon={'gamepad'} title={'My games'} />
+          <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} icon={'shopping-cart'} title={'Cart'} />
+          <PageLink
+            to={'/social?page=friends'}
+            isActive={pathname.startsWith('/social')}
+            icon={'users'}
+            title={'Social'}
+          />
+          <PageLink to={'/room'} isActive={pathname.startsWith('/room')} icon={'door'} title={'Room'} />
+          <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} icon={'cog'} title={'Settings'} />
         </div>
 
-        <ProfileButton isCollapsed={isCollapsed} />
-        <PageLink to={'/browse'} isActive={pathname.startsWith('/browse')} icon={'compass'} title={'Browse'} />
-        <PageLink to={'/'} isActive={pathname === '/'} icon={'gamepad'} title={'My games'} />
-        <PageLink to={'/cart'} isActive={pathname.startsWith('/cart')} icon={'shopping-cart'} title={'Cart'} />
-        <PageLink
-          to={'/social?page=friends'}
-          isActive={pathname.startsWith('/social')}
-          icon={'users'}
-          title={'Social'}
+        <CastButton />
+      </header>
+      {maxTablet && (
+        <div
+          id={'dimmer'}
+          class={[styles.dimmer, { [styles.active]: !isCollapsed }]}
+          onClick={() => setCollapsed(true)}
         />
-        <PageLink to={'/room'} isActive={pathname.startsWith('/room')} icon={'door'} title={'Room'} />
-        <PageLink to={'/settings'} isActive={pathname.startsWith('/settings')} icon={'cog'} title={'Settings'} />
-      </div>
-
-      <CastButton />
-    </header>
+      )}
+    </>
   );
 }
 
