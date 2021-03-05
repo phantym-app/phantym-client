@@ -99,7 +99,7 @@ function Input({ label, placeholder, icon, type, status }: Props) {
               [styles.largerIcon]: icon === 'close',
             },
           ]}>
-          <Icon variant={icon !== 'eye' ? 'close' : isValueVisible ? 'eye' : 'eye-close'} alt={icon} />
+          <Icon variant={icon !== 'eye' ? 'rubber' : isValueVisible ? 'eye' : 'eye-close'} alt={icon} />
         </button>
       )}
     </div>
