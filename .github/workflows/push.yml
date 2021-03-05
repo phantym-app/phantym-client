@@ -23,5 +23,5 @@ jobs:
       - name: running tests
         run: npm run test
 
-      - name: running lighthouse ci
-        run: npm run lhci
+#       - name: running lighthouse ci
+#         run: npm run lhci
