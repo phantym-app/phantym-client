@@ -48,7 +48,7 @@ function Index() {
           activeLabels={activeLabels}
           onLabelClick={toggleLabelActive}
         />
-        <SortBy />
+        <SortBy large={minTabletLandscape} />
       </div>
       <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
     </div>
@@ -107,9 +107,9 @@ const Search = ({ onSearch, large, releaseDateFilter, setReleaseDateFilter }) =>
   );
 };
 
-const SortBy = () => (
+const SortBy = ({ large }) => (
   <div class={styles.dropdown}>
     <p>Sort by: </p>
-    <Dropdown items={['Recent', 'Alphabetical A-Z', 'Alphabetical Z-A']} coloured />
+    <Dropdown items={['Recent', 'Alphabetical A-Z', 'Alphabetical Z-A']} coloured alignLeft={!large} />
   </div>
 );

@@ -3,11 +3,12 @@
 .shadowSelect {
   width: 250px;
   height: 50px;
+  position: relative;
 
   .root {
     border: 2px $backgroundLifted2 solid;
-    width: 250px;
-    min-width: 250px;
+    width: 100%;
+    min-width: 100%;
     min-height: 45px;
     border-radius: 25px;
     align-items: flex-start;
@@ -57,7 +58,8 @@
       align-items: center;
       border: none;
       outline: none;
-      margin: -44px 0 0 198px;
+      margin-top: -44px;
+      left: calc(100% - 50px);
 
       img {
         max-width: 20px;
