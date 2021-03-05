@@ -48,7 +48,7 @@ function Index() {
           activeLabels={activeLabels}
           onLabelClick={toggleLabelActive}
         />
-        <SortBy large={minTabletLandscape} />
+        <SortBy large={minTablet} />
       </div>
       <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
     </div>
