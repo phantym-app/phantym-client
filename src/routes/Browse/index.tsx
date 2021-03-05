@@ -8,8 +8,9 @@ import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 import Hero from '@components/views/hero/Hero';
 import Icon from '@components/elements/icon';
 import FilterModal from '@components/modular/modal/filter/Filter';
+import { Link } from 'react-router-dom';
 
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 
 import { useGameLibrary } from '@store/gameLibrary';
 
@@ -38,6 +39,11 @@ const Browse = () => {
             <Button squared colour='secondary' onClick={() => setFiltersActive(true)}>
               <Icon variant='filter' alt='filter' />
             </Button>
+            <Link to={'/cart'} class={styles.cartButton}>
+              <Button squared badge={1}>
+                <Icon variant='shopping-cart' alt='shopping-cart' />
+              </Button>
+            </Link>
             <FilterModal
               origin={'right'}
               active={filtersActive}

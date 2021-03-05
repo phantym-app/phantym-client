@@ -8,9 +8,10 @@ type Props = {
   rounded?: boolean;
   onClick?: (...args: any) => any;
   colour?: 'secondary' | 'error' | 'warning' | 'google' | 'facebook' | 'success' | 'ghost';
+  badge?: number;
 };
 
-const Button = ({ children, squared, onClick, colour, rounded, lifted }: Props) => (
+const Button = ({ children, squared, onClick, colour, rounded, lifted, badge }: Props) => (
   <button
     onClick={onClick ?? function () {}}
     class={[
@@ -24,6 +25,7 @@ const Button = ({ children, squared, onClick, colour, rounded, lifted }: Props) 
       },
     ]}>
     {children}
+    {badge && <div class={styles.badge}>{badge}</div>}
   </button>
 );
 
