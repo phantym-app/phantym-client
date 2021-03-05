@@ -1,4 +1,4 @@
-import { createContainer } from 'unstated-next';
+import { createContainer } from 'unstated-preact';
 import { useCallback, useState } from 'preact/hooks';
 import { useAuth } from './auth';
 import randomRoomId from '@logic/randomRoomId';

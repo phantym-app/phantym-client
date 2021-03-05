@@ -1,6 +1,6 @@
 import type firebase from 'firebase';
 
-import { createContainer } from 'unstated-next';
+import { createContainer } from 'unstated-preact';
 import { useState } from 'preact/hooks';
 
 const fs$ = import('@logic/firebase/firestore');

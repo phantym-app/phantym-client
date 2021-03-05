@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
-import { createContainer } from 'unstated-next';
+import { createContainer } from 'unstated-preact';
 import { useRoom } from './room';
 import importScript from '@logic/importScript';
 
