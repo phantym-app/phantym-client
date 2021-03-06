@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import styles from './Header.module.scss';
+import styles from './Sidebar.module.scss';
 
 import Icon from '@components/elements/icon';
 import Button from '@components/elements/button/Button';
@@ -13,13 +13,12 @@ import { useAuth } from '@store/auth';
 import { useCast } from '@store/cast';
 import { useDeviceWidth } from '@store/deviceWidth';
 
-function Header() {
+function Sidebar({ path }) {
   const { maxTablet } = useDeviceWidth();
   const [isCollapsed, setCollapsed] = useState<boolean>(maxTablet);
-  const pathname = '';
 
   return (
-    <header class={[styles.root, { [styles.hidden]: pathname === '/login', [styles.collapsed]: isCollapsed }]}>
+    <header class={[styles.root, { [styles.hidden]: path === '/login', [styles.collapsed]: isCollapsed }]}>
       <div class={styles.links}>
         <div class={styles.title}>
           <Hamburger isActive={!isCollapsed} onClick={() => setCollapsed(!isCollapsed)} />
@@ -115,4 +114,4 @@ function CastButton() {
     );
 }
 
-export default Header;
+export default Sidebar;

@@ -7,20 +7,22 @@ import GameOverview from '@components/collections/gameOverview/GameOverview';
 import LabelOverview from '@components/collections/labelOverview/LabelOverview';
 import Hero from '@components/views/hero/Hero';
 
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import Icon from '@components/elements/icon';
 
 import { useGameLibrary } from '@store/gameLibrary';
 
-const Browse = () => {
+import BrowseGame from './Game';
+
+function Browse({ id }) {
+  if (id) return <BrowseGame id={id} />;
+
   const [activeLabels, setActiveLabels] = useState<string[]>([]);
 
   const { gameStubs, fetchGameStubs, gameLabels, fetchGameLabels } = useGameLibrary();
 
   function toggleLabelActive(title: string) {
-    setActiveLabels(
-      activeLabels.includes(title) ? activeLabels.filter(_title => title !== _title) : [...activeLabels, title],
-    );
+    setActiveLabels(activeLabels.includes(title) ? activeLabels.filter(t => title !== t) : [...activeLabels, title]);
   }
 
   return (
@@ -30,7 +32,7 @@ const Browse = () => {
           <h1>Browse</h1>
           <div class={styles.search}>
             {/* TODO: Add Search function */}
-            <Searchbar onChange={e => console.log(e.target.value)} placeholder='Search for a game' />
+            <Searchbar onInput={e => console.log(e.target.value)} placeholder='Search for a game' />
             {/* TODO: Add filter functions */}
             <Button squared colour='secondary'>
               <Icon variant='filter' alt='filter' />
@@ -52,6 +54,6 @@ const Browse = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Browse;

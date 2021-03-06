@@ -3,11 +3,11 @@ import styles from './Room.module.scss';
 import { useRoom } from '@store/room';
 import { useEffect } from 'preact/hooks';
 
-function Room({ roomid }) {
+function Room({ id = '' }) {
   const { inRoom, tryJoinRoom, createRoom, leaveRoom, roomData } = useRoom();
 
   useEffect(function urlJoin() {
-    if (roomid.length === 5) tryJoinRoom(roomid);
+    if (id.length === 5) tryJoinRoom(id);
   }, []);
 
   if (inRoom)

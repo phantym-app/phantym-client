@@ -9,11 +9,11 @@ import StoreProvider from '@store';
 
 import './global.scss';
 
-import Sidebar from '@components/views/header/Header';
+import Sidebar from '@components/views/sidebar/Sidebar';
 import Loader from '@components/elements/loader/Loader';
 
-function Route(params) {
-  const getComponent = async () => (await params.get()).default;
+function Route({ get, ...params }: any) {
+  const getComponent = async () => (await get()).default;
   return <AsyncRoute {...params} getComponent={getComponent} loading={() => <Loader />} />;
 }
 
@@ -25,14 +25,13 @@ async function _render() {
 
   render(
     <StoreProvider>
-      <Match default>{({ url }) => url !== '/login' && <Sidebar />}</Match>
+      <Match default>{Sidebar}</Match>
       <main>
         <Router>
           <Route path='/' get={() => import('@routes/Home')} />
           <Route path='/login' get={() => import('@routes/Login')} />
-          <Route path='/room/:roomid?' get={() => import('@routes/Room')} />
+          <Route path='/room' get={() => import('@routes/Room')} />
           <Route path='/browse' get={() => import('@routes/Browse')} />
-          <Route path='/browse/game' get={() => import('@routes/Browse/Game')} />
           <Route path='/cart' get={() => import('@routes/Cart')} />
           <Route path='/social/:tab' get={() => import('@routes/Friends')} />
           <Route path='/settings' get={() => import('@routes/Settings')} />

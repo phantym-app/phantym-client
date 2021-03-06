@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useState, useRef } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import styles from './Game.module.scss';
 import { Link } from 'preact-router/match';
 
@@ -9,12 +9,8 @@ import Mediaplayer from '@components/views/mediaplayer/Mediaplayer';
 
 import mockGame from './mockGame.json';
 
-const Game = () => {
-  const [currentSection, setCurrentSection] = useState<number>(0);
-  const overviewRef = useRef<HTMLDivElement>(null);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const reviewsRef = useRef<HTMLDivElement>(null);
-  const moreLikeThisRef = useRef<HTMLDivElement>(null);
+function Game({ id }) {
+  const [currentSection, setCurrentSection] = useState(0);
   const { gameInfo } = mockGame;
 
   return (
@@ -37,7 +33,7 @@ const Game = () => {
         </div>
       </div>
       <div class={styles.content}>
-        <div class={styles.overviewSection} ref={overviewRef}>
+        <div class={styles.overviewSection}>
           <div class={styles.title}>
             <h1>{gameInfo.title}</h1>
             <div class={styles.secondaryInfo}>
@@ -63,18 +59,18 @@ const Game = () => {
           </div>
           <Mediaplayer type={'videoAndImages'} />
         </div>
-        <div ref={aboutRef}>
+        <div>
           <h4>About</h4>
         </div>
-        <div ref={reviewsRef}>
+        <div>
           <h4>Reviews</h4>
         </div>
-        <div ref={moreLikeThisRef}>
+        <div>
           <h4>More like this</h4>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Game;
