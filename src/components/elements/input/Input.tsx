@@ -55,7 +55,7 @@ function Input({ label, placeholder, icon, type, status, lifted }: Props) {
           ]}
           placeholder={placeholder}
           value={value}
-          onChange={handleTyping}
+          onInput={handleTyping}
           type={inputType}
         />
         {status && (

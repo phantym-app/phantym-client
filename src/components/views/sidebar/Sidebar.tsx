@@ -30,7 +30,7 @@ function Sidebar({ path }) {
           <PageLink href={'/'} icon={'gamepad'} title={'My games'} />
           <PageLink href={'/cart'} icon={'shopping-cart'} title={'Cart'} />
           <PageLink href={'/social/friends'} icon={'users'} title={'Social'} />
-          <PageLink href={'/room'} icon={'grid'} title={'Room'} />
+          <PageLink href={'/room'} icon={'door'} title={'Room'} />
           <PageLink href={'/settings'} icon={'cog'} title={'Settings'} />
         </div>
 
