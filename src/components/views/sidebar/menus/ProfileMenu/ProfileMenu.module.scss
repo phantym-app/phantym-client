@@ -41,11 +41,11 @@
     align-items: center;
     background-color: transparent;
     border: none;
+    background-color: $background;
     cursor: pointer;
 
     &:hover {
-      background-color: $background;
-      filter: brightness(150%);
+      background-color: $backgroundLifted;
     }
 
     p {

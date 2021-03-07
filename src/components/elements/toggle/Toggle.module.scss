@@ -5,6 +5,12 @@
   justify-content: center;
   align-items: center;
 
+  &.lifted1 {
+    .input + .label {
+      background: $backgroundLifted2;
+    }
+  }
+
   .input {
     height: 0;
     width: 0;

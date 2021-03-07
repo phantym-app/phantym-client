@@ -29,7 +29,7 @@ function ProfileMenu({ hideMenu, userVisible, toggleUserVisible, isCollapsed }: 
       <button onClick={toggleUserVisible} class={[styles.option, styles.visible]}>
         <Icon variant={userVisible ? 'eye' : 'eye-close'} alt={'visible'} />
         <p>Visible</p>
-        <Toggle checked={userVisible} />
+        <Toggle lifted={1} checked={userVisible} />
       </button>
       <button onClick={signOut} class={styles.option}>
         <Icon variant={'log-out'} alt={'profile'} />

@@ -21,6 +21,10 @@
     filter: $white_filter;
   }
 
+  &:hover {
+    background-color: lighten($purple, 3%);
+  }
+
   .badge {
     position: absolute;
     display: flex;
@@ -56,31 +60,59 @@
 
   &.secondary {
     background-color: $background;
+
+    &:hover {
+      background-color: lighten($background, 3%);
+    }
   }
 
   &.ghost {
     background-color: transparent;
     border: 2px $backgroundLifted solid;
+
+    &:hover {
+      border: 2px lighten($backgroundLifted, 3%) solid;
+    }
   }
 
   &.success {
     background-color: $green;
+
+    &:hover {
+      background-color: lighten($green, 3%);
+    }
   }
 
   &.error {
     background-color: $red;
+
+    &:hover {
+      background-color: lighten($red, 3%);
+    }
   }
 
   &.warning {
     background-color: $orange;
+
+    &:hover {
+      background-color: lighten($orange, 3%);
+    }
   }
 
   &.google {
     background-color: $googleBlue;
+
+    &:hover {
+      background-color: lighten($googleBlue, 3%);
+    }
   }
 
   &.facebook {
     background-color: $facebookBlue;
+
+    &:hover {
+      background-color: lighten($facebookBlue, 3%);
+    }
   }
 
   &.icon::before {
