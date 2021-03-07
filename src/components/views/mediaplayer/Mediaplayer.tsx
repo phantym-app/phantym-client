@@ -2,8 +2,6 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import styles from './Mediaplayer.module.scss';
 
-import mockVideo from '@assets/videos/mockVideo.mp4';
-
 import VideoPlayer from '@components/elements/videoPlayer/VideoPlayer';
 
 type Props = {
@@ -31,7 +29,7 @@ const Mediaplayer = ({ type }: Props) => {
       )}
       <div class={styles.content}>
         <div class={styles.mediaContainer}>
-          <VideoPlayer video={mockVideo} />
+          <VideoPlayer video={'/assets/videos/mockVideo.mp4'} />
         </div>
         <div class={styles.mediaSelector}>
           <div class={styles.mediaSelect}></div>
