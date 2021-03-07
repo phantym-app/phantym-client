@@ -1,220 +1,149 @@
 import { h } from 'preact';
-import { useRef, useEffect, useCallback } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import styles from './VideoPlayer.module.scss';
 import Icon from '@components/elements/icon';
 
-import { useVideoPlayer } from './VideoPlayerState';
+import { useLocal } from '@store/local';
 
 type Props = {
-  video: string;
+  source: string;
 };
 
-const VideoPlayer = (props: Props) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const videoContainer = useRef<HTMLDivElement>(null);
-  const videoProgress = useRef<HTMLProgressElement>(null);
-  const videoHandle = useRef<HTMLInputElement>(null);
-  const {
-    currentTime,
-    setCurrentTime,
-    duration,
-    setDuration,
-    isPaused,
-    setPaused,
-    isMuted,
-    setMuted,
-    volume,
-    setVolume,
-    isFullscreen,
-    setFullScreen,
-    video,
-    setVideo,
-  } = useVideoPlayer();
+function VideoPlayer({ source }: Props) {
+  const [video, setVideo] = useState<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    setVideo(props.video);
-  }, []);
+  const [isPaused, __setIsPaused] = useState(true);
+  const [isSeeking, __setIsSeeking] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [volume, __setVolume] = useLocal<number>('videoVolume');
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Setting initial video vars
-  useEffect(() => {
-    const video = videoRef.current;
-    video.onloadedmetadata = () => (setCurrentTime(video.currentTime), setDuration(video.duration));
-  }, [videoRef.current]);
-
-  const openFullscreen = () => {
-    const fullScreenElement = videoContainer.current;
-    if (document.fullscreenEnabled) {
-      fullScreenElement.requestFullscreen();
+  function togglePlay() {
+    if (video.paused) {
+      video.play();
+      __setIsPaused(false);
+    } else {
+      video.pause();
+      __setIsPaused(true);
     }
-  };
+  }
 
-  // Element components
-  const ProgressBar = () => {
-    const progressPercentage = (currentTime / duration) * 10000;
-    let wasPlaying = false;
-    return (
-      <div class={styles.progressbar}>
-        <input
-          onChange={(e: any) => (
-            videoRef.current.paused ? (wasPlaying = true) : (wasPlaying = false),
-            wasPlaying && videoRef.current.pause(),
-            (videoRef.current.currentTime = (e.target.value / 10000) * duration)
-          )}
-          onMouseUp={() => wasPlaying === true && videoRef.current.play()}
-          ref={videoHandle}
-          class={styles.handle}
-          type={'range'}
-          value={progressPercentage}
-          max={'10000'}
-        />
-        <progress ref={videoProgress} value={0 | Math.round(progressPercentage)} max={10000} class={styles.progress} />
-      </div>
-    );
-  };
+  function updateTime() {
+    if (!isSeeking) setProgress(video.currentTime / video.duration);
+  }
 
-  const PlayPause = () => {
-    const video = videoRef.current;
-    return (
-      <button
-        onMouseDown={(e: any) => (
-          video.paused || currentTime === duration ? video.play() : video.pause(),
-          handleMediaUIVisibility(e, video.paused)
-        )}>
-        <Icon
-          variant={currentTime === duration ? 'repeat' : video.paused ? 'play' : 'pause'}
-          alt={currentTime === duration ? 'repeat' : video.paused ? 'play' : 'pause'}
-        />
-      </button>
-    );
-  };
+  function seek(e) {
+    video.currentTime = (+e.target.value / 10000) * video.duration;
+    setProgress(+e.target.value / 10000);
+    __setIsSeeking(false);
+  }
 
-  const Volume = () => {
-    const video = videoRef.current;
-    return (
-      <div class={styles.volumeButton}>
-        <button onMouseDown={() => (video.muted ? (video.muted = false) : (video.muted = true))}>
-          <Icon
-            variant={
-              video?.muted || volume === 0
-                ? 'volume-mute'
-                : volume < 35
-                ? 'volume'
-                : volume < 75
-                ? 'volume-down'
-                : 'volume-up'
-            }
-            alt={'volume'}
-          />
-        </button>
-        <div class={styles.volumeSlider}>
-          <input onChange={(e: any) => setVolume(e.target.value)} type={'range'} value={volume} max={'100'} />
-          <progress value={volume} max={'100'} />
-        </div>
-      </div>
-    );
-  };
+  function toggleMute() {
+    if (video.muted) video.muted = false;
+    else video.muted = true;
+  }
 
-  const VideoTime = () => {
-    // Formatting the seconds passed
-    const formatTime = (timeToFormat: number) => {
-      const minutes = Math.floor(timeToFormat / 60);
-      const seconds = Math.floor(timeToFormat - minutes * 60);
-      const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-      const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
-      return `${formattedMinutes}:${formattedSeconds}`;
-    };
+  function setVolume(e) {
+    video.muted = false;
 
-    return <p>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</p>;
-  };
+    __setVolume(+e.target.value);
+    video.volume = +e.target.value / 100;
+  }
 
-  const ResizeScreen = () => {
-    return (
-      <button
-        onMouseDown={() =>
-          isFullscreen ? (document.exitFullscreen(), setFullScreen(false)) : (openFullscreen(), setFullScreen(true))
-        }>
-        <Icon variant={'arrows-fullscreen'} alt={'volume'} />
-      </button>
-    );
-  };
-
-  const handleMediaUIVisibility = useCallback(
-    (e: any, isPlaying: boolean) => {
-      const mediaUI = e.target;
-      let mouseTimeOut: any;
-
-      // Handle visibility of mouse and mediaUI with timer
-      if (isPlaying === true) {
-        mediaUI.style.cursor = 'default';
-        mediaUI.style.opacity = '1';
-        mouseTimeOut = setTimeout(() => {
-          mediaUI.style.opacity = '0';
-          mediaUI.style.cursor = 'none';
-        }, 3000);
-      } else {
-        mediaUI.style.cursor = 'default';
-        mediaUI.style.opacity = '1';
-      }
-
-      // Resets timer and handles visibility
-      mediaUI.onmousemove = () => {
-        if (isPlaying === true) {
-          clearTimeout(mouseTimeOut);
-          mediaUI.style.opacity = '1';
-          mediaUI.style.cursor = 'default';
-          mouseTimeOut = setTimeout(() => {
-            mediaUI.style.opacity = '0';
-            mediaUI.style.cursor = 'none';
-          }, 3000);
-        }
-      };
-    },
-    [isPaused],
-  );
-
-  const hideMediaUI = (e: any) => {
-    const mediaUI = e.target;
-    if (isPaused === false) {
-      setTimeout(() => {
-        mediaUI.style.opacity = '0';
-      }, 1000);
+  function toggleFullscreen() {
+    if (isFullscreen) {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    } else {
+      video.parentElement.requestFullscreen();
+      setIsFullscreen(true);
     }
-  };
+  }
+
+  function initializeVolume() {
+    if (video) video.volume = volume / 100;
+  }
+
+  useEffect(initializeVolume, [video]);
 
   return (
-    <div ref={videoContainer} class={styles.root}>
+    <div class={styles.root}>
       <video
-        onTimeUpdate={() => setCurrentTime(videoRef.current.currentTime)}
-        ref={videoRef}
-        muted={isMuted}
-        volume={volume / 100}>
-        <source src={video} type='video/mp4' />
-      </video>
-      <div
-        onDblClick={() =>
-          isFullscreen ? (document.exitFullscreen(), setFullScreen(false)) : (openFullscreen(), setFullScreen(true))
-        }
-        onClick={(e: any) => (
-          videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause(),
-          handleMediaUIVisibility(e, isPaused)
-        )}
-        onMouseEnter={(e: any) => handleMediaUIVisibility(e, !isPaused)}
-        onMouseLeave={hideMediaUI}
-        class={styles.mediaUI}>
-        <ProgressBar />
-        <div class={styles.actions}>
-          <div class={styles.leftSideVideo}>
-            <PlayPause />
-            <Volume />
-            <VideoTime />
-          </div>
-          <div class={styles.rightSideVideo}>
-            <ResizeScreen />
-          </div>
-        </div>
-      </div>
+        // TODO wait to see if click becomes double click
+        // to prevent unintentionally pausing while doubleclicking
+        onClick={togglePlay}
+        onDblClick={toggleFullscreen}
+        ref={setVideo}
+        src={source}
+        onTimeUpdate={updateTime}
+      />
+
+      <nav class={[styles.controls, { [styles.hideUI]: !isPaused }]}>
+        <Progress progress={progress} onInput={() => __setIsSeeking(true)} onChange={seek} />
+        <Play onClick={togglePlay} paused={isPaused} />
+        <Mute volume={volume} isMuted={video?.muted} onClick={toggleMute} />
+        <VolumeSlider volume={volume} onChange={setVolume} />
+        <CurrentTime progress={progress} duration={video?.duration} />
+        <Fullscreen onClick={toggleFullscreen} />
+      </nav>
     </div>
   );
+}
+
+const Play = ({ paused, onClick }) => (
+  <button class={styles.play} onClick={onClick}>
+    <Icon
+      variant={paused ? 'play' : 'pause'}
+      // variant={currentTime === duration ? 'repeat' : video.paused ? 'play' : 'pause'}
+      alt={paused ? 'play' : 'pause'}
+    />
+  </button>
+);
+
+const Progress = ({ progress, onInput, onChange }) => (
+  <input
+    type='range'
+    class={styles.progress}
+    value={progress * 10000}
+    max={10000}
+    onInput={onInput}
+    onChange={onChange}
+  />
+);
+
+const Mute = ({ volume, isMuted, onClick }) => (
+  <button onClick={onClick}>
+    <Icon
+      variant={
+        isMuted || volume === 0 ? 'volume-mute' : volume < 35 ? 'volume' : volume < 75 ? 'volume-down' : 'volume-up'
+      }
+      alt={'volume'}
+    />
+  </button>
+);
+
+const VolumeSlider = ({ volume, onChange }) => (
+  <input class={styles.volumeSlider} type={'range'} value={volume} max={100} onChange={onChange} />
+);
+
+const CurrentTime = ({ progress, duration }) => {
+  if (!duration || Number.isNaN(duration)) return <p>00:00 / 00:00</p>;
+
+  // Formatting the seconds passed
+  const pad = num => ('0' + num).slice(-2);
+  const format = seconds => `${pad(Math.floor(seconds / 60))}:${pad(Math.floor(seconds % 60))}`;
+
+  return (
+    <p>
+      {format(progress * duration)} / {format(duration)}
+    </p>
+  );
 };
+
+const Fullscreen = ({ onClick }) => (
+  <button onClick={onClick}>
+    <Icon variant={'arrows-fullscreen'} alt={'fullscreen'} />
+  </button>
+);
 
 export default VideoPlayer;

@@ -1,4 +1,5 @@
 import { useState } from 'preact/hooks';
+import type { StateUpdater } from 'preact/hooks';
 
 // Hook
 function useLocalStorage<T>(key: string, init: T) {
@@ -27,7 +28,7 @@ function useLocalStorage<T>(key: string, init: T) {
     }
   };
 
-  return [storedValue, setValue];
+  return [storedValue, setValue] as [T, StateUpdater<T>];
 }
 
 export default useLocalStorage;

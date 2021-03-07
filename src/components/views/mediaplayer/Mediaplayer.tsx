@@ -29,7 +29,7 @@ const Mediaplayer = ({ type }: Props) => {
       )}
       <div class={styles.content}>
         <div class={styles.mediaContainer}>
-          <VideoPlayer video={'/assets/videos/mockVideo.mp4'} />
+          <VideoPlayer source={'/assets/videos/mockVideo.mp4'} />
         </div>
         <div class={styles.mediaSelector}>
           <div class={styles.mediaSelect}></div>

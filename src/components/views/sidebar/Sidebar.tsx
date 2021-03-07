@@ -1,5 +1,6 @@
 import { h, Fragment } from 'preact';
 import { useState } from 'preact/hooks';
+import { useLocal } from '@store/local';
 import styles from './Sidebar.module.scss';
 
 import Icon from '@components/elements/icon';
@@ -15,7 +16,7 @@ import { useDeviceWidth } from '@store/deviceWidth';
 
 function Sidebar({ path }) {
   const { maxTablet } = useDeviceWidth();
-  const [isCollapsed, setCollapsed] = useState<boolean>(maxTablet);
+  const [isCollapsed, setCollapsed] = useLocal<boolean>('sidebarHidden');
 
   return (
     <>
