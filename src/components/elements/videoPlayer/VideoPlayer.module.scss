@@ -11,7 +11,6 @@
   position: relative;
 
   video {
-    cursor: pointer;
     width: inherit;
     height: inherit;
     max-width: 100%;
@@ -19,17 +18,13 @@
     background-color: $background;
   }
 
-  .mediaUI {
-    transition: 0.2s ease-in-out;
-    opacity: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  .controls {
     position: absolute;
-    height: 100%;
-    bottom: 0px;
-    padding: 0 25px;
-    justify-content: flex-end;
+    width: inherit;
+    bottom: 0;
+
+    opacity: 1;
+    transition: 0.2s ease-in-out;
     background: linear-gradient(
       rgba(0, 0, 0, 0) 75%,
       rgba(0, 0, 0, 0.4) 85%,
@@ -37,151 +32,47 @@
       rgba(0, 0, 0, 1) 100%
     );
 
-    .progressbar {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-      position: relative;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: min-content min-content min-content auto min-content;
+    grid-template-areas:
+      'seek seek seek seek seek'
+      'play mute volm time full';
 
-      .handle {
-        background-color: transparent;
-        width: 100%;
-        height: 2px;
-        outline: none;
-        cursor: pointer;
-        position: absolute;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-apperance: none;
-
-        &::-webkit-slider-thumb {
-          border: none;
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          background-color: $white;
-          appearance: none;
-          -webkit-appearance: none;
-          -moz-apperance: none;
-        }
-      }
-
-      progress[value] {
-        height: 2px;
-        width: 100%;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-
-        &::-webkit-progress-bar {
-          background-color: $backgroundLifted;
-          border-radius: 10px;
-        }
-
-        &::-webkit-progress-value {
-          background-color: $purple;
-          border-top-right-radius: 10px;
-          border-bottom-right-radius: 10px;
-        }
-      }
+    button {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      filter: $white_filter;
     }
 
-    .actions {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding-bottom: 15px;
+    input[type='range'] {
+      height: 2px;
+      cursor: pointer;
 
-      .leftSideVideo button,
-      .rightSideVideo button {
-        background-color: transparent;
-        width: 35px;
+      &::-webkit-slider-thumb {
         border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .leftSideVideo {
-        display: flex;
-
-        > * {
-          height: 50px;
-          padding: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .volumeButton {
-          display: flex;
-
-          .volumeSlider {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 100%;
-            position: relative;
-            margin-left: 15px;
-
-            input {
-              width: 100%;
-              height: 10px;
-              position: absolute;
-              cursor: pointer;
-              background-color: transparent;
-              appearance: none;
-              -webkit-appearance: none;
-              -moz-appearance: none;
-
-              &::-webkit-slider-thumb {
-                border: none;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                background-color: $white;
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-apperance: none;
-              }
-            }
-
-            progress[value] {
-              width: 100%;
-              height: 5px;
-              appearance: none;
-              -webkit-appearance: none;
-              -moz-appearance: none;
-
-              &::-webkit-progress-bar {
-                background-color: $backgroundLifted;
-                border-radius: 10px;
-              }
-
-              &::-webkit-progress-value {
-                background-color: $purple;
-                border-radius: 10px;
-              }
-            }
-          }
-        }
-
-        > * {
-          margin-right: 25px;
-          @include text('boldFont', 16px, $white);
-        }
-      }
-
-      .rightSideVideo {
-        display: flex;
-
-        > * {
-          height: 50px;
-        }
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
       }
     }
+
+    .progress {
+      grid-area: seek;
+      margin: 0;
+    }
+
+    .volumeSlider {
+      margin: auto 0;
+    }
+  }
+
+  .hideUI {
+    opacity: 0;
+  }
+
+  &:hover .hideUI {
+    opacity: 1;
   }
 }
