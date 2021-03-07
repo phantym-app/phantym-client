@@ -6,13 +6,13 @@ import Icon from '@components/elements/icon';
 
 type Props = {
   placeholder: string;
-  onChange: (e: any) => void;
+  onInput: (e: any) => void;
 };
 
-const Searchbar = ({ placeholder, onChange }: Props) => (
+const Searchbar = ({ placeholder, onInput }: Props) => (
   <div class={styles.root}>
     <Icon class={styles.icon} variant={'search'} alt={''} />
-    <input onChange={debounce(onChange, 1000)} class={styles.input} placeholder={placeholder} />
+    <input onInput={debounce(onInput, 500)} class={styles.input} placeholder={placeholder} />
   </div>
 );
 

@@ -1,23 +1,21 @@
 import '@logic/preactImplicitClassnames';
 
 import { h, render } from 'preact';
-import { Suspense, lazy, StrictMode } from 'preact/compat';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Router from 'preact-router';
+import Match from 'preact-router/match';
+import AsyncRoute from 'preact-async-route';
 
 import StoreProvider from '@store';
 
 import './global.scss';
 
-import Header from '@components/views/header/Header';
+import Sidebar from '@components/views/sidebar/Sidebar';
 import Loader from '@components/elements/loader/Loader';
-const Home = lazy(() => import('@routes/Home'));
-const Browse = lazy(() => import('@routes/Browse'));
-const Login = lazy(() => import('@routes/Login'));
-const Settings = lazy(() => import('@routes/Settings'));
-const Room = lazy(() => import('@routes/Room'));
-const Friends = lazy(() => import('@routes/Friends'));
-const Cart = lazy(() => import('@routes/Cart'));
-const BrowseGame = lazy(() => import('@routes/Browse/Game'));
+
+function Route({ get, ...params }: any) {
+  const getComponent = async () => (await get()).default;
+  return <AsyncRoute {...params} getComponent={getComponent} loading={() => <Loader />} />;
+}
 
 async function _render() {
   if (import.meta.hot) {
@@ -26,27 +24,21 @@ async function _render() {
   }
 
   render(
-    <StrictMode>
-      <StoreProvider>
-        <BrowserRouter>
-          <Header />
-          <main>
-            <Switch>
-              <Suspense fallback={<Loader />}>
-                <Route path={'/room'} render={() => <Room />} exact />
-                <Route path={'/cart'} render={() => <Cart />} exact />
-                <Route path={'/social'} render={() => <Friends />} exact />
-                <Route path={'/settings'} render={() => <Settings />} exact />
-                <Route path={'/browse/game'} render={() => <BrowseGame />} exact />
-                <Route path={'/browse'} render={() => <Browse />} exact />
-                <Route path={'/login'} render={() => <Login />} exact />
-                <Route path={'/'} render={() => <Home />} exact />
-              </Suspense>
-            </Switch>
-          </main>
-        </BrowserRouter>
-      </StoreProvider>
-    </StrictMode>,
+    <StoreProvider>
+      <Match default>{Sidebar}</Match>
+      <main>
+        <Router>
+          <Route path='/' get={() => import('@routes/Home')} />
+          <Route path='/login' get={() => import('@routes/Login')} />
+          <Route path='/room' get={() => import('@routes/Room')} />
+          <Route path='/browse' get={() => import('@routes/Browse')} />
+          <Route path='/cart' get={() => import('@routes/Cart')} />
+          <Route path='/social/:tab' get={() => import('@routes/Friends')} />
+          <Route path='/settings' get={() => import('@routes/Settings')} />
+          {/* <Route path={'/play/:gameid'} render={() => <Game />} exact /> */}
+        </Router>
+      </main>
+    </StoreProvider>,
     document.getElementById('root') as Element,
   );
 }

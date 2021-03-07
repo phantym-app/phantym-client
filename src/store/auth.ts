@@ -1,5 +1,5 @@
 import { useEffect } from 'preact/hooks';
-import { createContainer } from 'unstated-next';
+import { createContainer } from 'unstated-preact';
 
 import useAsyncState from '@logic/hooks/useAsyncState';
 import type firebase from 'firebase';

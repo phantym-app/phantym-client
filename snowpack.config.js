@@ -14,9 +14,6 @@ module.exports = {
   optimize: { target: 'es2017' },
 
   alias: {
-    react: 'preact/compat',
-    'react-dom': 'preact/compat',
-
     '@assets': './public/assets',
     '@routes': './src/routes',
     '@store': './src/store',

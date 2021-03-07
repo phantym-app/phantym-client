@@ -4,13 +4,12 @@ import { h } from 'preact';
 import { useCallback, useRef, useState } from 'preact/hooks';
 
 import styles from './Hero.module.scss';
-import { Link } from 'react-router-dom';
+import { Link } from 'preact-router/match';
 import Button from '@components/elements/button/Button';
 
 import Icon from '@components/elements/icon';
 
 import calculatePrice from '@logic/calculatePrice';
-import Loader from '@components/elements/loader/Loader';
 
 const mockBanner = '/assets/banner.jpg';
 
@@ -62,13 +61,13 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
     const fadeAnimationNext = (elements: any) => {
       if (activeGame + 1 !== games.length) {
         elements.map((element: any) => {
-          // Animate to left
+          // Animate href left
           element.style.cssText = 'transform: translateX(-15px); opacity: 0;';
           setTimeout(() => {
-            // Push to right
+            // Push href right
             element.style.cssText = 'transition: unset; transform: translateX(15px); opacity: 0;';
             setTimeout(() => {
-              // Animate to original place
+              // Animate href original place
               element.style.cssText = 'transition: 0.3s ease-out; opacity: 1; transform: translateX(0px)';
             }, 300);
           }, 300);
@@ -79,13 +78,13 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
     const fadeAnimationPrevious = (elements: any) => {
       if (activeGame !== 0) {
         elements.map((element: any) => {
-          // Animate to left
+          // Animate href left
           element.style.cssText = 'transform: translateX(15px); opacity: 0;';
           setTimeout(() => {
-            // Push to right
+            // Push href right
             element.style.cssText = 'transition: unset; transform: translateX(-15px); opacity: 0;';
             setTimeout(() => {
-              // Animate to original place
+              // Animate href original place
               element.style.cssText = 'transition: 0.3s ease-out; transform: translateX(0px);';
             }, 300);
           }, 300);
@@ -137,7 +136,7 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
             </Button>
           </div>
         )}
-        <Link to={`/browse/game?selected=${title}`}>
+        <Link href={`/browse/game?selected=${title}`}>
           <div ref={infoRef} class={styles.info}>
             <div class={styles.title}>
               <p>{typeOfContent}</p>

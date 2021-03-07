@@ -1,22 +1,14 @@
-import debounce from '@logic/debounce';
 import { h } from 'preact';
 import styles from './Room.module.scss';
 import { useRoom } from '@store/room';
-import { useLocation } from 'react-router-dom';
 import { useEffect } from 'preact/hooks';
-import parseSearchParams from '@logic/parseSearchParams';
 
-function Room() {
+function Room({ id = '' }) {
   const { inRoom, tryJoinRoom, createRoom, leaveRoom, roomData } = useRoom();
-  const { search } = useLocation();
 
-  function urlJoin() {
-    const roomId = parseSearchParams(search).join;
-    history.replaceState({}, 'Phantym', '/room');
-    if (roomId?.length) tryJoinRoom(roomId);
-  }
-
-  useEffect(urlJoin, []);
+  useEffect(function urlJoin() {
+    if (id.length === 5) tryJoinRoom(id);
+  }, []);
 
   if (inRoom)
     return (
