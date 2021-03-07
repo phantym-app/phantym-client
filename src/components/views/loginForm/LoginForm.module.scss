@@ -3,18 +3,19 @@
 .root {
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  width: 100%;
   justify-content: center;
   align-items: center;
 
   .form {
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: 100%;
     justify-content: center;
     margin-bottom: 10px;
 
-    h4 {
+    span {
+      @include text('boldFont', 24px, $white);
       margin-bottom: 25px;
     }
 
@@ -50,6 +51,19 @@
 
     img {
       filter: $white_filter;
+    }
+  }
+}
+
+@include deviceWidth('minTablet') {
+  .root {
+    .form {
+      align-items: center;
+
+      span {
+        margin-bottom: 50px;
+        @include text('boldFont', 42px, $white);
+      }
     }
   }
 }

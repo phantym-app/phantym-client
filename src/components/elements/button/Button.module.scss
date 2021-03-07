@@ -34,11 +34,6 @@
     @include text('boldFont', 16px, $white);
   }
 
-  &:hover,
-  &:focus {
-    filter: brightness(120%);
-  }
-
   &.squared {
     width: 50px;
     min-width: 50px;
