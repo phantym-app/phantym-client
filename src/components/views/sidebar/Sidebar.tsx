@@ -39,7 +39,7 @@ function Sidebar({ path }) {
       {maxTablet && (
         <div
           id={'dimmer'}
-          class={[styles.dimmer, { [styles.active]: !isCollapsed, [styles.hidden]: pathname === '/login' }]}
+          class={[styles.dimmer, { [styles.active]: !isCollapsed, [styles.hidden]: path === '/login' }]}
           onClick={() => setCollapsed(true)}
         />
       )}

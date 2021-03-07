@@ -4,7 +4,7 @@ import LoginForm from '@components/views/loginForm/LoginForm';
 
 import styles from './Login.module.scss';
 import { useAuth } from '@store/auth';
-import { Link } from 'react-router-dom';
+import { Link } from 'preact-router/match';
 import Scribbble from '@components/elements/scribbble';
 
 import { useDeviceWidth } from '@store/deviceWidth';
@@ -54,7 +54,7 @@ function Login() {
         </div>
         <div class={styles.contact}>
           <h6>Need help?</h6>
-          <Link to={'/contact'}>
+          <Link href={'/contact'}>
             <p>Get in touch</p>
           </Link>
         </div>
