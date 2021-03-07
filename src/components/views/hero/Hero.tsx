@@ -25,7 +25,7 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
   const [activeGame, setActiveGame] = useState(0);
   const bannerRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
-  const { title, euroCents, compatibility } = games[activeGame];
+  const { title, euroCents, compatibility, id } = games[activeGame];
 
   const desktop = compatibility.includes('desktop');
   const mobile = compatibility.includes('mobile');
@@ -136,7 +136,7 @@ const Hero = ({ type, typeOfContent, games }: Props) => {
             </Button>
           </div>
         )}
-        <Link href={`/browse/game?selected=${title}`}>
+        <Link href={`/browse?id=${id}`}>
           <div ref={infoRef} class={styles.info}>
             <div class={styles.title}>
               <p>{typeOfContent}</p>

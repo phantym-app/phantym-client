@@ -24,7 +24,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
   return (
     <div class={styles.root}>
-      <Link href={`/browse/game?selected=${title}`}>
+      <Link href={`/browse?id=${id}`}>
         <div class={[styles.imageContainer, { [styles.noPicture]: !thumbnail }]}>
           {thumbnail ? <img src={thumbnail} alt='game art' /> : <Icon variant='picture' alt='game art missing' />}
         </div>
@@ -32,7 +32,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
       <div class={styles.details}>
         <div>
-          <Link href={`/browse/game?selected=${title}`}>
+          <Link href={`/browse?id=${id}`}>
             <p>{title}</p>
           </Link>
           <Icon
