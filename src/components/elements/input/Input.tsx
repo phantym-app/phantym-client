@@ -11,6 +11,7 @@ type Props = {
   placeholder: string;
   label: string;
   type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
+  lifted?: number;
   icon?: 'close' | 'eye';
   status?:
     | { type: 'success'; message: string }
@@ -18,7 +19,7 @@ type Props = {
     | { type: 'error'; message: string };
 };
 
-function Input({ label, placeholder, icon, type, status }: Props) {
+function Input({ label, placeholder, icon, type, status, lifted }: Props) {
   const [value, setValue] = useState('');
   const [isValueVisible, setValueVisible] = useState(icon === 'eye' ? false : true);
 
@@ -38,8 +39,7 @@ function Input({ label, placeholder, icon, type, status }: Props) {
   const inputType = type === 'password' && isValueVisible ? 'text' : type;
 
   return (
-    <div class={styles.root}>
-      {/* Inputfield */}
+    <div class={[styles.root, { [styles.lifted1]: lifted === 1 }]}>
       <div class={styles.inputContainer}>
         <div class={styles.labelContainer}>
           <p>{label}</p>

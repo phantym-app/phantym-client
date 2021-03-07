@@ -45,7 +45,7 @@ function Header() {
       {maxTablet && (
         <div
           id={'dimmer'}
-          class={[styles.dimmer, { [styles.active]: !isCollapsed }]}
+          class={[styles.dimmer, { [styles.active]: !isCollapsed, [styles.hidden]: pathname === '/login' }]}
           onClick={() => setCollapsed(true)}
         />
       )}

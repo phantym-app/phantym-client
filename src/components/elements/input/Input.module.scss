@@ -3,6 +3,8 @@
 .root {
   margin-bottom: 25px;
   position: relative;
+  width: 100%;
+  max-width: 350px;
 
   .labels {
     display: flex;
@@ -27,6 +29,7 @@
   }
 
   .inputContainer {
+    width: 100%;
     position: relative;
 
     .labelContainer {
@@ -47,7 +50,7 @@
       border-radius: 50px;
       padding: 0 25px;
       height: 50px;
-      width: 350px;
+      width: 100%;
       color: $white;
       font-weight: $font-weight-normal;
       @include text('regularFont', 16px, $white);
@@ -159,15 +162,13 @@
     &:hover {
       background-color: $backgroundLifted;
     }
+  }
 
-    // &.largerIcon {
-    //   .icon {
-    //     width: 15px;
-    //   }
-    // }
-
-    // .icon {
-    //   width: 10px;
-    // }
+  &.lifted1 {
+    .inputContainer {
+      .labelContainer {
+        background-color: $background;
+      }
+    }
   }
 }

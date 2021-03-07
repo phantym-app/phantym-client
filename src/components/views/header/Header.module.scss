@@ -209,6 +209,10 @@
     opacity: 1;
     pointer-events: all;
   }
+
+  &.hidden {
+    display: none;
+  }
 }
 
 @include deviceWidth('maxMobile') {

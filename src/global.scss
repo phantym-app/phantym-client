@@ -35,6 +35,21 @@ main {
   max-width: unset;
   padding: 15px;
   margin: 0 auto;
+  position: relative;
+}
+
+.login {
+  margin: 0 auto;
+}
+
+::-moz-selection {
+  color: $white;
+  background: $purple;
+}
+
+::selection {
+  color: $white;
+  background: $purple;
 }
 
 /* width */

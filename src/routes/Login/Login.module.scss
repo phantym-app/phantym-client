@@ -1,29 +1,241 @@
 @import '../../styling/sass.scss';
 
-.root {
-  width: 100%;
-  height: 100%;
-  display: flex;
+main {
+  margin: 0 auto;
+  max-width: unset;
+  padding: 15px;
+}
 
-  .banner {
-    width: 400px;
-    height: 100%;
-    background-color: $purple;
+.topScribbbles {
+  top: 0;
+  right: 0;
+  z-index: 0;
+
+  > * {
+    position: absolute;
   }
 
-  .content {
+  > :first-child {
+    transform: rotate(182deg);
+    top: -83px;
+    right: -85px;
+  }
+
+  > :last-child {
+    transform: rotate(-115deg);
+    right: 50px;
+    top: 15px;
+  }
+}
+
+.root {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .logo {
+    margin-bottom: 50px;
     width: 100%;
-    height: 100%;
+  }
+
+  .signInCard {
+    border-radius: 25px;
+    padding: 25px;
+    background-color: $background;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .quote {
+    height: fit-content;
+    position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+
+    > :first-child {
+      transform: rotate(-25deg);
+      height: 30px;
+      margin-right: auto;
+    }
+
+    span {
+      @include text('boldFont', 24px, $grey);
+    }
+
+    > :last-child {
+      transform: rotate(25deg);
+      height: 110px;
+      margin: -80px 30px 0 auto;
+    }
+  }
+
+  .contact {
+    display: none;
+  }
+}
+
+.bottomScribbbles {
+  display: none;
+}
+
+@include deviceWidth('minTablet') {
+  main {
+    padding: 50px;
+  }
+
+  .topScribbbles {
+    > :first-child {
+      height: 235px;
+      right: -115px;
+    }
+
+    > :last-child {
+      height: 120px;
+    }
+  }
+
+  .root {
+    align-items: center;
+
+    .logo {
+      padding: 0 calc(calc(100% - 450px) / 2);
+    }
+
+    .signInCard {
+      width: 450px;
+      padding: 50px;
+      margin-bottom: 50px;
+    }
+
+    .quote {
+      span {
+        @include text('boldFont', 34px, $grey);
+      }
+    }
+  }
+}
+
+@include deviceWidth('minTabletLandscape') {
+  .topScribbbles {
+    display: none;
+  }
+
+  .root {
+    align-items: flex-start;
+
+    .logo {
+      width: fit-content;
+      padding: 0;
+    }
+
+    .signInCard {
+      position: absolute;
+      right: 0;
+      margin-bottom: 0;
+      height: 100%;
+    }
+  }
+
+  .bottomScribbbles {
+    display: flex;
+    position: absolute;
+    bottom: 150px;
+    left: 0;
+
+    > * {
+      position: absolute;
+    }
+
+    > :first-child {
+      height: 400px;
+      left: -150px;
+      top: -50px;
+      transform: rotate(-15deg);
+    }
+
+    > :last-child {
+      height: 150px;
+      left: 100px;
+      top: -50px;
+      transform: rotate(65deg);
+    }
   }
 }
 
 @include deviceWidth('minDesktop') {
+  .topScribbbles {
+    display: unset;
+
+    > :first-child {
+      transform: rotate(35deg);
+      right: -120px;
+      top: -25px;
+      height: 300px;
+    }
+
+    > :last-child {
+      transform: rotate(0deg);
+      right: 115px;
+      top: 100px;
+    }
+  }
+
   .root {
-    .banner {
-      display: none;
+    .signInCard {
+      right: unset;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      height: fit-content;
+    }
+
+    .quote {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: calc(50% + 150px);
+      margin: auto 0;
+
+      > :first-child {
+        margin-left: -50px;
+      }
+    }
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      h6 {
+        margin-bottom: 10px;
+      }
+
+      a {
+        p {
+          @include text('boldFont', 16px, $purple);
+        }
+      }
+    }
+  }
+
+  .bottomScribbbles {
+    bottom: 150px;
+
+    > :first-child {
+      transform: scale(1.2);
+    }
+
+    > :last-child {
+      left: 200px;
     }
   }
 }
