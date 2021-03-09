@@ -28,7 +28,7 @@ function Room({ id = '' }) {
       <input
         type='text'
         placeholder='gib room code'
-        onChange={({ target: { value } }) => value.length === 5 && tryJoinRoom(value)}
+        onInput={({ target: { value } }) => value.length === 5 && tryJoinRoom(value)}
       />
       <h3>or</h3>
       <button onClick={createRoom}>create room</button>
