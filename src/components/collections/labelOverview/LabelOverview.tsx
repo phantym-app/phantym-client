@@ -4,7 +4,7 @@ import { h } from 'preact';
 import styles from './LabelOverview.module.scss';
 import Label from '@components/elements/label/Label';
 import IntersectionTrigger from '@components/elements/intersectionTrigger/IntersectionTrigger';
-import { useState } from 'preact/hooks';
+import { useState, useRef, useReducer, useCallback } from 'preact/hooks';
 
 type Props = {
   labels: GameLabel[];
@@ -27,6 +27,8 @@ const skeletonLabels = [
 
 function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, activeLabels }: Props) {
   const [fetchStatus, setFetchStatus] = useState<'fetching' | 'ready' | 'end'>('ready');
+  const [leftFade, setLeftFade] = useState<boolean>(false);
+  const labelContainerRef = useRef<HTMLDivElement>(null);
 
   async function handleScrollEnd() {
     if (fetchStatus !== 'ready') return;
@@ -41,8 +43,12 @@ function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, act
   }
 
   return (
-    <div class={styles.root}>
-      <div class={[styles.labelsContainer, { [styles.skeleton]: labels.length === 0 }]}>
+    <div ref={labelContainerRef} class={styles.root}>
+      <div class={[styles.leftFade, { [styles.visible]: leftFade }]} />
+      <div
+        ref={labelContainerRef}
+        onScroll={e => setLeftFade(e.target.scrollLeft !== 0)}
+        class={[styles.labelsContainer, { [styles.skeleton]: labels.length === 0 }]}>
         {labels.length !== 0 &&
           labels.map((label, i) => (
             <Label
@@ -65,7 +71,7 @@ function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, act
             />
           ))}
       </div>
-      <div class={styles.fade} />
+      <div class={styles.rightFade} />
     </div>
   );
 }

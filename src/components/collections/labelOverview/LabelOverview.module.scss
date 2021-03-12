@@ -4,6 +4,23 @@
   grid-area: __labels;
   position: relative;
 
+  .leftFade {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-image: linear-gradient(to left, rgba(10, 10, 10, 0), $darkest);
+    left: -1px;
+    top: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: $default-transition;
+    pointer-events: none;
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+
   .labelsContainer {
     display: flex;
     flex-direction: row;
@@ -23,12 +40,13 @@
     }
   }
 
-  .fade {
+  .rightFade {
     width: 40px;
     height: 40px;
     position: absolute;
     background-image: linear-gradient(to right, rgba(10, 10, 10, 0), $darkest);
     left: calc(100% - 38px);
     top: 0;
+    pointer-events: none;
   }
 }
