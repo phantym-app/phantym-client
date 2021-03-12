@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, Fragment } from 'preact';
 import styles from './Home.module.scss';
 
 import { useState } from 'preact/hooks';
@@ -42,13 +42,17 @@ function Index() {
           setReleaseDateFilter={setReleaseDateFilter}
         />
         <hr />
-        <LabelOverview
-          onScrollEnd={() => fetchGameLabels(6)}
-          labels={gameLabels}
-          activeLabels={activeLabels}
-          onLabelClick={toggleLabelActive}
-        />
-        <SortBy large={minTablet} />
+        {gameStubs.length !== 0 && (
+          <>
+            <LabelOverview
+              onScrollEnd={() => fetchGameLabels(6)}
+              labels={gameLabels}
+              activeLabels={activeLabels}
+              onLabelClick={toggleLabelActive}
+            />
+            <SortBy large={minTablet} />
+          </>
+        )}
       </div>
       <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
     </div>
