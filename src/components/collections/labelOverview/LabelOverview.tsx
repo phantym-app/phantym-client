@@ -4,7 +4,7 @@ import { h } from 'preact';
 import styles from './LabelOverview.module.scss';
 import Label from '@components/elements/label/Label';
 import IntersectionTrigger from '@components/elements/intersectionTrigger/IntersectionTrigger';
-import { useState, useRef, useReducer, useCallback } from 'preact/hooks';
+import { useState, useRef } from 'preact/hooks';
 
 type Props = {
   labels: GameLabel[];
@@ -27,7 +27,7 @@ const skeletonLabels = [
 
 function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, activeLabels }: Props) {
   const [fetchStatus, setFetchStatus] = useState<'fetching' | 'ready' | 'end'>('ready');
-  const [leftFade, setLeftFade] = useState<boolean>(false);
+  const [fade, setFade] = useState<{ left: boolean; right: boolean }>({ left: false, right: true });
   const labelContainerRef = useRef<HTMLDivElement>(null);
 
   async function handleScrollEnd() {
@@ -42,12 +42,50 @@ function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, act
     }
   }
 
+  let oldMousePosition = 0;
+
+  const handleDrag = (e: MouseEvent) => {
+    const labelContainer = labelContainerRef.current;
+
+    if (oldMousePosition < e.clientX) {
+      if (Math.abs(oldMousePosition - e.clientX) < 500) {
+        labelContainer.scrollLeft -= Math.abs(oldMousePosition - e.clientX);
+      }
+    } else {
+      if (oldMousePosition - e.clientX < 500) {
+        labelContainer.scrollLeft += Math.abs(oldMousePosition - e.clientX);
+      }
+    }
+    oldMousePosition = e.clientX;
+  };
+
+  const handleMouseDown = () => {
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'grabbing';
+    labelContainerRef.current.classList.add(styles.grabbing);
+    window.addEventListener('mouseup', function cleanUp() {
+      document.removeEventListener('mousemove', handleDrag);
+      window.removeEventListener('mouseup', cleanUp);
+      document.body.style.userSelect = 'auto';
+      document.body.style.cursor = 'default';
+      labelContainerRef.current.classList.remove(styles.grabbing);
+    });
+    document.addEventListener('mousemove', handleDrag);
+  };
+
   return (
-    <div ref={labelContainerRef} class={styles.root}>
-      <div class={[styles.leftFade, { [styles.visible]: leftFade }]} />
+    <div class={styles.root}>
+      <div class={[styles.leftFade, { [styles.visible]: fade.left }]} />
       <div
         ref={labelContainerRef}
-        onScroll={e => setLeftFade(e.target.scrollLeft !== 0)}
+        onScroll={e => {
+          const labelContainer = e.target;
+          setFade({
+            left: labelContainer.scrollLeft !== 0,
+            right: labelContainer.scrollLeft !== labelContainer.scrollWidth - labelContainer.clientWidth,
+          });
+        }}
+        onmousedown={() => handleMouseDown()}
         class={[styles.labelsContainer, { [styles.skeleton]: labels.length === 0 }]}>
         {labels.length !== 0 &&
           labels.map((label, i) => (
@@ -71,7 +109,7 @@ function LabelOverview({ onScrollEnd, labels, onLabelClick = function () {}, act
             />
           ))}
       </div>
-      <div class={styles.rightFade} />
+      <div class={[styles.rightFade, { [styles.visible]: fade.right }]} />
     </div>
   );
 }

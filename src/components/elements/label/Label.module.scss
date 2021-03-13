@@ -17,6 +17,7 @@
   }
 
   > p {
+    user-select: none;
     white-space: nowrap;
     @include text('boldFont', 16px, $white);
   }
