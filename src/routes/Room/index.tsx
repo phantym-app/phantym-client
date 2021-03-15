@@ -4,21 +4,39 @@ import { useRoom } from '@store/room';
 import { useEffect } from 'preact/hooks';
 
 function Room({ id = '' }) {
-  const { inRoom, joinRoom, createRoom, leaveRoom, roomData } = useRoom();
+  const { joinRoom, createRoom, room, chat } = useRoom();
 
   useEffect(function urlJoin() {
     if (id.length === 5) joinRoom(id);
   }, []);
 
-  if (inRoom)
+  if (room)
     return (
       <div class={styles.root}>
-        <button onClick={leaveRoom}>leave room</button>
+        <h1>{room.id}</h1>
+        <button onClick={room.leave}>leave room</button>
 
         <h3>players:</h3>
-        {Object.values(roomData).map(p => (
+        {Object.values(room.data).map(p => (
           <h3>{p.displayName}</h3>
         ))}
+
+        <hr />
+
+        <h3>chat</h3>
+        {chat.data.map(({ uid, text }) => (
+          <p>
+            {uid}: {text}
+          </p>
+        ))}
+        <form
+          onSubmit={function (e) {
+            e.preventDefault();
+            chat.send(e.target.children[0].value);
+            e.target.children[0].value = '';
+          }}>
+          <input />
+        </form>
       </div>
     );
 
