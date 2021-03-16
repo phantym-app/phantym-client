@@ -50,7 +50,7 @@ function Index() {
         />
         <SortBy large={minTablet} />
       </div>
-      <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
+      <GameOverview games={gameStubs} hrefBase={'/play'} onScrollEnd={() => fetchGameStubs(6)} />
     </div>
   );
 }

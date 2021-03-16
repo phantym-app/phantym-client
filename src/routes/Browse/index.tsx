@@ -68,7 +68,7 @@ function Browse({ id }) {
       <Hero typeOfContent='new releases' type='carousel' games={gameStubs.slice(0, 3)} />
 
       <div class={styles.content}>
-        <GameOverview onScrollEnd={() => fetchGameStubs(6)} games={gameStubs} />
+        <GameOverview games={gameStubs} hrefBase={'/browse'} onScrollEnd={() => fetchGameStubs(6)} />
       </div>
     </div>
   );

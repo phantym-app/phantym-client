@@ -8,10 +8,11 @@ import { useState } from 'preact/hooks';
 
 type Props = {
   games: GameStub[];
+  hrefBase: string;
   onScrollEnd?: () => any;
 };
 
-function GameOverview({ games, onScrollEnd }: Props) {
+function GameOverview({ games, hrefBase, onScrollEnd }: Props) {
   const [fetchStatus, setFetchStatus] = useState<'fetching' | 'ready' | 'end'>('ready');
 
   async function handleScrollEnd() {
@@ -29,7 +30,7 @@ function GameOverview({ games, onScrollEnd }: Props) {
   return (
     <div class={styles.root}>
       {games.map((game, i) => (
-        <Game {...game} key={i} />
+        <Game {...game} key={i} href={`${hrefBase}?id=${game.id}`} />
       ))}
 
       <IntersectionTrigger onVisible={handleScrollEnd} />

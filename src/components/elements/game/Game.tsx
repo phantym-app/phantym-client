@@ -8,12 +8,13 @@ import { useAuth } from '@store/auth';
 type Props = {
   id: string;
   title: string;
+  href: string;
   thumbnail: string;
   euroCents: number;
   compatibility: ('desktop' | 'mobile' | 'cast')[];
 };
 
-function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
+function Game({ id, title, href, thumbnail, euroCents, compatibility }: Props) {
   const { userData, toggleFavoriteGame } = useAuth();
 
   const mobileCompatible = compatibility.includes('mobile');
@@ -24,7 +25,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
   return (
     <div class={styles.root}>
-      <Link href={`/browse?id=${id}`}>
+      <Link href={href}>
         <div class={[styles.imageContainer, { [styles.noPicture]: !thumbnail }]}>
           {thumbnail ? <img src={thumbnail} alt='game art' /> : <Icon variant='picture' alt='game art missing' />}
         </div>
@@ -32,7 +33,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
       <div class={styles.details}>
         <div>
-          <Link href={`/browse?id=${id}`}>
+          <Link href={href}>
             <p>{title}</p>
           </Link>
           <Icon
