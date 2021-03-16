@@ -20,12 +20,13 @@ export type GameLabel = {
 };
 
 type Query<T> = firebase.firestore.Query<T>;
+type Awaitable<T> = T | Promise<T>;
 
 const gameStubQuery$ = fs$.then(m => m.fs.collection('gamePreviews').orderBy('popularity', 'desc') as Query<GameStub>);
 const gameLabelQuery$ = fs$.then(m => m.fs.collection('gameTags').orderBy('popularity', 'desc') as Query<GameLabel>);
 
-function usePaginatedFetch<T>(baseQuery$: Promise<firebase.firestore.Query<T>>) {
-  const [query$, setQuery$] = useState<Promise<firebase.firestore.Query<T>>>(baseQuery$);
+function usePaginatedFetch<T>(baseQuery$: Awaitable<firebase.firestore.Query<T>>) {
+  const [query$, setQuery$] = useState<Awaitable<firebase.firestore.Query<T>>>(baseQuery$);
   const [dataArray, setDataArray] = useState<T[]>([]);
 
   // TODO use ai reccomendations
@@ -37,7 +38,7 @@ function usePaginatedFetch<T>(baseQuery$: Promise<firebase.firestore.Query<T>>) 
     if (docs.length === 0) throw new Error('No more data to fetch');
 
     setDataArray(dataArray => [...dataArray, ...docs.map(snap => ({ ...snap.data(), id: snap.id }))]);
-    setQuery$(baseQuery$.then(q => q.startAfter(docs[docs.length - 1])));
+    setQuery$(query.startAfter(docs[docs.length - 1]));
   }
 
   return [dataArray, fetchNextPage] as [T[], (number: number) => Promise<void>];
@@ -50,6 +51,21 @@ function useGameLibrary() {
   return {
     gameStubs,
     fetchGameStubs,
+
+    async get(id: string): Promise<GameStub> {
+      const { fs } = await fs$;
+
+      const locally = gameStubs.find(g => g.id === id);
+      if (locally) return locally;
+
+      const fetched = (await fs.doc(`gamePreviews/${id}`).get()).data() as GameStub;
+      if (fetched) {
+        // TODO add to gameStubs
+        return fetched;
+      }
+
+      throw new Error(`game of id - "${id}" doesnt exist`);
+    },
 
     gameLabels,
     fetchGameLabels,

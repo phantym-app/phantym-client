@@ -1,0 +1,18 @@
+@import '../../styling/sass.scss';
+
+.root {
+  width: 100%;
+  color: white;
+
+  .player {
+    border: 2px solid pink;
+
+    width: 800px;
+    height: 450px;
+
+    display: flex;
+    button {
+      margin: auto;
+    }
+  }
+}

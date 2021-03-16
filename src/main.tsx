@@ -35,7 +35,7 @@ async function _render() {
           <Route path='/cart' get={() => import('@routes/Cart')} />
           <Route path='/social/:tab' get={() => import('@routes/Friends')} />
           <Route path='/settings' get={() => import('@routes/Settings')} />
-          {/* <Route path={'/play/:gameid'} render={() => <Game />} exact /> */}
+          <Route path='/play' get={() => import('@routes/Play')} />
         </Router>
       </main>
     </StoreProvider>,

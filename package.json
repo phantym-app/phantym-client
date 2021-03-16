@@ -8,6 +8,7 @@
     "tdd": "npx web-test-runner \"src/**/*.test.{ts,tsx}\" --watch"
   },
   "dependencies": {
+    "async-preact": "^2.0.0",
     "classnames": "^2.2.6",
     "firebase": "^8.2.10",
     "hashids": "^2.2.8",
