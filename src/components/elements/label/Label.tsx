@@ -4,7 +4,7 @@ import styles from './Label.module.scss';
 type Props = {
   title: string;
   active?: boolean;
-  onClick?: (title: string) => void;
+  onClick?: (event: MouseEvent) => void;
 };
 
 const Label = ({ title, active, onClick }: Props) => (

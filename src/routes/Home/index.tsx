@@ -1,5 +1,6 @@
 import { h, Fragment } from 'preact';
 import styles from './Home.module.scss';
+import type { GameLabel } from '@store/gameLibrary';
 
 import { useState } from 'preact/hooks';
 import { useGameLibrary } from '@store/gameLibrary';
@@ -20,14 +21,16 @@ function Index() {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [releaseDateFilter, setReleaseDateFilter] = useState<{ min: number; max: number }>({ min: 1995, max: 2021 });
 
-  const [activeLabels, setActiveLabels] = useState<string[]>([]);
+  const [activeLabels, setActiveLabels] = useState<GameLabel[]>([]);
 
   const { gameStubs, fetchGameStubs, gameLabels, fetchGameLabels } = useGameLibrary();
 
-  function toggleLabelActive(title: string) {
-    setActiveLabels(
-      activeLabels.includes(title) ? activeLabels.filter(_title => title !== _title) : [...activeLabels, title],
-    );
+  function toggleLabelActive(label: GameLabel) {
+    setTimeout(() => {
+      setActiveLabels(
+        activeLabels.includes(label) ? activeLabels.filter(_label => label !== _label) : [...activeLabels, label],
+      );
+    }, 250);
   }
 
   return (
