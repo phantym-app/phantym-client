@@ -1,0 +1,35 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  width: fit-content;
+  height: 75px;
+  border: 2px $backgroundLifted solid;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 25px;
+
+  > * {
+    border: none;
+    border-right: 2px $backgroundLifted3 solid;
+  }
+
+  > :last-child {
+    border: none;
+  }
+
+  input {
+    height: 55px;
+    background-color: transparent;
+    text-transform: uppercase;
+    display: flex;
+    width: 60px;
+    text-align: center;
+    @include text('boldFont', $h6Size, $white);
+  }
+
+  &.lifted {
+    border: 2px $backgroundLifted3 solid;
+  }
+}

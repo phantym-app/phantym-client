@@ -2,6 +2,9 @@ import { h } from 'preact';
 import styles from './Room.module.scss';
 import { useRoom } from '@store/room';
 import { useEffect } from 'preact/hooks';
+import Button from '@components/elements/button/Button';
+import Icon from '@components/elements/icon';
+import CodeInput from '@components/elements/codeInput/CodeInput';
 
 function Room({ id = '' }) {
   const { inRoom, tryJoinRoom, createRoom, leaveRoom, roomData } = useRoom();
@@ -24,14 +27,26 @@ function Room({ id = '' }) {
 
   return (
     <div class={styles.root}>
-      <h3>type code below</h3>
-      <input
-        type='text'
-        placeholder='gib room code'
-        onChange={({ target: { value } }) => value.length === 5 && tryJoinRoom(value)}
-      />
-      <h3>or</h3>
-      <button onClick={createRoom}>create room</button>
+      <div class={styles.createRoom}>
+        <h1>Create a room</h1>
+        <p>Create a room and play a game, enjoy to music through Spotify or chat with your friends.</p>
+        <div class={styles.actions}>
+          <Button onClick={createRoom}>
+            <Icon variant={'door'} alt={'Create room'} />
+            Create room
+          </Button>
+          <Button colour={'ghost'} lifted={1} onClick={() => alert('Create private room')}>
+            <Icon variant={'padlock'} alt={'Private room'} />
+            Private room
+          </Button>
+        </div>
+      </div>
+      <h6>or</h6>
+      <div class={styles.joinRoom}>
+        <h1>Join a room</h1>
+        <p>Join a room by entering the room code below, or by clicking the link one of your friends has sent</p>
+        <CodeInput lifted onFilled={(value: string) => tryJoinRoom(value)} />
+      </div>
     </div>
   );
 }

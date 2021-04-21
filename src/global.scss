@@ -90,6 +90,7 @@ p {
 h1 {
   @include text('boldFont', $h1Size, $white);
   font-weight: $font-weight-normal;
+  line-height: $h1Size;
 }
 h2 {
   @include text('boldFont', $h2Size, $white);
