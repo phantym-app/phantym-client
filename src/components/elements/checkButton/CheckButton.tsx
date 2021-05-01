@@ -12,8 +12,8 @@ type Props = {
   colour?: 'purple' | 'green' | 'red' | 'orange';
   selected?: boolean;
   onClick?: () => void;
-  animateIconOnSelect?: { keyframes: Keyframe[] | PropertyIndexedKeyframes; options: any };
-  animateIconOnDeselect?: { keyframes: Keyframe[] | PropertyIndexedKeyframes; options: any };
+  animateIconOnSelect?: { animation: Keyframe[] | PropertyIndexedKeyframes; options: any };
+  animateIconOnDeselect?: { animation: Keyframe[] | PropertyIndexedKeyframes; options: any };
 };
 
 function CheckButton({
@@ -41,9 +41,9 @@ function CheckButton({
     }
 
     if (animateIconOnSelect && !isSelected) {
-      iconRef.current.animate(animateIconOnSelect.keyframes, animateIconOnSelect.options);
+      iconRef.current.animate(animateIconOnSelect.animation, animateIconOnSelect.options);
     } else if (animateIconOnDeselect) {
-      iconRef.current.animate(animateIconOnDeselect.keyframes, animateIconOnDeselect.options);
+      iconRef.current.animate(animateIconOnDeselect.animation, animateIconOnDeselect.options);
     }
   };
 

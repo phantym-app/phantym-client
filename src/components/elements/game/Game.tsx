@@ -2,6 +2,7 @@ import { h } from 'preact';
 import styles from './Game.module.scss';
 
 import calculatePrice from '@logic/calculatePrice';
+import { heartbeat } from '@logic/animations';
 import { useAuth } from '@store/auth';
 
 import CheckButton from '@components/elements/checkButton/CheckButton';
@@ -26,12 +27,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
   let favourite = userData?.favoriteGames?.includes(id);
 
   const heartAnimation = {
-    keyframes: [
-      { transform: 'scale(0.8)' },
-      { transform: 'scale(1)' },
-      { transform: 'scale(0.8)' },
-      { transform: 'scale(1)' },
-    ],
+    animation: heartbeat,
     options: 500,
   };
 
