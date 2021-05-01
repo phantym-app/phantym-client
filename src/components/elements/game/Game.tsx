@@ -1,9 +1,12 @@
 import { h } from 'preact';
 import styles from './Game.module.scss';
-import { Link } from 'preact-router/match';
-import Icon from '@components/elements/icon';
+
 import calculatePrice from '@logic/calculatePrice';
 import { useAuth } from '@store/auth';
+
+import CheckButton from '@components/elements/checkButton/CheckButton';
+import Icon from '@components/elements/icon';
+import { Link } from 'preact-router/match';
 
 type Props = {
   id: string;
@@ -22,6 +25,16 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
   let favourite = userData?.favoriteGames?.includes(id);
 
+  const heartAnimation = {
+    keyframes: [
+      { transform: 'scale(0.8)' },
+      { transform: 'scale(1)' },
+      { transform: 'scale(0.8)' },
+      { transform: 'scale(1)' },
+    ],
+    options: 500,
+  };
+
   return (
     <div class={styles.root}>
       <Link href={`/browse?id=${id}`}>
@@ -35,15 +48,9 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
           <Link href={`/browse?id=${id}`}>
             <p>{title}</p>
           </Link>
-          <Icon
-            class={[styles.favourite, { [styles.isActive]: favourite }]}
-            variant={favourite ? 'heart-f' : 'heart'}
-            alt={favourite ? 'favourite' : 'no-favourite'}
-            onClick={() => toggleFavoriteGame(id)}
-          />
+          <p>{euroCents === 0 ? 'FREE' : calculatePrice(euroCents)}</p>
         </div>
         <div>
-          <p>{euroCents === 0 ? 'FREE' : calculatePrice(euroCents)}</p>
           <div class={styles.availability}>
             <div>
               <Icon class={[styles.icon, { [styles.isActive]: desktopCompatible }]} variant={'computer'} alt={''} />
@@ -66,6 +73,13 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
               </span>
             </div>
           </div>
+          <CheckButton
+            icon={'heart-f'}
+            colour={'red'}
+            selected={favourite}
+            onClick={() => toggleFavoriteGame(id)}
+            animateIconOnSelect={heartAnimation}
+          />
         </div>
       </div>
     </div>

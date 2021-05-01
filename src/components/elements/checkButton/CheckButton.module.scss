@@ -1,0 +1,75 @@
+@import '../../../styling/sass.scss';
+
+.root {
+  border: none;
+  background-color: $background;
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  > .colouredBackground {
+    position: absolute;
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-radius: 35px;
+    transition: $default-transition;
+    transform-origin: center;
+
+    &.purple {
+      background-color: rgba($purple_RGB, 0.1);
+    }
+    &.green {
+      background-color: rgba($green_RGB, 0.1);
+    }
+    &.orange {
+      background-color: rgba($orange_RGB, 0.1);
+    }
+    &.red {
+      background-color: rgba($red_RGB, 0.1);
+    }
+  }
+
+  > .icon {
+    filter: $grey_filter;
+  }
+
+  &.whiteIcon {
+    > .icon {
+      filter: $white_filter;
+    }
+  }
+
+  &.selected {
+    > .colouredBackground {
+      width: 35px;
+      height: 35px;
+    }
+
+    &.purple {
+      > .icon {
+        filter: $purple_filter;
+      }
+    }
+    &.green {
+      > .icon {
+        filter: $green_filter;
+      }
+    }
+    &.orange {
+      > .icon {
+        filter: $orange_filter;
+      }
+    }
+    &.red {
+      > .icon {
+        filter: $red_filter;
+      }
+    }
+  }
+}

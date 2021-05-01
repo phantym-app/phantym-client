@@ -88,7 +88,7 @@ const Search = ({ onSearch, large, releaseDateFilter, setReleaseDateFilter }) =>
   return (
     <div class={styles.search}>
       {large ? (
-        <Searchbar onChange={onSearch} placeholder='Search for a game' />
+        <Searchbar onInput={onSearch} placeholder='Search for a game' />
       ) : (
         <Button squared colour='secondary'>
           <Icon variant='search' alt='search' />

@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { useRef } from 'preact/hooks';
 import type { JamIcon } from './JamIcon';
 
 type Props = {
@@ -8,10 +9,12 @@ type Props = {
   height?: number;
   alt: string;
   onClick?: () => any;
+  reference?: any;
 };
 
 export default (p: Props) => (
   <img
+    ref={p.reference}
     src={'/assets/icons/' + p.variant + '.svg'}
     class={p.class}
     width={p.width}

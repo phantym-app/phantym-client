@@ -86,6 +86,11 @@
   .root {
     padding: 50px 0;
 
+    .title,
+    .search {
+      margin-bottom: 75px;
+    }
+
     .actions {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -95,7 +100,7 @@
         '___break ___break'
         '__labels __labels';
 
-      > *:not(.tabs, .dropdown) {
+      > *:not(.tabs, .dropdown, .title, .search) {
         margin-bottom: 50px;
       }
 
