@@ -65,7 +65,7 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
             <div>
               <Icon class={[styles.icon, { [styles.isActive]: castCompatible }]} variant={'cast'} alt={''} />
               <span class={styles.tooltiptext}>
-                {castCompatible ? 'This game is castable href Chromecast' : 'This game is not castable href Chromecast'}
+                {castCompatible ? 'This game is castable to Chromecast' : 'This game is not castable href Chromecast'}
               </span>
             </div>
           </div>
