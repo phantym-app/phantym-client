@@ -11,7 +11,7 @@ type Props = {
 
 export default ({ variant, width, height, colour }: Props) => (
   <img
-    class={{ [styles[colour]]: colour }}
+    class={[styles.root, { [styles[colour]]: colour }]}
     src={'/assets/scribbbles/' + variant + '.svg'}
     width={width}
     height={height}

@@ -1,9 +1,13 @@
 import { h } from 'preact';
 import styles from './Game.module.scss';
-import { Link } from 'preact-router/match';
-import Icon from '@components/elements/icon';
+
 import calculatePrice from '@logic/calculatePrice';
+import { heartbeat } from '@logic/animations';
 import { useAuth } from '@store/auth';
+
+import CheckButton from '@components/elements/checkButton/CheckButton';
+import Icon from '@components/elements/icon';
+import { Link } from 'preact-router/match';
 
 type Props = {
   id: string;
@@ -22,6 +26,11 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
 
   let favourite = userData?.favoriteGames?.includes(id);
 
+  const heartAnimation = {
+    animation: heartbeat,
+    options: 500,
+  };
+
   return (
     <div class={styles.root}>
       <Link href={`/browse?id=${id}`}>
@@ -35,15 +44,9 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
           <Link href={`/browse?id=${id}`}>
             <p>{title}</p>
           </Link>
-          <Icon
-            class={[styles.favourite, { [styles.isActive]: favourite }]}
-            variant={favourite ? 'heart-f' : 'heart'}
-            alt={favourite ? 'favourite' : 'no-favourite'}
-            onClick={() => toggleFavoriteGame(id)}
-          />
+          <p>{euroCents === 0 ? 'FREE' : calculatePrice(euroCents)}</p>
         </div>
         <div>
-          <p>{euroCents === 0 ? 'FREE' : calculatePrice(euroCents)}</p>
           <div class={styles.availability}>
             <div>
               <Icon class={[styles.icon, { [styles.isActive]: desktopCompatible }]} variant={'computer'} alt={''} />
@@ -62,10 +65,17 @@ function Game({ id, title, thumbnail, euroCents, compatibility }: Props) {
             <div>
               <Icon class={[styles.icon, { [styles.isActive]: castCompatible }]} variant={'cast'} alt={''} />
               <span class={styles.tooltiptext}>
-                {castCompatible ? 'This game is castable href Chromecast' : 'This game is not castable href Chromecast'}
+                {castCompatible ? 'This game is castable to Chromecast' : 'This game is not castable to Chromecast'}
               </span>
             </div>
           </div>
+          <CheckButton
+            icon={'heart-f'}
+            colour={'red'}
+            selected={favourite}
+            onClick={() => toggleFavoriteGame(id)}
+            animateIconOnSelect={heartAnimation}
+          />
         </div>
       </div>
     </div>

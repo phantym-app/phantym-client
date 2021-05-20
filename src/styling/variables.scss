@@ -17,6 +17,12 @@ $white: #f2f2f2;
 $googleBlue: #4285f4;
 $facebookBlue: #3b5998;
 
+// RGB --------------------------------------------------------------------------------------------------------------------
+$purple_RGB: rgb(152, 64, 255);
+$green_RGB: rgb(6, 214, 160);
+$orange_RGB: rgb(254, 146, 12);
+$red_RGB: rgb(255, 46, 47);
+
 // Filter Colours ----------------------------------------------------------------------------------------------------------
 $_0: brightness(0) saturate(100%);
 $darkPurple_filter: $_0 invert(8%) sepia(55%) saturate(6819%) hue-rotate(277deg) brightness(95%) contrast(95%);
